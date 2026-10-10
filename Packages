@@ -16,3 +16,19 @@ Author: purplesquarecube
 Icon: file:///Library/PreferenceBundles/AppTunesPrefs.bundle/icon@3x.png
 Name: AppTunes
 
+Package: com.purplesquarecube.launchfx
+Version: 1.0.0
+Architecture: iphoneos-arm
+Maintainer: purplesquarecube
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: com.purplesquarecube.launchfx_1.0.0_iphoneos-arm.deb
+Size: 60810
+MD5sum: af23e76ff677a00ef2453cb3d8953622
+SHA1: 753de165aad511d922915632e89bd3454bcb4821
+SHA256: 07bc281d41637a2a0704dba2f4aa68d73895f2d58f87831cf311908a490302ab
+Section: Tweaks
+Description: 50 custom app opening animations, chosen in Settings
+Author: purplesquarecube
+Icon: file:///Library/PreferenceBundles/LaunchFXPrefs.bundle/icon@3x.png
+Name: LaunchFX
+
