@@ -1,0 +1,9 @@
+Package: com.purplesquarecube.purpletweaks
+Name: PurpleTweaks
+Version: 0.1.0
+Architecture: iphoneos-arm
+Description: Configurable iOS 12 SpringBoard appearance tweaks.
+Maintainer: purplesquarecube
+Author: purplesquarecube
+Section: Tweaks
+Depends: mobilesubstrate, preferenceloader
