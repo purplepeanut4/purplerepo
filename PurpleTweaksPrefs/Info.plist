@@ -8,6 +8,8 @@
     <string>PurpleTweaksPrefs</string>
     <key>CFBundleExecutable</key>
     <string>PurpleTweaksPrefs</string>
+    <key>NSPrincipalClass</key>
+    <string>PTSettingsController</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>MinimumOSVersion</key>
