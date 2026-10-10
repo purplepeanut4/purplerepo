@@ -1,8 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-static NSString * const PTDomain = @"com.purplesquarecube.purpletweaks";
-
 static BOOL PTEnabled(NSString *key) {
     NSDictionary *prefs = [NSDictionary dictionaryWithContentsOfFile:@"/var/mobile/Library/Preferences/com.purplesquarecube.purpletweaks.plist"];
     id value = prefs[key];
@@ -26,6 +24,7 @@ static BOOL PTEnabled(NSString *key) {
 %hook SBDockView
 - (void)setBackgroundAlpha:(double)alpha {
     if (PTEnabled(@"HideDockBackground")) alpha = 0.0;
+    else if (PTEnabled(@"TranslucentDock")) alpha = MIN(alpha, 0.5);
     %orig(alpha);
 }
 %end
@@ -50,13 +49,19 @@ static BOOL PTEnabled(NSString *key) {
 %hook UIView
 - (void)didMoveToWindow {
     %orig;
-    if (!PTEnabled(@"LiquidGlass")) return;
     NSString *className = NSStringFromClass([self class]);
-    if ([className containsString:@"Backdrop"] || [className containsString:@"Blur"]) {
+    BOOL glassTarget = [className containsString:@"Backdrop"] || [className containsString:@"Blur"];
+    if (PTEnabled(@"LiquidGlass") && glassTarget) {
         self.layer.cornerRadius = 16.0;
         self.layer.masksToBounds = YES;
         self.layer.borderWidth = 0.5;
         self.layer.borderColor = [UIColor colorWithWhite:1.0 alpha:0.22].CGColor;
+    }
+    if (PTEnabled(@"BlurSurfaces") && glassTarget && ![className containsString:@"Blur"]) {
+        self.alpha = MIN(self.alpha, 0.82);
+    }
+    if (PTEnabled(@"DarkSurfaces") && glassTarget) {
+        self.backgroundColor = [UIColor colorWithWhite:0.08 alpha:0.55];
     }
 }
 %end
