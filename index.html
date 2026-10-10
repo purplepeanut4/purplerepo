@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>purplesquarecube's Repo</title>
+<link rel="icon" href="CydiaIcon.png">
+<style>
+  :root {
+    --bg: #f6f2ff; --card: #ffffff; --text: #21143a; --muted: #6b5d85;
+    --accent: #7c3aed; --accent-text: #ffffff; --border: #e3d9f7; --code: #efe8fd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #130c24; --card: #1d1433; --text: #f1eaff; --muted: #a798c4;
+      --accent: #9b6bff; --accent-text: #10081f; --border: #33264f; --code: #281c43;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px 16px 48px; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  main { max-width: 640px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 24px; }
+  header img { width: 88px; height: 88px; border-radius: 20px; }
+  h1 { margin: 12px 0 4px; font-size: 1.8rem; }
+  .sub { color: var(--muted); margin: 0; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+    padding: 18px; margin-bottom: 16px;
+  }
+  h2 { margin: 0 0 10px; font-size: 1.15rem; }
+  .btn {
+    display: block; width: 100%; padding: 13px 16px; margin-top: 10px; text-align: center;
+    background: var(--accent); color: var(--accent-text); border: 0; border-radius: 12px;
+    font-size: 1rem; font-weight: 600; text-decoration: none; cursor: pointer;
+  }
+  .btn.alt { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+  code, .url {
+    background: var(--code); border-radius: 8px; padding: 2px 6px;
+    font-family: ui-monospace, Menlo, Consolas, monospace; word-break: break-all;
+  }
+  .url { display: block; padding: 10px 12px; margin: 8px 0; }
+  .pkg { display: flex; gap: 14px; align-items: flex-start; }
+  .pkg img { width: 56px; height: 56px; border-radius: 13px; flex: none; }
+  .pkg h3 { margin: 0; font-size: 1.05rem; }
+  .pkg p { margin: 4px 0 0; color: var(--muted); font-size: 0.95rem; }
+  .tag { display: inline-block; font-size: 0.75rem; color: var(--muted);
+         border: 1px solid var(--border); border-radius: 999px; padding: 1px 8px; margin: 6px 6px 0 0; }
+  ol { padding-left: 20px; margin: 6px 0 0; }
+  footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 24px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="CydiaIcon.png" alt="Repo icon">
+    <h1>purplesquarecube's Repo</h1>
+    <p class="sub">Jailbreak tweaks for iOS</p>
+  </header>
+
+  <section class="card">
+    <h2>Add this repo</h2>
+    <p style="margin:0">Open this page on your jailbroken iPhone, then tap your package manager:</p>
+    <a id="sileo" class="btn" href="#">Add to Sileo</a>
+    <a id="zebra" class="btn alt" href="#">Add to Zebra</a>
+    <a id="cydia" class="btn alt" href="#">Add to Cydia</a>
+    <p style="margin:14px 0 0">Or add it by hand using this address:</p>
+    <span id="repoUrl" class="url">loading...</span>
+    <button id="copy" class="btn alt" type="button">Copy address</button>
+  </section>
+
+  <section class="card">
+    <h2>Packages</h2>
+    <div class="pkg">
+      <img src="CydiaIcon.png" alt="AppTunes icon">
+      <div>
+        <h3>AppTunes <span style="font-weight:400;color:var(--muted)">2.0.0</span></h3>
+        <p>Play a different song in each app you choose. Import your own MP3s and pick which apps they play in, all from Settings.</p>
+        <span class="tag">iOS 12+</span><span class="tag">Tweak</span><span class="tag">Needs PreferenceLoader</span>
+      </div>
+    </div>
+    <a class="btn alt" href="com.purplesquarecube.apptunes_2.0.0_iphoneos-arm.deb">Download .deb</a>
+  </section>
+
+  <section class="card">
+    <h2>How to use AppTunes</h2>
+    <ol>
+      <li>Install AppTunes, then respring.</li>
+      <li>Open <b>Settings &rarr; AppTunes</b>.</li>
+      <li>Tap <b>Import a Song...</b> and pick your MP3s.</li>
+      <li>Scroll to <b>Apps</b>, tap an app, and choose its song.</li>
+    </ol>
+  </section>
+
+  <footer>Made by purplesquarecube &middot; Use at your own risk</footer>
+</main>
+
+<script>
+  (function () {
+    // Work out this page's own address, without index.html or a trailing filename
+    var url = location.origin + location.pathname.replace(/index\.html$/, "");
+    if (url.slice(-1) !== "/") url += "/";
+    var enc = encodeURIComponent(url);
+
+    document.getElementById("repoUrl").textContent = url;
+    document.getElementById("sileo").href = "sileo://source/" + url;
+    document.getElementById("zebra").href = "zbra://sources/add/" + url;
+    document.getElementById("cydia").href = "cydia://url/https://cydia.saurik.com/api/share#?source=" + enc;
+
+    document.getElementById("copy").addEventListener("click", function () {
+      var btn = this;
+      function done() { btn.textContent = "Copied!"; setTimeout(function () { btn.textContent = "Copy address"; }, 1500); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done, fallback);
+      } else { fallback(); }
+      function fallback() {
+        var t = document.createElement("textarea");
+        t.value = url; document.body.appendChild(t); t.select();
+        try { document.execCommand("copy"); done(); } catch (e) {}
+        document.body.removeChild(t);
+      }
+    });
+  })();
+</script>
+</body>
+</html>
