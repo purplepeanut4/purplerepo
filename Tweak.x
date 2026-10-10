@@ -47,6 +47,11 @@ static BOOL PTEnabled(NSString *key) {
 %end
 
 %hook UIView
++ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations {
+    if (PTEnabled(@"ReduceAnimations")) duration = MIN(duration, 0.12);
+    %orig(duration, animations);
+}
+
 - (void)didMoveToWindow {
     %orig;
     NSString *className = NSStringFromClass([self class]);
