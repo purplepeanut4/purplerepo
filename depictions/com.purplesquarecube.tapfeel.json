@@ -1,0 +1,72 @@
+{
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "tintColor": "#7C3AED",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Icons that answer back.",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "Play a sound and bounce the icon when you tap an app. Pick from six system sounds and set how bouncy it is.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Features",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "- Six system sounds with a preview button\n- Adjustable bounce strength\n- Sound and bounce can be used separately",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Settings",
+          "text": "Settings \u203a TapFeel"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Version",
+          "text": "1.0.0"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Requires",
+          "text": "iOS 12"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Author",
+          "text": "purplesquarecube"
+        }
+      ]
+    },
+    {
+      "tabname": "Changelog",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "1.0.0",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "1.0.0: first release.",
+          "useSpacing": true
+        }
+      ]
+    }
+  ]
+}

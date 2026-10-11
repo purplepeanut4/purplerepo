@@ -1,0 +1,72 @@
+{
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "tintColor": "#7C3AED",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Near-black with thin white line art and a single colour dot.",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "Near-black with thin white line art and a single colour dot.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionScreenshotsView",
+          "itemCornerRadius": 8,
+          "itemSize": "{300, 230}",
+          "screenshots": [
+            {
+              "accessibilityText": "Mono theme preview",
+              "url": "https://purplesquarecube.github.io/purplerepo/assets/theme-mono.png"
+            }
+          ]
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "Icon themes for Snowboard or Anemone. Covers the stock Apple apps plus Sileo, Zebra, Cydia and Filza. Apps without an icon here keep their normal one.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Version",
+          "text": "1.0.0"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Requires",
+          "text": "iOS 12 + Snowboard/Anemone"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Author",
+          "text": "purplesquarecube"
+        }
+      ]
+    },
+    {
+      "tabname": "Changelog",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "1.0.0",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "1.0.0: first release.",
+          "useSpacing": true
+        }
+      ]
+    }
+  ]
+}

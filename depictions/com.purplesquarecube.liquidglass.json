@@ -1,0 +1,72 @@
+{
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "tintColor": "#7C3AED",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "A glass look for iOS 12.",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "Bright glass edges, a soft shine and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "Features",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "- Dock, folders, panels and icons\n- Tilt-reactive highlight\n- Edge, shine and tint controls",
+          "useSpacing": true
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Settings",
+          "text": "Settings \u203a Liquid Glass"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Version",
+          "text": "1.0.0"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Requires",
+          "text": "iOS 12"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "Author",
+          "text": "purplesquarecube"
+        }
+      ]
+    },
+    {
+      "tabname": "Changelog",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionSubheaderView",
+          "title": "1.0.0",
+          "useBoldText": true,
+          "useBottomMargin": false
+        },
+        {
+          "class": "DepictionMarkdownView",
+          "markdown": "1.0.0: first release.",
+          "useSpacing": true
+        }
+      ]
+    }
+  ]
+}
