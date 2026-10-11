@@ -84,6 +84,18 @@ figcaption{margin-top:12px;font-size:14px;line-height:1.35}
 figcaption b{display:block;font:700 18px "Iowan Old Style",Georgia,serif}
 figcaption span{display:block;color:var(--muted);font-size:13px;margin:2px 0 4px}
 
+
+/* jailbreak list */
+.jb{list-style:none;margin:12px 0 0;padding:0}
+.jb li{padding:15px 0;border-top:1px solid var(--rule)}
+.jb li:last-child{border-bottom:1px solid var(--rule)}
+.jb b{font:700 20px "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+.jb .ios{display:block;font:12px Menlo,"SF Mono",Monaco,monospace;color:var(--accent);margin:4px 0 1px}
+.jb .dev{display:block;font:12px Menlo,"SF Mono",Monaco,monospace;color:var(--muted)}
+.jb p{margin:7px 0 0;font-size:15px}
+.nope{margin:16px 0 0;font-size:14.5px;padding-left:12px;border-left:3px solid var(--accent)}
+.nope b{font:700 12px Menlo,"SF Mono",Monaco,monospace;text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:2px}
+
 /* how-to */
 .how ol{margin:12px 0 0;padding-left:22px}
 .how li{margin:8px 0}
@@ -214,13 +226,13 @@ footer a{color:var(--muted)}
       <li class="pkg" id="com-purplesquarecube-liquidglass">
         <img class="ico" src="icons/com.purplesquarecube.liquidglass.png" width="56" height="56" alt="">
         <div class="pbody">
-          <h3>Liquid Glass<span class="ver">1.0.0</span></h3>
-          <p class="tag">A glass look for iOS 12.</p>
-          <p>Bright glass edges, a soft shine and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.</p>
+          <h3>Liquid Glass<span class="ver">1.1.0</span></h3>
+          <p class="tag">Clear glass for iOS 12.</p>
+          <p>See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.</p>
           <details><summary>details</summary>
-            <ul><li>Dock, folders, panels and icons</li><li>Tilt-reactive highlight</li><li>Edge, shine and tint controls</li></ul>
+            <ul><li>Clear style: the system blur is faded out so panels are see-through (default)</li><li>Frosted style keeps the blur if you prefer it</li><li>Adjustable blur, edge glow, shine and tint</li><li>Dock, folders, panels and optional icons</li></ul>
             <p class="where">Settings &gt; Liquid Glass</p>
-            <a class="dl" href="debs/com.purplesquarecube.liquidglass_1.0.0_iphoneos-arm.deb">download .deb</a>
+            <a class="dl" href="debs/com.purplesquarecube.liquidglass_1.1.0_iphoneos-arm.deb">download .deb</a>
           </details>
         </div>
       </li>
@@ -255,6 +267,23 @@ footer a{color:var(--muted)}
           <a class="dl" href="debs/com.purplesquarecube.theme.frost_1.0.0_iphoneos-arm.deb">download .deb</a></figcaption>
       </figure>
   </div>
+
+  <h2>Works with<span class="count">5</span></h2>
+  <p class="lede">Any jailbreak should work if it gives you iOS 12 on an arm64 device, a rootful filesystem, a tweak injector (Substrate, Substitute or libhooker) and PreferenceLoader.</p>
+  <ul class="jb">
+    <li><b>checkra1n</b><span class="ios">iOS 12.x</span>
+      <span class="dev">A7 to A11 chips: iPhone 5s up to iPhone X, plus iPads and iPods with the same chips</span><p>The main target for this repo. Rootful on iOS 12, so everything installs the normal way.</p></li>
+    <li><b>Odysseyra1n</b><span class="ios">Same versions as checkra1n</span>
+      <span class="dev">Same devices as checkra1n</span><p>Installs on top of checkra1n. It uses libhooker where older setups use Substrate; libhooker stands in for it.</p></li>
+    <li><b>unc0ver</b><span class="ios">Some iOS 12 versions (roughly 12.0 to 12.4.x)</span>
+      <span class="dev">Depends on the iOS version</span><p>Check unc0ver&#x27;s own page for the exact versions your device can use.</p></li>
+    <li><b>Chimera</b><span class="ios">iOS 12.x (versions vary)</span>
+      <span class="dev">A7 to A12 chips</span><p>Comes with Substitute and Sileo. Check the project page for the versions it covers.</p></li>
+    <li><b>Amethyst</b><span class="ios">iOS 12 (see the project page)</span>
+      <span class="dev">See the project page</span><p>Listed as an iOS 12 jailbreak. If it provides tweak injection and PreferenceLoader, these packages install normally.</p></li>
+  </ul>
+  <p class="nope"><b>Not compatible</b>Odyssey, Taurine, unc0ver on iOS 13 or 14, Dopamine, palera1n, XinaA15 and other jailbreaks for iOS 13 and later. These packages are built for iOS 12 and rootful systems only.</p>
+  <p class="lede" style="margin-top:14px">Supported iOS versions change, so check each project's own page before you jailbreak. These were not tested on every one.</p>
 
   <section class="how">
     <h2>Using the repo</h2>

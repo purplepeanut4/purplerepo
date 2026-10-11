@@ -1,16 +1,15 @@
 // Liquid Glass for iOS 12 - by purplesquarecube
 //
-// iOS 12 has no real "Liquid Glass", so this recreates the look on top of the
-// system blurs: a bright glass edge, a soft specular sheen, and a highlight that
-// slides as you tilt the phone. Applied to the Dock, open folders, notification
-// and Control Center panels, and (optionally) app icons.
+// Two styles:
+//   Clear   - the system blur is faded out so panels are see-through; only a glass
+//             edge, a faint inner glow and a tilt-reactive highlight remain.
+//   Frosted - keeps the system blur and adds the same edge, sheen and highlight.
+//
+// Applied to the Dock, open folders, notification and Control Center panels, and
+// (optionally) app icons.
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "PKCommon.h"
 #import <QuartzCore/QuartzCore.h>
-#import <objc/runtime.h>
-#import <objc/message.h>
-#import <notify.h>
 
 static NSString *const kDomain = @"com.purplesquarecube.liquidglass";
 static const char *kNotif = "com.purplesquarecube.liquidglass/prefsChanged";
@@ -19,33 +18,30 @@ static const char *kNotif = "com.purplesquarecube.liquidglass/prefsChanged";
 
 typedef struct {
     BOOL enabled, dock, folders, panels, icons, tilt;
-    CGFloat edge, shine, dockRadius;
-    int tint;   // 0 none, 1 light, 2 dark, 3 purple
+    CGFloat edge, shine, dockRadius, blur;
+    int tint;    // 0 none, 1 light, 2 dark, 3 purple
+    int style;   // 0 clear, 1 frosted
 } LGPrefs;
 
 static LGPrefs P;
 
-static id LGPref(NSString *key) {
-    return CFBridgingRelease(CFPreferencesCopyAppValue((__bridge CFStringRef)key,
-                                                       (__bridge CFStringRef)kDomain));
-}
-static BOOL LGBool(NSString *key, BOOL def) { id v = LGPref(key); return v ? [v boolValue] : def; }
-static CGFloat LGFloat(NSString *key, CGFloat def) { id v = LGPref(key); return v ? [v doubleValue] : def; }
-
 static void LGLoadPrefs(void) {
-    CFPreferencesAppSynchronize((__bridge CFStringRef)kDomain);
-    P.enabled    = LGBool(@"enabled", YES);
-    P.dock       = LGBool(@"dock", YES);
-    P.folders    = LGBool(@"folders", YES);
-    P.panels     = LGBool(@"panels", YES);
-    P.icons      = LGBool(@"icons", NO);
-    P.tilt       = LGBool(@"tilt", YES);
-    P.edge       = MAX(0, MIN(1, LGFloat(@"edge", 0.8)));
-    P.shine      = MAX(0, MIN(1, LGFloat(@"shine", 0.45)));
-    P.dockRadius = MAX(8, MIN(44, LGFloat(@"dockRadius", 28)));
-    id t = LGPref(@"tint");
-    P.tint = t ? [t intValue] : 1;
+    PKSync(kDomain);
+    P.enabled    = PKBool(kDomain, @"enabled", YES);
+    P.dock       = PKBool(kDomain, @"dock", YES);
+    P.folders    = PKBool(kDomain, @"folders", YES);
+    P.panels     = PKBool(kDomain, @"panels", YES);
+    P.icons      = PKBool(kDomain, @"icons", NO);
+    P.tilt       = PKBool(kDomain, @"tilt", YES);
+    P.edge       = MAX(0, MIN(1, PKDouble(kDomain, @"edge", 0.8)));
+    P.shine      = MAX(0, MIN(1, PKDouble(kDomain, @"shine", 0.45)));
+    P.dockRadius = MAX(8, MIN(44, PKDouble(kDomain, @"dockRadius", 28)));
+    P.blur       = MAX(0, MIN(1, PKDouble(kDomain, @"blur", 0.12)));
+    P.tint       = (int)PKInt(kDomain, @"tint", 0);
+    P.style      = (int)PKInt(kDomain, @"style", 0);
 }
+
+static BOOL LGClear(void) { return P.style == 0; }
 
 #pragma mark - The glass overlay
 
@@ -54,12 +50,28 @@ static void LGLoadPrefs(void) {
 @property (nonatomic, strong) CAGradientLayer *sheen;
 @property (nonatomic, strong) UIView *blob;
 @property (nonatomic, strong) CAGradientLayer *blobGradient;
+@property (nonatomic, strong) UIView *glowView;
+@property (nonatomic, strong) CAGradientLayer *glowGradient;
+@property (nonatomic, strong) CAShapeLayer *glowMask;
 @property (nonatomic, strong) UIView *edgeView;
 @property (nonatomic, strong) CAGradientLayer *edgeGradient;
 @property (nonatomic, strong) CAShapeLayer *edgeMask;
 @property (nonatomic) BOOL tiltApplied;
 - (void)applyRadius:(CGFloat)r tilt:(BOOL)tilt;
 @end
+
+static void LGMakeRing(UIView *container, CAGradientLayer **gradOut, CAShapeLayer **maskOut) {
+    CAGradientLayer *g = [CAGradientLayer layer];
+    g.startPoint = CGPointMake(0, 0);
+    g.endPoint = CGPointMake(1, 1);
+    CAShapeLayer *m = [CAShapeLayer layer];
+    m.fillColor = nil;
+    m.strokeColor = [UIColor blackColor].CGColor;
+    g.mask = m;
+    [container.layer addSublayer:g];
+    *gradOut = g;
+    *maskOut = m;
+}
 
 @implementation LGGlassOverlay
 
@@ -86,76 +98,80 @@ static void LGLoadPrefs(void) {
         [_blob.layer addSublayer:_blobGradient];
         [self addSubview:_blob];
 
+        _glowView = [[UIView alloc] initWithFrame:CGRectZero];
+        _glowView.userInteractionEnabled = NO;
+        CAGradientLayer *gg = nil; CAShapeLayer *gm = nil;
+        LGMakeRing(_glowView, &gg, &gm);
+        _glowGradient = gg; _glowMask = gm;
+        [self addSubview:_glowView];
+
         _edgeView = [[UIView alloc] initWithFrame:CGRectZero];
         _edgeView.userInteractionEnabled = NO;
-        _edgeGradient = [CAGradientLayer layer];
-        _edgeGradient.startPoint = CGPointMake(0, 0);
-        _edgeGradient.endPoint = CGPointMake(1, 1);
-        _edgeMask = [CAShapeLayer layer];
-        _edgeMask.fillColor = nil;
-        _edgeMask.strokeColor = [UIColor blackColor].CGColor;
-        _edgeGradient.mask = _edgeMask;
-        [_edgeView.layer addSublayer:_edgeGradient];
+        CAGradientLayer *eg = nil; CAShapeLayer *em = nil;
+        LGMakeRing(_edgeView, &eg, &em);
+        _edgeGradient = eg; _edgeMask = em;
         [self addSubview:_edgeView];
     }
     return self;
+}
+
+static void LGSetRing(UIView *view, CAGradientLayer *grad, CAShapeLayer *mask, CGRect b, CGFloat r,
+                      CGFloat width, CGFloat a1, CGFloat a2) {
+    view.frame = b;
+    grad.frame = view.bounds;
+    grad.colors = @[(id)[UIColor colorWithWhite:1 alpha:a1].CGColor,
+                    (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
+                    (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
+                    (id)[UIColor colorWithWhite:1 alpha:a2].CGColor];
+    grad.locations = @[@0.0, @0.42, @0.58, @1.0];
+    mask.frame = view.bounds;
+    mask.lineWidth = width;
+    mask.path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(view.bounds, width / 2, width / 2)
+                                           cornerRadius:MAX(0, r - width / 2)].CGPath;
 }
 
 - (void)applyRadius:(CGFloat)r tilt:(BOOL)tilt {
     CGRect b = self.bounds;
     if (b.size.width < 2 || b.size.height < 2) return;
     r = MAX(0, MIN(r, MIN(b.size.width, b.size.height) / 2));
+    BOOL clear = LGClear();
 
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-
     self.layer.cornerRadius = r;
 
-    // tint
+    // tint (none by default so clear glass stays clear)
     UIColor *tc = [UIColor clearColor];
-    if (P.tint == 1)      tc = [UIColor colorWithWhite:1 alpha:0.10];
-    else if (P.tint == 2) tc = [UIColor colorWithWhite:0 alpha:0.18];
-    else if (P.tint == 3) tc = [UIColor colorWithRed:0.49 green:0.23 blue:0.93 alpha:0.20];
+    if (P.tint == 1)      tc = [UIColor colorWithWhite:1 alpha:clear ? 0.06 : 0.10];
+    else if (P.tint == 2) tc = [UIColor colorWithWhite:0 alpha:clear ? 0.14 : 0.18];
+    else if (P.tint == 3) tc = [UIColor colorWithRed:0.49 green:0.23 blue:0.93 alpha:clear ? 0.16 : 0.20];
     _tintLayer.frame = b;
     _tintLayer.backgroundColor = tc.CGColor;
 
-    // broad soft sheen across the glass
+    // broad soft sheen (lighter on clear glass)
+    CGFloat sheenK = clear ? 0.55 : 1.0;
     _sheen.frame = b;
-    _sheen.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.30 * P.shine].CGColor,
-                      (id)[UIColor colorWithWhite:1 alpha:0.06 * P.shine].CGColor,
+    _sheen.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.30 * P.shine * sheenK].CGColor,
+                      (id)[UIColor colorWithWhite:1 alpha:0.06 * P.shine * sheenK].CGColor,
                       (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor];
     _sheen.locations = @[@0.0, @0.45, @1.0];
 
     // moving specular highlight
     CGFloat big = MAX(b.size.width, b.size.height) * 0.9;
     CGPoint home = CGPointMake(b.size.width * 0.28, b.size.height * 0.12);
-    if (!_tiltApplied) {
-        _blob.bounds = CGRectMake(0, 0, big, big);
-        _blob.center = home;
-    } else {
-        _blob.bounds = CGRectMake(0, 0, big, big);
-    }
+    _blob.bounds = CGRectMake(0, 0, big, big);
+    if (!_tiltApplied) _blob.center = home;
     _blobGradient.frame = _blob.bounds;
-    _blobGradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.55 * P.shine].CGColor,
+    _blobGradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:(clear ? 0.38 : 0.55) * P.shine].CGColor,
                              (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor];
 
-    // bright glass edge (strongest top-left, faint bottom-right)
-    CGFloat bw = 1.0;
-    _edgeView.frame = b;
-    _edgeGradient.frame = _edgeView.bounds;
-    _edgeGradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.95 * P.edge].CGColor,
-                             (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
-                             (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
-                             (id)[UIColor colorWithWhite:1 alpha:0.50 * P.edge].CGColor];
-    _edgeGradient.locations = @[@0.0, @0.42, @0.58, @1.0];
-    _edgeMask.frame = _edgeView.bounds;
-    _edgeMask.lineWidth = bw;
-    _edgeMask.path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(_edgeView.bounds, bw / 2, bw / 2)
-                                                cornerRadius:MAX(0, r - bw / 2)].CGPath;
+    // soft inner glow (clear style only) and the bright edge
+    _glowView.hidden = !clear;
+    if (clear) LGSetRing(_glowView, _glowGradient, _glowMask, b, r, 7.0, 0.30 * P.edge, 0.16 * P.edge);
+    LGSetRing(_edgeView, _edgeGradient, _edgeMask, b, r, 1.0, 0.95 * P.edge, 0.50 * P.edge);
 
     [CATransaction commit];
 
-    // tilt-reactive highlight
     if (tilt && !_tiltApplied) {
         CGFloat range = MAX(b.size.width, b.size.height) * 0.18;
         UIInterpolatingMotionEffect *mx =
@@ -180,6 +196,35 @@ static void LGLoadPrefs(void) {
 }
 
 @end
+
+#pragma mark - Fading the system blur (clear style)
+
+static const void *kOrigAlphaKey = &kOrigAlphaKey;
+static const void *kOrigHiddenKey = &kOrigHiddenKey;
+
+// Scale a view's alpha down (remembering the original), or put it back.
+static void LGFade(UIView *v, BOOL clear, CGFloat amount) {
+    if (![v isKindOfClass:[UIView class]]) return;
+    NSNumber *orig = objc_getAssociatedObject(v, kOrigAlphaKey);
+    if (clear) {
+        if (!orig) { orig = @(v.alpha); objc_setAssociatedObject(v, kOrigAlphaKey, orig, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+        CGFloat target = [orig doubleValue] * amount;
+        if (fabs(v.alpha - target) > 0.001) v.alpha = target;
+    } else if (orig) {
+        v.alpha = [orig doubleValue];
+        objc_setAssociatedObject(v, kOrigAlphaKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+}
+
+static void LGHide(UIView *v, BOOL hide) {
+    if (![v isKindOfClass:[UIView class]]) return;
+    if (hide) {
+        if (!v.hidden) { v.hidden = YES; objc_setAssociatedObject(v, kOrigHiddenKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC); }
+    } else if ([objc_getAssociatedObject(v, kOrigHiddenKey) boolValue]) {
+        v.hidden = NO;
+        objc_setAssociatedObject(v, kOrigHiddenKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+}
 
 #pragma mark - Decorating views
 
@@ -216,17 +261,13 @@ static void LGDecorate(UIView *host, BOOL on, CGRect frame, CGFloat radius, BOOL
     sBusy = NO;
 }
 
-static id LGIvar(id obj, NSString *name) {
-    @try { return [obj valueForKey:name]; } @catch (NSException *e) { return nil; }
-}
-
 // ---- Dock ----
 static void (*orig_dock)(id, SEL);
 static void new_dock(id self, SEL _cmd) {
     orig_dock(self, _cmd);
     UIView *dock = self;
-    UIView *bg  = LGIvar(dock, @"_backgroundView");
-    UIView *img = LGIvar(dock, @"_backgroundImageView");
+    UIView *bg  = PKIvar(dock, @"_backgroundView");
+    UIView *img = PKIvar(dock, @"_backgroundImageView");
     BOOL on = P.enabled && P.dock;
     CGRect b = dock.bounds;
     CGRect r = CGRectMake(12, 8, b.size.width - 24, MAX(10, b.size.height - 16));
@@ -237,12 +278,16 @@ static void new_dock(id self, SEL _cmd) {
             bg.frame = r;
             bg.layer.cornerRadius = rad;
             bg.layer.masksToBounds = YES;
-        } else if (bg.layer.masksToBounds && bg.layer.cornerRadius > 0) {
-            bg.layer.cornerRadius = 0;
-            bg.layer.masksToBounds = NO;
+            LGFade(bg, LGClear(), P.blur);          // clear: fade the system blur right down
+        } else {
+            LGFade(bg, NO, 1);
+            if (bg.layer.masksToBounds && bg.layer.cornerRadius > 0) {
+                bg.layer.cornerRadius = 0;
+                bg.layer.masksToBounds = NO;
+            }
         }
     }
-    if (img && [img isKindOfClass:[UIView class]] && on) img.hidden = YES;
+    if (img && [img isKindOfClass:[UIView class]]) LGHide(img, on);
     LGDecorate(dock, on, r, rad, P.tilt, bg);
 }
 
@@ -251,10 +296,14 @@ static void (*orig_folder)(id, SEL);
 static void new_folder(id self, SEL _cmd) {
     orig_folder(self, _cmd);
     UIView *v = self;
+    BOOL on = P.enabled && P.folders;
     CGFloat rad = 35;
-    id n = LGIvar(v, @"_continuousCornerRadius");
+    id n = PKIvar(v, @"_continuousCornerRadius");
     if ([n respondsToSelector:@selector(doubleValue)] && [n doubleValue] > 1) rad = [n doubleValue];
-    LGDecorate(v, P.enabled && P.folders, v.bounds, rad, P.tilt, nil);
+    BOOL clear = on && LGClear();
+    LGFade(PKIvar(v, @"_blurView"), clear, P.blur);
+    LGFade(PKIvar(v, @"_tintView"), clear, P.blur);
+    LGDecorate(v, on, v.bounds, rad, P.tilt, nil);
 }
 
 // ---- Notification / Control Center / widget panels ----
@@ -270,6 +319,13 @@ static void new_material(id self, SEL _cmd) {
     BOOL fullBleed = (s.width >= scr.width - 1 && s.height >= scr.height - 1);
     BOOL tiny = (s.width < 40 || s.height < 24);
     BOOL on = P.enabled && P.panels && !fullBleed && !tiny && rad >= 6 && v.window != nil;
+    BOOL clear = on && LGClear();
+
+    // MTMaterialView builds its look from a backdrop view plus overlay views
+    for (NSString *name in @[@"_backdropView", @"_baseOverlayView", @"_primaryOverlayView",
+                              @"_secondaryOverlayView", @"_reducedTransparencyBackdropReplacementView"]) {
+        LGFade(PKIvar(v, name), clear, P.blur);
+    }
     LGDecorate(v, on, v.bounds, rad, P.tilt, nil);
 }
 
@@ -285,48 +341,23 @@ static void new_icon(id self, SEL _cmd) {
 
 #pragma mark - Setup
 
-// Override `sel` on `cls` without touching a superclass's implementation.
-static BOOL LGHook(const char *clsName, SEL sel, IMP newImp, IMP *orig) {
-    Class cls = objc_getClass(clsName);
-    if (!cls) { NSLog(@"[LiquidGlass] class %s not found", clsName); return NO; }
-    Method m = class_getInstanceMethod(cls, sel);
-    if (!m) { NSLog(@"[LiquidGlass] %s missing method", clsName); return NO; }
-    IMP o = method_getImplementation(m);
-    if (!class_addMethod(cls, sel, newImp, method_getTypeEncoding(m))) {
-        o = method_setImplementation(m, newImp);
-    }
-    *orig = o;
-    return YES;
-}
-
-static void LGWalk(UIView *v) {
-    [v setNeedsLayout];
-    for (UIView *s in v.subviews) LGWalk(s);
-}
-
 static void LGRefreshAll(void) {
     LGLoadPrefs();
-    for (UIWindow *win in [UIApplication sharedApplication].windows) LGWalk(win);
+    PKWalkAllWindows(^(UIView *v) { [v setNeedsLayout]; });
 }
 
 __attribute__((constructor))
 static void LGInit(void) {
     @autoreleasepool {
-        NSString *me = [[NSBundle mainBundle] bundleIdentifier];
-        if (![me isEqualToString:@"com.apple.springboard"]) return;
-
+        if (![[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"com.apple.springboard"]) return;
         LGLoadPrefs();
         SEL lay = @selector(layoutSubviews);
-        LGHook("SBDockView", lay, (IMP)new_dock, (IMP *)&orig_dock);
-        LGHook("SBFolderBackgroundView", lay, (IMP)new_folder, (IMP *)&orig_folder);
-        LGHook("MTMaterialView", lay, (IMP)new_material, (IMP *)&orig_material);
-        LGHook("SBIconImageView", lay, (IMP)new_icon, (IMP *)&orig_icon);
-
+        PKHook("SBDockView", lay, (IMP)new_dock, (IMP *)&orig_dock);
+        PKHook("SBFolderBackgroundView", lay, (IMP)new_folder, (IMP *)&orig_folder);
+        PKHook("MTMaterialView", lay, (IMP)new_material, (IMP *)&orig_material);
+        PKHook("SBIconImageView", lay, (IMP)new_icon, (IMP *)&orig_icon);
         dispatch_async(dispatch_get_main_queue(), ^{
-            int tok;
-            notify_register_dispatch(kNotif, &tok, dispatch_get_main_queue(), ^(int t) {
-                LGRefreshAll();
-            });
+            PKOnNotify(kNotif, ^{ LGRefreshAll(); });
         });
     }
 }

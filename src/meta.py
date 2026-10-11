@@ -61,11 +61,13 @@ TWEAKS = [
         where="Settings > LaunchFX", prebuilt=True,
     ),
     dict(
-        key="liquidglass", id="com.purplesquarecube.liquidglass", name="Liquid Glass", version="1.0.0",
-        tagline="A glass look for iOS 12.",
-        desc="Bright glass edges, a soft shine and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.",
-        features=["Dock, folders, panels and icons", "Tilt-reactive highlight", "Edge, shine and tint controls"],
-        where="Settings > Liquid Glass", prebuilt=True,
+        key="liquidglass", id="com.purplesquarecube.liquidglass", name="Liquid Glass", version="1.1.0",
+        tagline="Clear glass for iOS 12.",
+        desc="See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.",
+        features=["Clear style: the system blur is faded out so panels are see-through (default)",
+                  "Frosted style keeps the blur if you prefer it", "Adjustable blur, edge glow, shine and tint",
+                  "Dock, folders, panels and optional icons"],
+        where="Settings > Liquid Glass",
     ),
 ]
 
@@ -92,4 +94,30 @@ THEME_FOOTNOTE = ("Icon themes for Snowboard or Anemone. Covers the stock Apple 
 CHANGELOG_NEW = "1.0.0: first release."
 CHANGELOG = {
     "com.purplesquarecube.apptunes": "2.0.0: rebuilt with a Settings page, song import and per-app songs.",
+    "com.purplesquarecube.liquidglass": "1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
 }
+
+# Jailbreaks these packages are expected to run on. Exact iOS ranges change, so each entry points people
+# at the project's own page. Nothing here has been tested on every one of them.
+JAILBREAKS = [
+    dict(name="checkra1n", ios="iOS 12.x",
+         devices="A7 to A11 chips: iPhone 5s up to iPhone X, plus iPads and iPods with the same chips",
+         note="The main target for this repo. Rootful on iOS 12, so everything installs the normal way."),
+    dict(name="Odysseyra1n", ios="Same versions as checkra1n",
+         devices="Same devices as checkra1n",
+         note="Installs on top of checkra1n. It uses libhooker where older setups use Substrate; libhooker stands in for it."),
+    dict(name="unc0ver", ios="Some iOS 12 versions (roughly 12.0 to 12.4.x)",
+         devices="Depends on the iOS version",
+         note="Check unc0ver's own page for the exact versions your device can use."),
+    dict(name="Chimera", ios="iOS 12.x (versions vary)",
+         devices="A7 to A12 chips",
+         note="Comes with Substitute and Sileo. Check the project page for the versions it covers."),
+    dict(name="Amethyst", ios="iOS 12 (see the project page)",
+         devices="See the project page",
+         note="Listed as an iOS 12 jailbreak. If it provides tweak injection and PreferenceLoader, these packages install normally."),
+]
+JB_REQUIREMENTS = ("Any jailbreak should work if it gives you iOS 12 on an arm64 device, a rootful filesystem, "
+                   "a tweak injector (Substrate, Substitute or libhooker) and PreferenceLoader.")
+JB_NOT_COMPATIBLE = ("Odyssey, Taurine, unc0ver on iOS 13 or 14, Dopamine, palera1n, XinaA15 and other jailbreaks "
+                     "for iOS 13 and later. These packages are built for iOS 12 and rootful systems only.")
+

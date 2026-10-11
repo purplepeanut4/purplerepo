@@ -42,6 +42,8 @@ def collect_debs():
         name = deb_name(p)
         src = f"{ROOT}/out/debs/{name}"
         if not os.path.exists(src):
+            src = f"{OLD}/debs/{name}"
+        if not os.path.exists(src):
             src = f"{OLD}/{name}"
         if not os.path.exists(src):
             raise SystemExit(f"missing deb: {name}")
@@ -212,6 +214,18 @@ figcaption{margin-top:12px;font-size:14px;line-height:1.35}
 figcaption b{display:block;font:700 18px "Iowan Old Style",Georgia,serif}
 figcaption span{display:block;color:var(--muted);font-size:13px;margin:2px 0 4px}
 
+
+/* jailbreak list */
+.jb{list-style:none;margin:12px 0 0;padding:0}
+.jb li{padding:15px 0;border-top:1px solid var(--rule)}
+.jb li:last-child{border-bottom:1px solid var(--rule)}
+.jb b{font:700 20px "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+.jb .ios{display:block;font:12px Menlo,"SF Mono",Monaco,monospace;color:var(--accent);margin:4px 0 1px}
+.jb .dev{display:block;font:12px Menlo,"SF Mono",Monaco,monospace;color:var(--muted)}
+.jb p{margin:7px 0 0;font-size:15px}
+.nope{margin:16px 0 0;font-size:14.5px;padding-left:12px;border-left:3px solid var(--accent)}
+.nope b{font:700 12px Menlo,"SF Mono",Monaco,monospace;text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:2px}
+
 /* how-to */
 .how ol{margin:12px 0 0;padding-left:22px}
 .how li{margin:8px 0}
@@ -278,6 +292,11 @@ def build_site():
           <a class="dl" href="debs/{deb_name(t)}">download .deb</a></figcaption>
       </figure>""")
 
+    jb_items = "".join(
+        f"""
+    <li><b>{esc(j['name'])}</b><span class="ios">{esc(j['ios'])}</span>
+      <span class="dev">{esc(j['devices'])}</span><p>{esc(j['note'])}</p></li>""" for j in meta.JAILBREAKS)
+
     page = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -322,6 +341,13 @@ def build_site():
   <div class="themes">{''.join(theme_figs)}
   </div>
 
+  <h2>Works with<span class="count">{len(meta.JAILBREAKS)}</span></h2>
+  <p class="lede">{esc(meta.JB_REQUIREMENTS)}</p>
+  <ul class="jb">{jb_items}
+  </ul>
+  <p class="nope"><b>Not compatible</b>{esc(meta.JB_NOT_COMPATIBLE)}</p>
+  <p class="lede" style="margin-top:14px">Supported iOS versions change, so check each project's own page before you jailbreak. These were not tested on every one.</p>
+
   <section class="how">
     <h2>Using the repo</h2>
     <ol>
@@ -349,6 +375,7 @@ def build_readme():
         f"| **{p['name']}** | {p['version']} | {p['tagline']} {p['desc']} | {p['where']} |" for p in meta.TWEAKS)
     theme_rows = "\n".join(
         f"### {t['name']}\n{t['desc']}\n\n![{t['name']}](assets/theme-{t['key']}.png)\n" for t in meta.THEMES)
+    jb_rows = "\n".join(f"| **{j['name']}** | {j['ios']} | {j['devices']} | {j['note']} |" for j in meta.JAILBREAKS)
     text = f"""![purplerepo](assets/banner.png)
 
 # purplerepo
@@ -387,6 +414,18 @@ Every tweak adds its own page to the Settings app (they depend on PreferenceLoad
 Install a theme, open **Snowboard** (or **Anemone**), tick the theme and apply it.
 
 {theme_rows}
+## Works with
+
+{meta.JB_REQUIREMENTS}
+
+| Jailbreak | iOS | Devices | Notes |
+| --- | --- | --- | --- |
+{jb_rows}
+
+**Not compatible:** {meta.JB_NOT_COMPATIBLE}
+
+Supported iOS versions change, so check each project's own page before you jailbreak. These were not tested on every one.
+
 ## Requirements
 
 - iOS 12.0 to 12.5.8, jailbroken, arm64 (iPhone 5s and later)
@@ -433,14 +472,13 @@ def copy_source():
     for f in ("art.py", "themes.py", "build.py", "assemble.py", "meta.py"):
         shutil.copy(f"{ROOT}/{f}", dst)
     shutil.copytree(f"{ROOT}/common", f"{dst}/common")
-    for k in ("tidy", "taplock", "quiethud", "tapfeel", "batteryline"):
+    for k in ("tidy", "taplock", "quiethud", "tapfeel", "batteryline", "liquidglass"):
         shutil.copytree(f"{ROOT}/tweaks/{k}", f"{dst}/tweaks/{k}")
     # the three earlier tweaks
     older = {
         "apptunes": ("/home/claude/apptunes", {"tweak/Tweak.m": "Tweak.m", "prefs/AppTunesPrefs.m": "Prefs.m"}),
         "launchfx": ("/home/claude/launchfx", {"tweak/Tweak.m": "Tweak.m", "prefs/LaunchFXPrefs.m": "Prefs.m",
                                                "common/LFXEngine.m": "LFXEngine.m", "common/LFXEngine.h": "LFXEngine.h"}),
-        "liquidglass": ("/home/claude/liquidglass", {"tweak/Tweak.m": "Tweak.m", "prefs/LiquidGlassPrefs.m": "Prefs.m"}),
     }
     for name, (base, files) in older.items():
         os.makedirs(f"{dst}/tweaks/{name}", exist_ok=True)

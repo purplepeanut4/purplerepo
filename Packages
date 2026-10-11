@@ -55,17 +55,17 @@ SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.pur
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-launchfx
 
 Package: com.purplesquarecube.liquidglass
-Version: 1.0.0
+Version: 1.1.0
 Architecture: iphoneos-arm
 Maintainer: purplesquarecube
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.liquidglass_1.0.0_iphoneos-arm.deb
-Size: 27454
-MD5sum: 6d7649636aeff709ba86dd4277f0a61f
-SHA1: 8b188f301d67a589300072ba7b51e75915578f0c
-SHA256: 7e1fe684fd631194b8c4fe21b6e004be5de6c9b13e345aa417b7351996793eac
+Filename: debs/com.purplesquarecube.liquidglass_1.1.0_iphoneos-arm.deb
+Size: 33878
+MD5sum: 0718b16332dafe1db085b66ea5e78484
+SHA1: 621a68c2c27aecdf1c4454849547ebeb5dfc9022
+SHA256: bb86b67ca6153910fc874fffaf5a315d3f763f95948459a0d1cf7010cd8c11e7
 Section: Tweaks
-Description: Glass edges, shine and tilt highlights for the Dock, folders, notifications and Control Center
+Description: Clear glass for iOS 12. See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone
 Author: purplesquarecube
 Name: Liquid Glass
 Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.liquidglass.png

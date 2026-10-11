@@ -32,7 +32,7 @@ Pull down to refresh the source, then install.
 | **BatteryLine** | 1.0.0 | A battery meter you can see in any app. A thin line along the top or bottom of the screen that shows your battery level on top of every app. Turns green while charging, orange under 50% and red under 20%. | Settings > BatteryLine |
 | **AppTunes** | 2.0.0 | A different song in every app. Import your own MP3s and choose a song for each app. It plays while that app is open and stops when you leave. | Settings > AppTunes |
 | **LaunchFX** | 1.0.0 | 50 ways to open an app. Pick one of 50 opening effects (iris shapes, wipes, curtains, blinds, tile dissolves and more). Preview them right in Settings. | Settings > LaunchFX |
-| **Liquid Glass** | 1.0.0 | A glass look for iOS 12. Bright glass edges, a soft shine and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center. | Settings > Liquid Glass |
+| **Liquid Glass** | 1.1.0 | Clear glass for iOS 12. See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center. | Settings > Liquid Glass |
 
 Every tweak adds its own page to the Settings app (they depend on PreferenceLoader, which Sileo installs for you).
 
@@ -66,6 +66,22 @@ Glowing tube-light outlines on midnight blue.
 Frosted pale glass with tinted, softly lit glyphs.
 
 ![Frost](assets/theme-frost.png)
+
+## Works with
+
+Any jailbreak should work if it gives you iOS 12 on an arm64 device, a rootful filesystem, a tweak injector (Substrate, Substitute or libhooker) and PreferenceLoader.
+
+| Jailbreak | iOS | Devices | Notes |
+| --- | --- | --- | --- |
+| **checkra1n** | iOS 12.x | A7 to A11 chips: iPhone 5s up to iPhone X, plus iPads and iPods with the same chips | The main target for this repo. Rootful on iOS 12, so everything installs the normal way. |
+| **Odysseyra1n** | Same versions as checkra1n | Same devices as checkra1n | Installs on top of checkra1n. It uses libhooker where older setups use Substrate; libhooker stands in for it. |
+| **unc0ver** | Some iOS 12 versions (roughly 12.0 to 12.4.x) | Depends on the iOS version | Check unc0ver's own page for the exact versions your device can use. |
+| **Chimera** | iOS 12.x (versions vary) | A7 to A12 chips | Comes with Substitute and Sileo. Check the project page for the versions it covers. |
+| **Amethyst** | iOS 12 (see the project page) | See the project page | Listed as an iOS 12 jailbreak. If it provides tweak injection and PreferenceLoader, these packages install normally. |
+
+**Not compatible:** Odyssey, Taurine, unc0ver on iOS 13 or 14, Dopamine, palera1n, XinaA15 and other jailbreaks for iOS 13 and later. These packages are built for iOS 12 and rootful systems only.
+
+Supported iOS versions change, so check each project's own page before you jailbreak. These were not tested on every one.
 
 ## Requirements
 

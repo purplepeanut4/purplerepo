@@ -25,7 +25,7 @@ FRAMEWORKS = ["-framework", "Foundation", "-framework", "UIKit", "-framework", "
 # folder name, class prefix, display name
 TWEAK_SRC = {
     "tidy": "Tidy", "taplock": "TapLock", "quiethud": "QuietHUD",
-    "tapfeel": "TapFeel", "batteryline": "BatteryLine",
+    "tapfeel": "TapFeel", "batteryline": "BatteryLine", "liquidglass": "LiquidGlass",
 }
 
 

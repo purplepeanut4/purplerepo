@@ -9,13 +9,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "A glass look for iOS 12.",
+          "title": "Clear glass for iOS 12.",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "Bright glass edges, a soft shine and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.",
+          "markdown": "See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.",
           "useSpacing": true
         },
         {
@@ -26,7 +26,7 @@
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- Dock, folders, panels and icons\n- Tilt-reactive highlight\n- Edge, shine and tint controls",
+          "markdown": "- Clear style: the system blur is faded out so panels are see-through (default)\n- Frosted style keeps the blur if you prefer it\n- Adjustable blur, edge glow, shine and tint\n- Dock, folders, panels and optional icons",
           "useSpacing": true
         },
         {
@@ -37,7 +37,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "1.0.0"
+          "text": "1.1.0"
         },
         {
           "class": "DepictionTableTextView",
@@ -57,13 +57,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "1.0.0",
+          "title": "1.1.0",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "1.0.0: first release.",
+          "markdown": "1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
           "useSpacing": true
         }
       ]
