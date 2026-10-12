@@ -122,7 +122,7 @@ def cube(cx, cy, s, light=None, mid=None, dark=None, edge=True, canvas=S):
     return layer
 
 
-def logo(size=1024, rounded=False):
+def logo_classic(size=1024, rounded=False):
     bg = lin_grad((S, S), hexc("#241046"), hexc("#12082A"), 120)
     bg.alpha_composite(radial_glow((S, S), (S * 0.5, S * 0.42), S * 0.62, (124, 58, 237), 0.30))
     bg = grain(bg, 6)
@@ -132,6 +132,166 @@ def logo(size=1024, rounded=False):
     bg.alpha_composite(c)
     out = bg.resize((size, size), Image.LANCZOS)
     return squircle(out) if rounded else out.convert("RGB")
+
+
+
+# ---------------------------------------------------------------- character cube (from a hand drawing)
+PURPLE = (134, 44, 237)
+BLACK = (8, 6, 12)
+OLIVE = (85, 117, 32)
+WHITE = (252, 252, 252)
+
+
+def _chaikin(pts, iters=3):
+    pts = [tuple(p) for p in pts]
+    for _ in range(iters):
+        out = []
+        for i in range(len(pts)):
+            a, b = pts[i], pts[(i + 1) % len(pts)]
+            out.append((0.75 * a[0] + 0.25 * b[0], 0.75 * a[1] + 0.25 * b[1]))
+            out.append((0.25 * a[0] + 0.75 * b[0], 0.25 * a[1] + 0.75 * b[1]))
+        pts = out
+    return pts
+
+
+def _wobble(pts, amp, seed, smooth=5):
+    """Nudge a closed outline by a smooth random amount, so edges look hand-drawn."""
+    rng = np.random.default_rng(seed)
+    n = len(pts)
+    off = rng.normal(0, 1, (n, 2))
+    k = np.ones(smooth) / smooth
+    for c in range(2):
+        padded = np.concatenate([off[-smooth:, c], off[:, c], off[:smooth, c]])
+        off[:, c] = np.convolve(padded, k, mode="same")[smooth:-smooth]
+    off = off / (np.abs(off).max() + 1e-6) * amp
+    return [(p[0] + o[0], p[1] + o[1]) for p, o in zip(pts, off)]
+
+
+def _densify(pts, step):
+    out = []
+    for i in range(len(pts)):
+        a, b = pts[i], pts[(i + 1) % len(pts)]
+        d = math.hypot(b[0] - a[0], b[1] - a[1])
+        n = max(1, int(d / step))
+        for j in range(n):
+            t = j / n
+            out.append((a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t))
+    return out
+
+
+def _round_rect(x0, y0, x1, y1, r, step=18):
+    pts = []
+    for cx, cy, a0 in ((x1 - r, y0 + r, -90), (x1 - r, y1 - r, 0), (x0 + r, y1 - r, 90), (x0 + r, y0 + r, 180)):
+        for k in range(0, 91, 10):
+            a = math.radians(a0 + k)
+            pts.append((cx + r * math.cos(a), cy + r * math.sin(a)))
+    return _densify(pts, step)
+
+
+def _mask(pts, ss=2, size=S):
+    m = Image.new("L", (size * ss, size * ss), 0)
+    ImageDraw.Draw(m).polygon([(x * ss, y * ss) for x, y in pts], fill=255)
+    return m.resize((size, size), Image.LANCZOS)
+
+
+def _fill(layer, mask, color):
+    solid = Image.new("RGBA", layer.size, color + (255,))
+    solid.putalpha(mask)
+    layer.alpha_composite(solid)
+
+
+def _circle_pts(cx, cy, r, n=48):
+    return [(cx + r * math.cos(2 * math.pi * i / n), cy + r * math.sin(2 * math.pi * i / n)) for i in range(n)]
+
+
+def character_front(x0, y0, w, h, seed=7):
+    """The front face, redrawn from the hand drawing. (x0,y0,w,h) is the face box on the S canvas."""
+    k = w / 410.0                                    # the drawing's face is ~410 px wide
+    layer = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+
+    def P(ix, iy):                                   # drawing coordinates -> canvas
+        return (x0 + (ix - 10) * k, y0 + (iy - 10) * k)
+
+    face = _wobble(_round_rect(x0, y0, x0 + w, y0 + h, 24 * k), 3.5 * k, seed)
+    fm = _mask(face)
+    _fill(layer, fm, PURPLE)
+
+    # black lower half with a slightly wavy top edge, as drawn
+    top = [P(-40, 252), P(30, 236), P(120, 232), P(220, 226), P(320, 232), P(420, 240), P(470, 250)]
+    band = _chaikin(top + [P(470, 480), P(-40, 480)], 2)
+    bm = _mask(band)
+    black_m = Image.new("L", (S, S), 0)
+    black_m.paste(bm, (0, 0), fm)
+    _fill(layer, black_m, BLACK)
+
+    # moustache (olive)
+    must = [P(72, 246), P(90, 232), P(122, 232), P(146, 214), P(176, 213), P(204, 224), P(236, 220),
+            P(270, 230), P(296, 242), P(286, 258), P(262, 264), P(236, 274), P(206, 268),
+            P(176, 276), P(140, 272), P(104, 274), P(80, 266)]
+    _fill(layer, _mask(_wobble(_chaikin(must, 3), 2 * k, seed + 1)), OLIVE)
+
+    # white mouth, two lobes at the bottom
+    mouth = [P(150, 276), P(214, 276), P(236, 296), P(250, 330), P(248, 354), P(228, 368), P(204, 364),
+             P(188, 350), P(176, 364), P(150, 368), P(130, 352), P(128, 322), P(134, 296)]
+    _fill(layer, _mask(_wobble(_chaikin(mouth, 3), 2 * k, seed + 2)), WHITE)
+    for cx, cy, r in ((176, 277, 4.5), (186, 320, 5.5)):
+        _fill(layer, _mask(_circle_pts(*P(cx, cy), r * k)), BLACK)
+
+    # eyes with their little highlights
+    for cx, cy, hx in ((113, 115, 91), (328, 118, 352)):
+        eye = _wobble(_circle_pts(*P(cx, cy), 33 * k, 56), 1.4 * k, seed + cx)
+        _fill(layer, _mask(eye), BLACK)
+        _fill(layer, _mask(_circle_pts(*P(hx, cy + 4), 4.2 * k, 20)), WHITE)
+    return layer
+
+
+def character_cube(canvas=S):
+    """Cube: the drawn face on the front, lighter purple on top, darker side on the right."""
+    w, h = 540, 482                                  # face box (keeps the drawing's proportions)
+    x0, y0 = 170, 330
+    dx, dy = 128, -104                               # depth offset
+    layer = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+
+    tl, tr, br, bl = (x0, y0), (x0 + w, y0), (x0 + w, y0 + h), (x0, y0 + h)
+    top = [tl, tr, (tr[0] + dx, tr[1] + dy), (tl[0] + dx, tl[1] + dy)]
+    side = [tr, br, (br[0] + dx, br[1] + dy), (tr[0] + dx, tr[1] + dy)]
+
+    def soft(poly, seed, amp=3):
+        return _wobble(_chaikin(_densify(poly, 24), 2), amp, seed)
+
+    # top face (light purple, soft gradient)
+    tm = _mask(soft(top, 11))
+    g = lin_grad((S, S), hexc("#C9A2FF"), hexc("#A56BF7"), 70)
+    g.putalpha(tm)
+    layer.alpha_composite(g)
+
+    # side face: deep purple above, black below (continuing the black band)
+    sm = _mask(soft(side, 12))
+    sg = lin_grad((S, S), hexc("#5E21B8"), hexc("#43168C"), 90)
+    sg.putalpha(sm)
+    layer.alpha_composite(sg)
+    yb = y0 + 0.60 * h
+    black_side = [(tr[0], yb), (tr[0] + dx, yb + dy), (br[0] + dx, br[1] + dy), br]
+    bm = _mask(black_side)
+    bmm = Image.new("L", (S, S), 0)
+    bmm.paste(bm, (0, 0), sm)
+    _fill(layer, bmm, BLACK)
+
+    layer.alpha_composite(character_front(x0, y0, w, h))
+    return layer
+
+
+def logo(size=1024, rounded=False):
+    bg = lin_grad((S, S), hexc("#4A2594"), hexc("#241052"), 125)
+    bg.alpha_composite(radial_glow((S, S), (S * 0.5, S * 0.40), S * 0.70, (170, 110, 255), 0.34))
+    bg = grain(bg, 6)
+    c = character_cube()
+    sh = shadow(c, offset=(10, 40), blur=34, opacity=0.50, color=(6, 2, 20))
+    bg.alpha_composite(sh)
+    bg.alpha_composite(c)
+    out = bg.resize((size, size), Image.LANCZOS)
+    return squircle(out) if rounded else out.convert("RGB")
+
 
 
 # ---------------------------------------------------------------- tweak icons
