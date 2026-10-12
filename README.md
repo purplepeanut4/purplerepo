@@ -38,9 +38,11 @@ Every tweak adds its own page to the Settings app (they depend on PreferenceLoad
 
 ## Themes
 
-Icon themes for Snowboard or Anemone. Covers the stock Apple apps plus Sileo, Zebra, Cydia and Filza. Apps without an icon here keep their normal one.
+Icon themes for Snowboard or Anemone. They cover the stock Apple apps, Sileo, Zebra, Cydia, Filza and the Google apps (Chrome, Gmail, Maps, YouTube, Drive, Photos, Docs and more), plus Strava and Geometry Dash. Games, Google apps and fitness apps you install later, including 2-player games, get a matching icon automatically through the small Purple Link helper.
 
 Install a theme, open **Snowboard** (or **Anemone**), tick the theme and apply it.
+
+**Purple Link** (installed with every theme) is a small helper. A small helper installed with the themes. It looks at the apps on your phone and gives games, Google apps and fitness apps a matching theme icon, including 2-player games and anything you install later. It runs by itself when apps are added. Install a new game, then respring, and it gets the matching icon. To redo the matching by hand, run `/usr/libexec/purplerepo/purplelink --all` as root.
 
 ### Violet
 Deep violet squares with solid white glyphs.
@@ -73,15 +75,15 @@ Any jailbreak should work if it gives you iOS 12 on an arm64 device, a rootful f
 
 | Jailbreak | iOS | Devices | Notes |
 | --- | --- | --- | --- |
-| **checkra1n** | iOS 12.x | A7 to A11 chips: iPhone 5s up to iPhone X, plus iPads and iPods with the same chips | The main target for this repo. Rootful on iOS 12, so everything installs the normal way. |
-| **Odysseyra1n** | Same versions as checkra1n | Same devices as checkra1n | Installs on top of checkra1n. It uses libhooker where older setups use Substrate; libhooker stands in for it. |
-| **unc0ver** | Some iOS 12 versions (roughly 12.0 to 12.4.x) | Depends on the iOS version | Check unc0ver's own page for the exact versions your device can use. |
-| **Chimera** | iOS 12.x (versions vary) | A7 to A12 chips | Comes with Substitute and Sileo. Check the project page for the versions it covers. |
-| **Amethyst** | iOS 12 (see the project page) | See the project page | Listed as an iOS 12 jailbreak. If it provides tweak injection and PreferenceLoader, these packages install normally. |
+| **checkra1n** | iOS 12.0 to 14.8.1 | A7 to A11 chips: iPhone 5s up to iPhone X, plus iPads and iPods with the same chips | Semi-tethered: run it from a Mac or Linux PC again after every reboot. Rootful on iOS 12, so everything installs the normal way. The main target for this repo. |
+| **Odysseyra1n** | iOS 12.0 to 14.8.1 | Same devices as checkra1n | Runs on top of checkra1n and also needs a computer after every reboot. It uses libhooker where older jailbreaks use Substrate; libhooker stands in for it. |
+| **Amethyst** | iOS 12.0 to 13.7 | arm64 devices (listed for all devices on those versions) | Released June 2026. Semi-untethered: sideload the app and tap to re-jailbreak after a reboot. It loads tweaks, and a community write-up reports it working on an iPhone 6 running iOS 12.5.8. |
+| **unc0ver** | iOS 12.0 to 12.4.8 (skips 12.3 to 12.3.2) | A7 to A11 chips, partial support on A12 | Does not cover iOS 12.5.x. If you are on 12.5.x, use one of the others. |
+| **Chimera** | iOS 12.0 to 12.5.7 | A7 to A12 chips | Comes with Substitute and Sileo. iOS 12.5.x needs the community chimera_patch. |
 
-**Not compatible:** Odyssey, Taurine, unc0ver on iOS 13 or 14, Dopamine, palera1n, XinaA15 and other jailbreaks for iOS 13 and later. These packages are built for iOS 12 and rootful systems only.
+**Not compatible:** Odyssey (iOS 13), Taurine (iOS 14), Dopamine, palera1n and XinaA15 (iOS 15 and up), and any jailbreak for iOS 13 or later. Amethyst and Odysseyra1n can reach those versions, but these packages are only built for iOS 12 and rootful systems.
 
-Supported iOS versions change, so check each project's own page before you jailbreak. These were not tested on every one.
+Version ranges checked against public sources in October 2026. They can change, so confirm on each project's own page. These packages were not tested on every one.
 
 ## Requirements
 

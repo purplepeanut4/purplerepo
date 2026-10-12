@@ -118,29 +118,71 @@ def build_theme(theme_row, tmeta):
     shutil.rmtree(stage, ignore_errors=True)
     tdir = f"{stage}/Library/Themes/{folder}"
     ib = f"{tdir}/IconBundles"
-    os.makedirs(ib)
+    os.makedirs(f"{ib}/_generic")
     for i, (bid, _, _) in enumerate(th.APPS):
-        img = th.render_icon(theme_row, i, 180)
-        img.save(f"{ib}/{bid}.png", optimize=True)
-        img.save(f"{ib}/{bid}-large.png", optimize=True)
+        th.render_icon(theme_row, i, 180).save(f"{ib}/{bid}.png", optimize=True)
+        os.symlink(f"{bid}.png", f"{ib}/{bid}-large.png")           # same art, no extra bytes
+    for i, (name, _, _) in enumerate(th.GENERIC):
+        th.render_generic(theme_row, i, 180).save(f"{ib}/_generic/{name}.png", optimize=True)
     with open(f"{tdir}/Info.plist", "wb") as f:
         plistlib.dump({"PackageVersion": 2, "IB-MaskIcons": True, "ThemeName": display,
                        "ThemeAuthor": "purplesquarecube"}, f)
     write(f"{stage}/DEBIAN/control", control(
-        tmeta, "Themes (Icons)", "", f"{blurb} Needs Snowboard or Anemone."))
+        tmeta, "Themes (Icons)", "com.purplesquarecube.purplelink", f"{blurb} Needs Snowboard or Anemone."))
+    write(f"{stage}/DEBIAN/postinst",
+          "#!/bin/sh\n[ -x /usr/libexec/purplerepo/purplelink ] && "
+          f"/usr/libexec/purplerepo/purplelink \"/Library/Themes/{folder}\" >/dev/null 2>&1\nexit 0\n")
+    write(f"{stage}/DEBIAN/postrm",
+          f"#!/bin/sh\ncase \"$1\" in remove|purge) rm -rf \"/Library/Themes/{folder}\" ;; esac\nexit 0\n")
+    os.chmod(f"{stage}/DEBIAN/postinst", 0o755)
+    os.chmod(f"{stage}/DEBIAN/postrm", 0o755)
     deb = f"{DEBS}/{tmeta['id']}_{tmeta['version']}_iphoneos-arm.deb"
     make_deb(stage, deb)
     print("theme", display, os.path.getsize(deb), "bytes")
 
 
+# ---------------------------------------------------------------- helper
+def build_purplelink(pkg):
+    out = f"{BUILD}/purplelink"
+    os.makedirs(out, exist_ok=True)
+    binary = f"{out}/purplelink"
+    run(["clang", "-target", "arm64-apple-ios12.0", "-isysroot", SDK, "-fuse-ld=lld", "-O2", "-Wall",
+         "-framework", "CoreFoundation", f"{ROOT}/purplelink/purplelink.c", "-o", binary])
+    run([LDID, "-S", binary])
+    stage = f"{out}/pkg"
+    shutil.rmtree(stage, ignore_errors=True)
+    os.makedirs(f"{stage}/usr/libexec/purplerepo")
+    os.makedirs(f"{stage}/Library/LaunchDaemons")
+    shutil.copy(binary, f"{stage}/usr/libexec/purplerepo/purplelink")
+    os.chmod(f"{stage}/usr/libexec/purplerepo/purplelink", 0o755)
+    with open(f"{stage}/Library/LaunchDaemons/com.purplesquarecube.purplelink.plist", "wb") as f:
+        plistlib.dump({"Label": "com.purplesquarecube.purplelink",
+                       "ProgramArguments": ["/usr/libexec/purplerepo/purplelink", "--all"],
+                       "WatchPaths": ["/var/containers/Bundle/Application"],
+                       "ThrottleInterval": 20, "RunAtLoad": False}, f)
+    write(f"{stage}/DEBIAN/control", control(pkg, "Utilities", "firmware (>= 12.0)", pkg["tagline"]))
+    write(f"{stage}/DEBIAN/postinst",
+          "#!/bin/sh\nlaunchctl load -w /Library/LaunchDaemons/com.purplesquarecube.purplelink.plist >/dev/null 2>&1\n"
+          "/usr/libexec/purplerepo/purplelink --all >/dev/null 2>&1\nexit 0\n")
+    write(f"{stage}/DEBIAN/prerm",
+          "#!/bin/sh\nlaunchctl unload /Library/LaunchDaemons/com.purplesquarecube.purplelink.plist >/dev/null 2>&1\nexit 0\n")
+    os.chmod(f"{stage}/DEBIAN/postinst", 0o755)
+    os.chmod(f"{stage}/DEBIAN/prerm", 0o755)
+    deb = f"{DEBS}/{pkg['id']}_{pkg['version']}_iphoneos-arm.deb"
+    make_deb(stage, deb)
+    print("helper", pkg["name"], os.path.getsize(deb), "bytes")
+
+
 def main():
-    only = sys.argv[1:] or ["tweaks", "themes"]
+    only = sys.argv[1:] or ["tweaks", "helper", "themes"]
     os.makedirs(DEBS, exist_ok=True)
     if "tweaks" in only:
         for pkg in meta.TWEAKS:
             if pkg.get("prebuilt"):
                 continue
             build_tweak(pkg)
+    if "helper" in only:
+        build_purplelink(meta.HELPERS[0])
     if "themes" in only:
         by_key = {t["key"]: t for t in meta.THEMES}
         for row in th.THEMES:

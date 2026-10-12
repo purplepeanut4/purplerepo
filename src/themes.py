@@ -62,6 +62,13 @@ class GM:
             px, py = x + r * S * math.cos(math.radians(a)), y + r * S * math.sin(math.radians(a))
             self.da.ellipse((px - w / 2, py - w / 2, px + w / 2, py + w / 2), fill=255)
 
+    def text(self, s_, cx, cy, size, cut=False):
+        from art import font
+        f = font("poppins-b", int(size * S))
+        bb = self.ds.textbbox((0, 0), s_, font=f)
+        w, h = bb[2] - bb[0], bb[3] - bb[1]
+        self.ds.text((cx * S - w / 2 - bb[0], cy * S - h / 2 - bb[1]), s_, font=f, fill=0 if cut else 255)
+
     # final masks
     def fill_mask(self):
         m = ImageChops.lighter(self.solid, self.addl)
@@ -330,6 +337,191 @@ def g_filza(g):
     g.cline([(0.35, 0.55), (0.65, 0.55)], g.lw * 0.5)
 
 
+
+# ---- Google family (functional glyphs, not brand logos) ----
+def g_google(g):
+    g.circ((0.44, 0.44), 0.21)
+    g.circ((0.44, 0.44), 0.12, cut=True)
+    g.line([(0.59, 0.59), (0.77, 0.77)], g.lw * 1.1)
+
+
+def g_chrome(g):
+    g.circ((0.5, 0.5), 0.29)
+    g.circ((0.5, 0.5), 0.125, cut=True)
+    g.circ((0.5, 0.5), 0.075)
+    for a in (90, 210, 330):
+        t = math.radians(a)
+        g.cline([(0.5 + 0.125 * math.cos(t), 0.5 + 0.125 * math.sin(t)),
+                 (0.5 + 0.29 * math.cos(t), 0.5 + 0.29 * math.sin(t))], g.lw * 0.5)
+
+
+def g_youtube(g):
+    g.rr((0.17, 0.30, 0.83, 0.70), 0.12)
+    g.poly([(0.44, 0.40), (0.44, 0.60), (0.61, 0.50)], cut=True)
+
+
+def g_ytmusic(g):
+    g.circ((0.5, 0.5), 0.30)
+    g.circ((0.5, 0.5), 0.20, cut=True)
+    g.poly([(0.45, 0.39), (0.45, 0.61), (0.63, 0.50)])
+
+
+def g_drive(g):
+    g.poly([(0.5, 0.23), (0.80, 0.74), (0.20, 0.74)])
+    g.cline([(0.5, 0.50), (0.66, 0.74)], g.lw * 0.5)
+    g.cline([(0.5, 0.50), (0.34, 0.74)], g.lw * 0.5)
+
+
+def g_doc(g):
+    g.rr((0.28, 0.20, 0.72, 0.80), 0.05)
+    g.poly([(0.58, 0.20), (0.72, 0.34), (0.58, 0.34)], cut=True)
+    for y in (0.50, 0.60, 0.70):
+        g.cline([(0.36, y), (0.64, y)], g.lw * 0.5)
+
+
+def g_sheet(g):
+    g.rr((0.26, 0.22, 0.74, 0.78), 0.05)
+    g.cline([(0.5, 0.34), (0.5, 0.74)], g.lw * 0.45)
+    for y in (0.46, 0.58, 0.70):
+        g.cline([(0.32, y), (0.68, y)], g.lw * 0.45)
+
+
+def g_slides(g):
+    g.rr((0.18, 0.28, 0.82, 0.72), 0.05)
+    g.rr((0.27, 0.37, 0.73, 0.63), 0.02, cut=True)
+
+
+def g_translate(g):
+    g.rr((0.18, 0.22, 0.58, 0.62), 0.07)
+    g.rr((0.42, 0.40, 0.82, 0.80), 0.07)
+    g.text("A", 0.38, 0.43, 0.25, cut=True)
+    g.text("a", 0.62, 0.62, 0.22, cut=True)
+
+
+def g_classroom(g):
+    g.rr((0.19, 0.25, 0.81, 0.69), 0.05)
+    g.rr((0.26, 0.32, 0.74, 0.62), 0.02, cut=True)
+    g.circ((0.5, 0.44), 0.055)
+    g.line([(0.38, 0.79), (0.62, 0.79)], g.lw * 0.8)
+
+
+def g_assistant(g):
+    for x, r in ((0.25, 0.055), (0.40, 0.07), (0.57, 0.07), (0.74, 0.055)):
+        g.dot((x, 0.5), r)
+
+
+def g_remote(g):
+    g.rr((0.34, 0.19, 0.66, 0.81), 0.09)
+    g.circ((0.5, 0.38), 0.095, cut=True)
+    g.circ((0.5, 0.38), 0.03)
+    g.circ((0.5, 0.62), 0.03, cut=True)
+
+
+def g_globe(g):
+    g.circ((0.5, 0.5), 0.29)
+    g.cline([(0.21, 0.5), (0.79, 0.5)], g.lw * 0.4)
+    g.cline([(0.5 + 0.13 * math.cos(2 * math.pi * k / 40), 0.5 + 0.29 * math.sin(2 * math.pi * k / 40))
+             for k in range(41)], g.lw * 0.4)
+
+
+def g_shieldcheck(g):
+    g.poly([(0.5, 0.21), (0.75, 0.30), (0.75, 0.52), (0.5, 0.79), (0.25, 0.52), (0.25, 0.30)])
+    g.cline([(0.39, 0.50), (0.47, 0.59), (0.62, 0.41)], g.lw * 0.75)
+
+
+# ---- Strava / fitness ----
+def g_route(g):
+    pts = [(0.5 + 0.19 * math.sin(2 * math.pi * k / 24), 0.74 - 0.48 * k / 24) for k in range(25)]
+    g.line(pts, g.lw * 0.85)
+    g.circ((0.5, 0.76), 0.07)
+    g.circ((0.5, 0.76), 0.032, cut=True)
+    g.circ((0.5, 0.26), 0.07)
+
+
+def g_fitness(g):
+    g.line([(0.19, 0.52), (0.37, 0.52), (0.46, 0.33), (0.56, 0.69), (0.64, 0.52), (0.81, 0.52)], g.lw * 0.8)
+
+
+# ---- games ----
+def g_gamepad(g):
+    g.rr((0.15, 0.35, 0.85, 0.69), 0.16)
+    g.cline([(0.29, 0.52), (0.43, 0.52)], g.lw * 0.45)
+    g.cline([(0.36, 0.45), (0.36, 0.59)], g.lw * 0.45)
+    g.circ((0.63, 0.49), 0.035, cut=True)
+    g.circ((0.72, 0.56), 0.035, cut=True)
+
+
+def g_twoplayer(g):
+    for cx in (0.34, 0.66):
+        g.circ((cx, 0.38), 0.095)
+        pts = [(cx + 0.17 * math.cos(math.radians(a)), 0.78 + 0.19 * math.sin(math.radians(a)))
+               for a in range(180, 361, 8)]
+        g.poly(pts)
+
+
+def g_geometrydash(g):
+    g.rr((0.22, 0.32, 0.58, 0.68), 0.04)
+    g.rr((0.30, 0.41, 0.37, 0.50), 0.01, cut=True)
+    g.rr((0.43, 0.41, 0.50, 0.50), 0.01, cut=True)
+    g.rr((0.30, 0.56, 0.50, 0.61), 0.01, cut=True)
+    g.poly([(0.63, 0.68), (0.72, 0.46), (0.81, 0.68)])
+    g.line([(0.16, 0.76), (0.84, 0.76)], g.lw * 0.5)
+
+
+def g_roblox(g):
+    sq = [(0.28, 0.28), (0.72, 0.28), (0.72, 0.72), (0.28, 0.72)]
+    g.poly(rot(sq, (0.5, 0.5), 18))
+    g.poly(rot([(0.43, 0.43), (0.57, 0.43), (0.57, 0.57), (0.43, 0.57)], (0.5, 0.5), 18), cut=True)
+
+
+def g_runner(g):
+    for x in (0.27, 0.43, 0.59):
+        g.line([(x, 0.31), (x + 0.15, 0.5), (x, 0.69)], g.lw * 0.9)
+
+
+def g_shield(g):
+    g.poly([(0.5, 0.21), (0.77, 0.30), (0.73, 0.58), (0.5, 0.79), (0.27, 0.58), (0.23, 0.30)])
+    g.cline([(0.5, 0.34), (0.5, 0.64)], g.lw * 0.55)
+
+
+def g_crown(g):
+    g.poly([(0.21, 0.66), (0.21, 0.34), (0.38, 0.49), (0.5, 0.28), (0.62, 0.49), (0.79, 0.34), (0.79, 0.66)])
+    g.rr((0.21, 0.70, 0.79, 0.78), 0.02)
+
+
+def g_gem(g):
+    g.poly([(0.30, 0.34), (0.70, 0.34), (0.84, 0.50), (0.5, 0.80), (0.16, 0.50)])
+    g.cline([(0.16, 0.50), (0.84, 0.50)], g.lw * 0.4)
+    g.cline([(0.38, 0.34), (0.5, 0.80), (0.62, 0.34)], g.lw * 0.4)
+
+
+def g_pokeball(g):
+    g.circ((0.5, 0.5), 0.29)
+    g.cline([(0.21, 0.5), (0.79, 0.5)], g.lw * 0.8)
+    g.circ((0.5, 0.5), 0.10, cut=True)
+    g.circ((0.5, 0.5), 0.05)
+
+
+def g_eightball(g):
+    g.circ((0.5, 0.5), 0.29)
+    g.circ((0.5, 0.47), 0.13, cut=True)
+    g.text("8", 0.5, 0.47, 0.17)
+
+
+def g_crosshair(g):
+    g.circ((0.5, 0.5), 0.27)
+    g.circ((0.5, 0.5), 0.19, cut=True)
+    for a in (0, 90, 180, 270):
+        t = math.radians(a)
+        g.line([(0.5 + 0.12 * math.cos(t), 0.5 + 0.12 * math.sin(t)),
+                (0.5 + 0.34 * math.cos(t), 0.5 + 0.34 * math.sin(t))], g.lw * 0.6)
+    g.dot((0.5, 0.5), 0.035)
+
+
+def g_letter_g(g):
+    g.text("G", 0.5, 0.5, 0.52)
+
+
 # bundle id -> (glyph fn, accent colour)
 APPS = [
     ("com.apple.mobilephone",       g_phone,       "#34C759"),
@@ -369,7 +561,54 @@ APPS = [
     ("xyz.willy.Zebra",             g_cube,        "#E5E5EA"),
     ("com.saurik.Cydia",            g_cube,        "#B07A45"),
     ("com.tigisoftware.Filza",      g_filza,       "#FF9F0A"),
+    # ---- Google apps (bundle IDs confirmed from public lists) ----
+    ("com.google.GoogleMobile",          g_google,      "#4285F4"),
+    ("com.google.chrome.ios",            g_chrome,      "#EA4335"),
+    ("com.google.Gmail",                 g_mail,        "#EA4335"),
+    ("com.google.Maps",                  g_maps,        "#34A853"),
+    ("com.google.ios.youtube",           g_youtube,     "#FF3B30"),
+    ("com.google.ios.youtubemusic",      g_ytmusic,     "#FF3B30"),
+    ("com.google.Drive",                 g_drive,       "#FBBC04"),
+    ("com.google.photos",                g_photos,      "#FBBC04"),
+    ("com.google.Docs",                  g_doc,         "#4285F4"),
+    ("com.google.Sheets",                g_sheet,       "#34A853"),
+    ("com.google.Slides",                g_slides,      "#FBBC04"),
+    ("com.google.calendar",              g_calendar,    "#4285F4"),
+    ("com.google.Keep",                  g_tips,        "#FBBC04"),
+    ("com.google.meetings",              g_facetime,    "#34A853"),
+    ("com.google.Translate",             g_translate,   "#4285F4"),
+    ("com.google.Classroom",             g_classroom,   "#34A853"),
+    ("com.google.OPA",                   g_assistant,   "#4285F4"),
+    ("com.google.Chromecast",            g_home,        "#EA4335"),
+    ("com.google.AndroidTVRemote",       g_remote,      "#34A853"),
+    ("com.google.fit",                   g_health,      "#34A853"),
+    ("com.google.news",                  g_news,        "#4285F4"),
+    ("com.google.GoogleDigitalEditions", g_news,        "#4285F4"),
+    ("com.google.b612",                  g_globe,       "#34A853"),
+    ("com.google.Authenticator",         g_shieldcheck, "#4285F4"),
 ]
+
+# name -> (glyph, accent). These become _generic/<name>.png; the purplelink helper points apps at them by
+# category / name, so any game, Google app or fitness app gets a matching icon even if its bundle ID is
+# not listed above.
+GENERIC = [
+    ("game",         g_gamepad,      "#FF5E7E"),
+    ("twoplayer",    g_twoplayer,    "#5AC8FA"),
+    ("google",       g_letter_g,     "#4285F4"),
+    ("fitness",      g_fitness,      "#FC4C02"),
+    ("strava",       g_route,        "#FC4C02"),
+    ("geometrydash", g_geometrydash, "#FFD60A"),
+    ("roblox",       g_roblox,       "#FF453A"),
+    ("minecraft",    g_cube,         "#32D74B"),
+    ("runner",       g_runner,       "#FF9F0A"),
+    ("shield",       g_shield,       "#0A84FF"),
+    ("crown",        g_crown,        "#BF5AF2"),
+    ("gem",          g_gem,          "#FF2D55"),
+    ("pokeball",     g_pokeball,     "#FF453A"),
+    ("eightball",    g_eightball,    "#8E8E93"),
+    ("crosshair",    g_crosshair,    "#FF9500"),
+]
+
 
 PREVIEW_ORDER = ["com.apple.mobilephone", "com.apple.MobileSMS", "com.apple.mobilesafari",
                  "com.apple.camera", "com.apple.mobileslideshow", "com.apple.Preferences",
@@ -476,13 +715,22 @@ THEMES = [
 ]
 
 
-def render_icon(theme, idx, size):
-    tid, _, _, fn, lw = theme
-    bid, glyph, accent = APPS[idx]
+def render_glyph(theme, seed, glyph, accent, size):
+    _, _, _, fn, lw = theme
     gm = GM(lw)
     glyph(gm)
-    img = fn(idx, accent, gm)
+    img = fn(seed, accent, gm)
     return img.resize((size, size), Image.LANCZOS).convert("RGB")
+
+
+def render_icon(theme, idx, size):
+    bid, glyph, accent = APPS[idx]
+    return render_glyph(theme, idx, glyph, accent, size)
+
+
+def render_generic(theme, i, size):
+    name, glyph, accent = GENERIC[i]
+    return render_glyph(theme, 200 + i, glyph, accent, size)
 
 
 def preview(theme, cols=4, rows=3, cell=210):

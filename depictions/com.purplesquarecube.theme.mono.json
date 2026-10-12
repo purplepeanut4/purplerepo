@@ -31,13 +31,13 @@
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "Icon themes for Snowboard or Anemone. Covers the stock Apple apps plus Sileo, Zebra, Cydia and Filza. Apps without an icon here keep their normal one.",
+          "markdown": "Icon themes for Snowboard or Anemone. They cover the stock Apple apps, Sileo, Zebra, Cydia, Filza and the Google apps (Chrome, Gmail, Maps, YouTube, Drive, Photos, Docs and more), plus Strava and Geometry Dash. Games, Google apps and fitness apps you install later, including 2-player games, get a matching icon automatically through the small Purple Link helper.",
           "useSpacing": true
         },
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "1.0.0"
+          "text": "1.1.0"
         },
         {
           "class": "DepictionTableTextView",
@@ -57,13 +57,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "1.0.0",
+          "title": "1.1.0",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "1.0.0: first release.",
+          "markdown": "1.1.0: icons for the Google apps, Strava and Geometry Dash; popular games get their own icons; games, Google apps and fitness apps you install later (including 2-player games) are themed automatically by the new Purple Link helper. Smaller download too.\n\n1.0.0: first release.",
           "useSpacing": true
         }
       ]

@@ -222,6 +222,11 @@ def g_glass(g):
     g.rr((330, 640, 694, 678), 19, fill=(255, 255, 255, 120))
 
 
+def g_link(g):
+    g.rr((200, 380, 600, 644), 132, outline=W, w=52)
+    g.rr((424, 380, 824, 644), 132, outline=W, w=52)
+
+
 TWEAK_STYLES = {
     # id: (gradient c1, gradient c2, glyph fn)
     "tidy":         ("#2EC4B6", "#0B7A75", g_tidy),
@@ -232,6 +237,7 @@ TWEAK_STYLES = {
     "apptunes":     ("#FF8A3D", "#E0334C", g_music),
     "launchfx":     ("#7C3AED", "#3B1480", g_launch),
     "liquidglass":  ("#4DA3FF", "#6B4BFF", g_glass),
+    "purplelink":   ("#8B5CF6", "#4C1D95", g_link),
 }
 
 

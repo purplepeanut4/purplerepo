@@ -18,7 +18,7 @@ ROOT = "/home/claude/purple"
 REPO = f"{ROOT}/repo"
 OLD = "/tmp/pr"          # existing clone with the three older debs
 
-ALL = meta.TWEAKS + meta.THEMES
+ALL = meta.TWEAKS + meta.THEMES + meta.HELPERS
 
 
 def deb_name(p):
@@ -55,6 +55,8 @@ def make_images():
     os.makedirs(f"{REPO}/assets", exist_ok=True)
     for p in meta.TWEAKS:
         art.tweak_icon(p["key"], 256).save(f"{REPO}/icons/{p['id']}.png", optimize=True)
+    for p in meta.HELPERS:
+        art.tweak_icon(p["key"], 256).save(f"{REPO}/icons/{p['id']}.png", optimize=True)
     rows = {r[0]: r for r in th.THEMES}
     idx_phone = [b for b, _, _ in th.APPS].index("com.apple.mobilephone")
     for t in meta.THEMES:
@@ -69,8 +71,9 @@ def make_images():
 
 # ------------------------------------------------------------------ Packages + depictions
 def depiction(p):
-    changelog = meta.CHANGELOG.get(p["id"], meta.CHANGELOG_NEW)
     is_theme = p["id"].startswith("com.purplesquarecube.theme.")
+    changelog = meta.THEME_CHANGELOG if is_theme else meta.CHANGELOG.get(p["id"], meta.CHANGELOG_NEW)
+    is_helper = p in meta.HELPERS
     views = [
         {"class": "DepictionSubheaderView", "title": p["tagline"], "useBoldText": True, "useBottomMargin": False},
         {"class": "DepictionMarkdownView", "markdown": p["desc"], "useSpacing": True},
@@ -81,6 +84,10 @@ def depiction(p):
                       "screenshots": [{"accessibilityText": f"{p['name']} theme preview",
                                        "url": f"{meta.REPO_URL}assets/theme-{p['key']}.png"}]})
         views.append({"class": "DepictionMarkdownView", "markdown": meta.THEME_FOOTNOTE, "useSpacing": True})
+    elif is_helper:
+        views.append({"class": "DepictionMarkdownView",
+                      "markdown": "Installed automatically with the purplerepo themes. There is nothing to set up: it runs by itself when you add or remove apps.",
+                      "useSpacing": True})
     else:
         bullets = "\n".join(f"- {f}" for f in p["features"])
         views.append({"class": "DepictionSubheaderView", "title": "Features", "useBoldText": True,
@@ -341,12 +348,16 @@ def build_site():
   <div class="themes">{''.join(theme_figs)}
   </div>
 
+  <p class="lede" style="margin-top:22px"><b style="color:var(--ink)">{esc(meta.HELPERS[0]['name'])}</b>
+    <span class="ver">{meta.HELPERS[0]['version']}</span> &mdash; {esc(meta.HELPERS[0]['desc'])}
+    <a class="dl" href="debs/{deb_name(meta.HELPERS[0])}">download .deb</a></p>
+
   <h2>Works with<span class="count">{len(meta.JAILBREAKS)}</span></h2>
   <p class="lede">{esc(meta.JB_REQUIREMENTS)}</p>
   <ul class="jb">{jb_items}
   </ul>
   <p class="nope"><b>Not compatible</b>{esc(meta.JB_NOT_COMPATIBLE)}</p>
-  <p class="lede" style="margin-top:14px">Supported iOS versions change, so check each project's own page before you jailbreak. These were not tested on every one.</p>
+  <p class="lede" style="margin-top:14px">{esc(meta.JB_CHECKED)} These packages were not tested on every one.</p>
 
   <section class="how">
     <h2>Using the repo</h2>
@@ -413,6 +424,8 @@ Every tweak adds its own page to the Settings app (they depend on PreferenceLoad
 
 Install a theme, open **Snowboard** (or **Anemone**), tick the theme and apply it.
 
+**Purple Link** (installed with every theme) is a small helper. {meta.HELPERS[0]['desc']} Install a new game, then respring, and it gets the matching icon. To redo the matching by hand, run `/usr/libexec/purplerepo/purplelink --all` as root.
+
 {theme_rows}
 ## Works with
 
@@ -424,7 +437,7 @@ Install a theme, open **Snowboard** (or **Anemone**), tick the theme and apply i
 
 **Not compatible:** {meta.JB_NOT_COMPATIBLE}
 
-Supported iOS versions change, so check each project's own page before you jailbreak. These were not tested on every one.
+{meta.JB_CHECKED} These packages were not tested on every one.
 
 ## Requirements
 

@@ -85,13 +85,25 @@ THEMES = [
 ]
 for t in THEMES:
     t["id"] = "com.purplesquarecube.theme." + t["key"]
-    t["version"] = "1.0.0"
+    t["version"] = "1.1.0"
     t["tagline"] = t["desc"]
 
-THEME_FOOTNOTE = ("Icon themes for Snowboard or Anemone. Covers the stock Apple apps plus Sileo, Zebra, Cydia and Filza. "
-                  "Apps without an icon here keep their normal one.")
+THEME_FOOTNOTE = ("Icon themes for Snowboard or Anemone. They cover the stock Apple apps, Sileo, Zebra, Cydia, Filza and the "
+                  "Google apps (Chrome, Gmail, Maps, YouTube, Drive, Photos, Docs and more), plus Strava and Geometry Dash. "
+                  "Games, Google apps and fitness apps you install later, including 2-player games, get a matching icon "
+                  "automatically through the small Purple Link helper.")
+
+HELPERS = [
+    dict(key="purplelink", id="com.purplesquarecube.purplelink", name="Purple Link", version="1.0.0",
+         tagline="Icons for apps the themes don't list.",
+         desc="A small helper installed with the themes. It looks at the apps on your phone and gives games, Google apps and fitness apps a matching theme icon, including 2-player games and anything you install later. It runs by itself when apps are added.",
+         features=[], where=""),
+]
 
 CHANGELOG_NEW = "1.0.0: first release."
+THEME_CHANGELOG = ("1.1.0: icons for the Google apps, Strava and Geometry Dash; popular games get their own icons; "
+                   "games, Google apps and fitness apps you install later (including 2-player games) are themed "
+                   "automatically by the new Purple Link helper. Smaller download too.\n\n1.0.0: first release.")
 CHANGELOG = {
     "com.purplesquarecube.apptunes": "2.0.0: rebuilt with a Settings page, song import and per-app songs.",
     "com.purplesquarecube.liquidglass": "1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
@@ -100,24 +112,26 @@ CHANGELOG = {
 # Jailbreaks these packages are expected to run on. Exact iOS ranges change, so each entry points people
 # at the project's own page. Nothing here has been tested on every one of them.
 JAILBREAKS = [
-    dict(name="checkra1n", ios="iOS 12.x",
+    dict(name="checkra1n", ios="iOS 12.0 to 14.8.1",
          devices="A7 to A11 chips: iPhone 5s up to iPhone X, plus iPads and iPods with the same chips",
-         note="The main target for this repo. Rootful on iOS 12, so everything installs the normal way."),
-    dict(name="Odysseyra1n", ios="Same versions as checkra1n",
+         note="Semi-tethered: run it from a Mac or Linux PC again after every reboot. Rootful on iOS 12, so everything installs the normal way. The main target for this repo."),
+    dict(name="Odysseyra1n", ios="iOS 12.0 to 14.8.1",
          devices="Same devices as checkra1n",
-         note="Installs on top of checkra1n. It uses libhooker where older setups use Substrate; libhooker stands in for it."),
-    dict(name="unc0ver", ios="Some iOS 12 versions (roughly 12.0 to 12.4.x)",
-         devices="Depends on the iOS version",
-         note="Check unc0ver's own page for the exact versions your device can use."),
-    dict(name="Chimera", ios="iOS 12.x (versions vary)",
+         note="Runs on top of checkra1n and also needs a computer after every reboot. It uses libhooker where older jailbreaks use Substrate; libhooker stands in for it."),
+    dict(name="Amethyst", ios="iOS 12.0 to 13.7",
+         devices="arm64 devices (listed for all devices on those versions)",
+         note="Released June 2026. Semi-untethered: sideload the app and tap to re-jailbreak after a reboot. It loads tweaks, and a community write-up reports it working on an iPhone 6 running iOS 12.5.8."),
+    dict(name="unc0ver", ios="iOS 12.0 to 12.4.8 (skips 12.3 to 12.3.2)",
+         devices="A7 to A11 chips, partial support on A12",
+         note="Does not cover iOS 12.5.x. If you are on 12.5.x, use one of the others."),
+    dict(name="Chimera", ios="iOS 12.0 to 12.5.7",
          devices="A7 to A12 chips",
-         note="Comes with Substitute and Sileo. Check the project page for the versions it covers."),
-    dict(name="Amethyst", ios="iOS 12 (see the project page)",
-         devices="See the project page",
-         note="Listed as an iOS 12 jailbreak. If it provides tweak injection and PreferenceLoader, these packages install normally."),
+         note="Comes with Substitute and Sileo. iOS 12.5.x needs the community chimera_patch."),
 ]
 JB_REQUIREMENTS = ("Any jailbreak should work if it gives you iOS 12 on an arm64 device, a rootful filesystem, "
                    "a tweak injector (Substrate, Substitute or libhooker) and PreferenceLoader.")
-JB_NOT_COMPATIBLE = ("Odyssey, Taurine, unc0ver on iOS 13 or 14, Dopamine, palera1n, XinaA15 and other jailbreaks "
-                     "for iOS 13 and later. These packages are built for iOS 12 and rootful systems only.")
+JB_NOT_COMPATIBLE = ("Odyssey (iOS 13), Taurine (iOS 14), Dopamine, palera1n and XinaA15 (iOS 15 and up), and any jailbreak "
+                     "for iOS 13 or later. Amethyst and Odysseyra1n can reach those versions, but these packages are "
+                     "only built for iOS 12 and rootful systems.")
+JB_CHECKED = "Version ranges checked against public sources in October 2026. They can change, so confirm on each project's own page."
 
