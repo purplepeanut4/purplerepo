@@ -522,6 +522,53 @@ def g_letter_g(g):
     g.text("G", 0.5, 0.5, 0.52)
 
 
+
+# ---- jailbreak / sideloading apps ----
+def g_terminal(g):
+    g.rr((0.17, 0.24, 0.83, 0.76), 0.07)
+    g.cline([(0.30, 0.40), (0.41, 0.50), (0.30, 0.60)], g.lw * 0.65)
+    g.cline([(0.47, 0.62), (0.64, 0.62)], g.lw * 0.65)
+
+
+def g_cleaner(g):
+    g.line([(0.70, 0.22), (0.47, 0.50)], g.lw * 0.7)                       # handle
+    head = rot([(0.28, 0.50), (0.56, 0.44), (0.70, 0.62), (0.44, 0.80), (0.26, 0.74)], (0.48, 0.62), -8)
+    g.poly(head)
+    g.cline([(0.38, 0.62), (0.44, 0.74)], g.lw * 0.4)
+    g.cline([(0.50, 0.58), (0.55, 0.70)], g.lw * 0.4)
+    star = []
+    for i in range(8):
+        r = 0.085 if i % 2 == 0 else 0.028
+        a = math.radians(-90 + i * 45)
+        star.append((0.28 + r * math.cos(a), 0.30 + r * math.sin(a)))
+    g.poly(star)
+
+
+def g_crystal(g):
+    g.poly([(0.5, 0.19), (0.69, 0.34), (0.69, 0.62), (0.5, 0.81), (0.31, 0.62), (0.31, 0.34)])
+    g.cline([(0.31, 0.34), (0.5, 0.47), (0.69, 0.34)], g.lw * 0.4)
+    g.cline([(0.5, 0.47), (0.5, 0.81)], g.lw * 0.4)
+
+
+def g_delta(g):
+    g.poly([(0.5, 0.21), (0.82, 0.77), (0.18, 0.77)])
+    g.poly([(0.5, 0.42), (0.65, 0.68), (0.35, 0.68)], cut=True)
+
+
+def g_reprovision(g):
+    c, r = (0.5, 0.5), 0.24
+    for a0, a1 in ((200, 330), (20, 150)):
+        g.arc(c, r, a0, a1, g.lw * 0.8)
+        t = math.radians(a1)
+        pos = (c[0] + r * math.cos(t), c[1] + r * math.sin(t))
+        tan = (-math.sin(t), math.cos(t))
+        nor = (math.cos(t), math.sin(t))
+        tip = (pos[0] + tan[0] * 0.085, pos[1] + tan[1] * 0.085)
+        b1 = (pos[0] + nor[0] * 0.075, pos[1] + nor[1] * 0.075)
+        b2 = (pos[0] - nor[0] * 0.075, pos[1] - nor[1] * 0.075)
+        g.poly([tip, b1, b2])
+
+
 # bundle id -> (glyph fn, accent colour)
 APPS = [
     ("com.apple.mobilephone",       g_phone,       "#34C759"),
@@ -586,6 +633,12 @@ APPS = [
     ("com.google.GoogleDigitalEditions", g_news,        "#4285F4"),
     ("com.google.b612",                  g_globe,       "#34A853"),
     ("com.google.Authenticator",         g_shieldcheck, "#4285F4"),
+
+    # ---- jailbreak / sideloading apps ----
+    # Delta's ID is from its own README. The others also get icons by name through Purple Link, which is what
+    # catches sideloaded copies whose bundle ID has a suffix added.
+    ("com.rileytestut.Delta",            g_delta,       "#5E5CE6"),
+    ("com.exile90.icleanerpro",          g_cleaner,     "#FF9F0A"),
 ]
 
 # name -> (glyph, accent). These become _generic/<name>.png; the purplelink helper points apps at them by
@@ -607,6 +660,11 @@ GENERIC = [
     ("pokeball",     g_pokeball,     "#FF453A"),
     ("eightball",    g_eightball,    "#8E8E93"),
     ("crosshair",    g_crosshair,    "#FF9500"),
+    ("terminal",     g_terminal,     "#30D158"),
+    ("icleaner",     g_cleaner,      "#FF9F0A"),
+    ("amethyst",     g_crystal,      "#B26BFF"),
+    ("delta",        g_delta,        "#5E5CE6"),
+    ("reprovision",  g_reprovision,  "#0A84FF"),
 ]
 
 

@@ -26,7 +26,7 @@ FRAMEWORKS = ["-framework", "Foundation", "-framework", "UIKit", "-framework", "
 TWEAK_SRC = {
     "tidy": "Tidy", "taplock": "TapLock", "quiethud": "QuietHUD",
     "tapfeel": "TapFeel", "batteryline": "BatteryLine", "liquidglass": "LiquidGlass",
-    "dimmer": "Dimmer", "plugin": "PlugIn", "sleeptimer": "SleepTimer", "badgecolor": "BadgeColor",
+    "dimmer": "Dimmer", "umbra": "Umbra", "plugin": "PlugIn", "sleeptimer": "SleepTimer", "badgecolor": "BadgeColor",
 }
 
 
@@ -72,7 +72,11 @@ def build_tweak(pkg):
 
     dylib = f"{out}/{cls}.dylib"
     prefs = f"{out}/{cls}Prefs"
-    extra = ["-F" + SDK + "/System/Library/PrivateFrameworks", "-framework", "MediaRemote"] if folder == "sleeptimer" else []
+    extra = []
+    if folder == "sleeptimer":
+        extra = ["-F" + SDK + "/System/Library/PrivateFrameworks", "-framework", "MediaRemote"]
+    elif folder == "umbra":
+        extra = ["-lAccessibility"]
     run(["clang", *CFLAGS, "-dynamiclib", "-install_name",
          f"/Library/MobileSubstrate/DynamicLibraries/{cls}.dylib", *FRAMEWORKS, *extra,
          f"{src}/Tweak.m", "-o", dylib])

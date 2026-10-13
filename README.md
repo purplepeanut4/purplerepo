@@ -31,6 +31,7 @@ Pull down to refresh the source, then install.
 | **TapFeel** | 1.0.0 | Icons that answer back. Play a sound and bounce the icon when you tap an app. Pick from six system sounds and set how bouncy it is. | Settings > TapFeel |
 | **BatteryLine** | 1.0.0 | A battery meter you can see in any app. A thin line along the top or bottom of the screen that shows your battery level on top of every app. Turns green while charging, orange under 50% and red under 20%. | Settings > BatteryLine |
 | **Dimmer** | 1.0.0 | Darker than dark. Dims the screen below the normal minimum and adds an optional warm tint, on top of everything. Handy at night. It can run on a schedule. | Settings > Dimmer |
+| **Umbra** | 1.0.0 | A dark mode for iOS 12. Makes app backgrounds dark using iOS's Smart Invert, one app at a time. Pictures and videos are left alone in most apps. It can run on a schedule, and the Home Screen can stay light. | Settings > Umbra |
 | **PlugIn** | 1.0.0 | A little show when you plug in. A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug. | Settings > PlugIn |
 | **SleepTimer** | 1.0.0 | Falls asleep before you do. Pick a time from 5 minutes to 2 hours and your music or video pauses when it ends. It can lock the device too. | Settings > SleepTimer |
 | **BadgeColor** | 1.0.0 | Badges in your colour. Recolor the red notification badges on your icons and make them bigger or smaller. | Settings > BadgeColor |
@@ -42,7 +43,7 @@ Every tweak adds its own page to the Settings app (they depend on PreferenceLoad
 
 ## Themes
 
-Icon themes for Snowboard or Anemone. They cover the stock Apple apps, Sileo, Zebra, Cydia, Filza and the Google apps (Chrome, Gmail, Maps, YouTube, Drive, Photos, Docs and more), plus Strava and Geometry Dash. Games, Google apps and fitness apps you install later, including 2-player games, get a matching icon automatically through the small Purple Link helper.
+Icon themes for Snowboard or Anemone. They cover the stock Apple apps, Sileo, Zebra, Cydia, Filza and the Google apps (Chrome, Gmail, Maps, YouTube, Drive, Photos, Docs and more), plus Strava, Geometry Dash, NewTerm 2, iCleaner Pro, Amethyst, Delta and ReProvision. Games, Google apps and fitness apps you install later, including 2-player games, get a matching icon automatically through the small Purple Link helper.
 
 Install a theme, open **Snowboard** (or **Anemone**), tick the theme and apply it.
 

@@ -127,15 +127,15 @@ SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.pur
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-plugin
 
 Package: com.purplesquarecube.purplelink
-Version: 1.0.0
+Version: 1.1.0
 Architecture: iphoneos-arm
 Maintainer: purplesquarecube
 Depends: firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.purplelink_1.0.0_iphoneos-arm.deb
-Size: 5490
-MD5sum: 460ae29b150755061d45c0cb773decfb
-SHA1: 1d30eb58572c34dc8dc6b2c2ed80ed67940535d6
-SHA256: c700bc4d220f1fbb68a8c01966a98499c3e048fb19aa87c3ee4983aef86a5342
+Filename: debs/com.purplesquarecube.purplelink_1.1.0_iphoneos-arm.deb
+Size: 5570
+MD5sum: 884ead9b51948bad7e5b0c96c8595eaf
+SHA1: 513ac8ae9fd92019ef5e9b1b10f923acad3ba9d7
+SHA256: c50f80aaeec1f6814d611c21f1b4e2c3f3987ba2da8ebe714a6995a367fb975d
 Section: Utilities
 Description: Icons for apps the themes don't list.
 Author: purplesquarecube
@@ -217,15 +217,15 @@ SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.pur
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-taplock
 
 Package: com.purplesquarecube.theme.frost
-Version: 1.1.0
+Version: 1.2.0
 Architecture: iphoneos-arm
 Maintainer: purplesquarecube
 Depends: com.purplesquarecube.purplelink
-Filename: debs/com.purplesquarecube.theme.frost_1.1.0_iphoneos-arm.deb
-Size: 2079270
-MD5sum: 7784fa093ee69339427e39a88b321b44
-SHA1: f4db1eba97f419ebe1d5341536ef914e2e098299
-SHA256: 220dd06d5f7631832e17f2093bb10cb33fc84f60c59d35e65938f1693a9fda95
+Filename: debs/com.purplesquarecube.theme.frost_1.2.0_iphoneos-arm.deb
+Size: 2277982
+MD5sum: a0c266518903707fa7151182fa533604
+SHA1: f54a9bcc4983843555454f84b4b64930e9af2fbc
+SHA256: 6f35fff042f835b77c08616c3daff8608eb60678e09f3cf805824770be0eccc1
 Section: Themes (Icons)
 Description: Frosted pale glass with tinted, softly lit glyphs. Needs Snowboard or Anemone.
 Author: purplesquarecube
@@ -235,15 +235,15 @@ SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.pur
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-frost
 
 Package: com.purplesquarecube.theme.mono
-Version: 1.1.0
+Version: 1.2.0
 Architecture: iphoneos-arm
 Maintainer: purplesquarecube
 Depends: com.purplesquarecube.purplelink
-Filename: debs/com.purplesquarecube.theme.mono_1.1.0_iphoneos-arm.deb
-Size: 1820850
-MD5sum: 0442c7e0eacdb4a47894fa6bfbcb3218
-SHA1: b2de20092daee0f49e0d6d6dfb0b82a885f56a84
-SHA256: 1b1fab02b07a6d320579828a928ed8398db3f954fbc9550f951064977aa2d2e4
+Filename: debs/com.purplesquarecube.theme.mono_1.2.0_iphoneos-arm.deb
+Size: 1992078
+MD5sum: 97a3e6378c583da9e45cb55675bff5c8
+SHA1: 7be4e0bf7414f5c2f5880bbb10e761e90357c6c6
+SHA256: 8fb498b318e3896d54b92bfd267fd5a21ec7b9cd91fdf6b5b03959f98cad7495
 Section: Themes (Icons)
 Description: Near-black with thin white line art and a single colour dot. Needs Snowboard or Anemone.
 Author: purplesquarecube
@@ -253,15 +253,15 @@ SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.pur
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-mono
 
 Package: com.purplesquarecube.theme.neon
-Version: 1.1.0
+Version: 1.2.0
 Architecture: iphoneos-arm
 Maintainer: purplesquarecube
 Depends: com.purplesquarecube.purplelink
-Filename: debs/com.purplesquarecube.theme.neon_1.1.0_iphoneos-arm.deb
-Size: 2247202
-MD5sum: 7d947936bef77b86e6117b89e775a9a0
-SHA1: 312afaa2e2dc118cc35c77c0e187c8cb38d230e0
-SHA256: 6c7ac922b436dfe5903d163df5f95f707434322555f0209b14a0bef0b7075069
+Filename: debs/com.purplesquarecube.theme.neon_1.2.0_iphoneos-arm.deb
+Size: 2462090
+MD5sum: bebc8817731d9dd645cea687adf2258e
+SHA1: cee3667c757efe561489fe382f54e16ea73087b4
+SHA256: 1faf679e0441e362ed54489414ee348bccd2db409233450ea0e0b711d4f54918
 Section: Themes (Icons)
 Description: Glowing tube-light outlines on midnight blue. Needs Snowboard or Anemone.
 Author: purplesquarecube
@@ -271,15 +271,15 @@ SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.pur
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-neon
 
 Package: com.purplesquarecube.theme.paper
-Version: 1.1.0
+Version: 1.2.0
 Architecture: iphoneos-arm
 Maintainer: purplesquarecube
 Depends: com.purplesquarecube.purplelink
-Filename: debs/com.purplesquarecube.theme.paper_1.1.0_iphoneos-arm.deb
-Size: 2043066
-MD5sum: ac23ee1b8f985a62197156888dae3c03
-SHA1: d31463eded2beaa3607dc6f19b5890162e60b29c
-SHA256: 26549d6bdadbc81ac9d3b04f5c9a11bf663702782d7c361537ab14b4c035cc4d
+Filename: debs/com.purplesquarecube.theme.paper_1.2.0_iphoneos-arm.deb
+Size: 2235452
+MD5sum: 9f79aa38f8ca7dfa33a1e8675ef9ade5
+SHA1: f66d4a721d0855f68e2820393bcaf9e164c8b53b
+SHA256: 37d136565e989ebf2038c9b430a410eb93913d2f3024df0ae66263873842c449
 Section: Themes (Icons)
 Description: Warm cream stock with ink glyphs on an offset colour print. Needs Snowboard or Anemone.
 Author: purplesquarecube
@@ -289,15 +289,15 @@ SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.pur
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-paper
 
 Package: com.purplesquarecube.theme.violet
-Version: 1.1.0
+Version: 1.2.0
 Architecture: iphoneos-arm
 Maintainer: purplesquarecube
 Depends: com.purplesquarecube.purplelink
-Filename: debs/com.purplesquarecube.theme.violet_1.1.0_iphoneos-arm.deb
-Size: 2234988
-MD5sum: db840c52ea860863e126ac68206b5732
-SHA1: fc7c68bdf9197878c6b494a680f404e5998df181
-SHA256: efea9c7cfb2eb9a43c1a54a06fcda3c9a7571140af24b142a06a7dcff9d68cc9
+Filename: debs/com.purplesquarecube.theme.violet_1.2.0_iphoneos-arm.deb
+Size: 2448666
+MD5sum: 4a6f77feb639e288828f856aece31f9a
+SHA1: d980494a89ba74464f3be2d17e1b61092c7c80cf
+SHA256: f3ac716d1d7ff08a8c8cb1ea96bea8738fa43ba67d92aabfc3a2eeb2c279cbaa
 Section: Themes (Icons)
 Description: Deep violet squares with solid white glyphs. Needs Snowboard or Anemone.
 Author: purplesquarecube
@@ -323,4 +323,22 @@ Name: Tidy
 Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.tidy.png
 SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.tidy.json
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-tidy
+
+Package: com.purplesquarecube.umbra
+Version: 1.0.0
+Architecture: iphoneos-arm
+Maintainer: purplesquarecube
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.umbra_1.0.0_iphoneos-arm.deb
+Size: 27194
+MD5sum: d32a9cdaa473bff12886fb3387cabb37
+SHA1: a69f262bdc720bdf0dd35c9fd419b0812c1e0cce
+SHA256: e7f6b5eccfc3200112066960bb7d20d55261c889550056a7c766d06e1b128024
+Section: Tweaks
+Description: A dark mode for iOS 12. Makes app backgrounds dark using iOS's Smart Invert, one app at a time
+Author: purplesquarecube
+Name: Umbra
+Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.umbra.png
+SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.umbra.json
+Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-umbra
 

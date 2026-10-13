@@ -411,6 +411,11 @@ def g_badge(g):
     g.crescent((730, 300), 140, (730, 300), 48)
 
 
+def g_umbra(g):
+    g.d.pieslice((250, 250, 774, 774), 90, 270, fill=W)
+    g.circle((512, 512), 262, outline=W, w=40)
+
+
 def g_link(g):
     g.rr((200, 380, 600, 644), 132, outline=W, w=52)
     g.rr((424, 380, 824, 644), 132, outline=W, w=52)
@@ -428,6 +433,7 @@ TWEAK_STYLES = {
     "liquidglass":  ("#4DA3FF", "#6B4BFF", g_glass),
     "purplelink":   ("#8B5CF6", "#4C1D95", g_link),
     "dimmer":       ("#44496E", "#161A33", g_moon),
+    "umbra":        ("#3B3F5C", "#0E1020", g_umbra),
     "plugin":       ("#FFD60A", "#FF8A00", g_bolt),
     "sleeptimer":   ("#6E6CF0", "#2B2A8F", g_sleep),
     "badgecolor":   ("#FF6B8B", "#A81FA8", g_badge),

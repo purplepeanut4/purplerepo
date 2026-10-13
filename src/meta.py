@@ -54,6 +54,14 @@ TWEAKS = [
         where="Settings > Dimmer",
     ),
     dict(
+        key="umbra", id="com.purplesquarecube.umbra", name="Umbra", version="1.0.0",
+        tagline="A dark mode for iOS 12.",
+        desc="Makes app backgrounds dark using iOS's Smart Invert, one app at a time. Pictures and videos are left alone in most apps. It can run on a schedule, and the Home Screen can stay light.",
+        features=["Dark backgrounds in any app", "Pick which apps stay light", "Always on, or only during hours you choose",
+                  "Home Screen and system UI can stay normal"],
+        where="Settings > Umbra",
+    ),
+    dict(
         key="plugin", id="com.purplesquarecube.plugin", name="PlugIn", version="1.0.0",
         tagline="A little show when you plug in.",
         desc="A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug.",
@@ -113,23 +121,24 @@ THEMES = [
 ]
 for t in THEMES:
     t["id"] = "com.purplesquarecube.theme." + t["key"]
-    t["version"] = "1.1.0"
+    t["version"] = "1.2.0"
     t["tagline"] = t["desc"]
 
 THEME_FOOTNOTE = ("Icon themes for Snowboard or Anemone. They cover the stock Apple apps, Sileo, Zebra, Cydia, Filza and the "
-                  "Google apps (Chrome, Gmail, Maps, YouTube, Drive, Photos, Docs and more), plus Strava and Geometry Dash. "
+                  "Google apps (Chrome, Gmail, Maps, YouTube, Drive, Photos, Docs and more), plus Strava, Geometry Dash, NewTerm 2, "
+                  "iCleaner Pro, Amethyst, Delta and ReProvision. "
                   "Games, Google apps and fitness apps you install later, including 2-player games, get a matching icon "
                   "automatically through the small Purple Link helper.")
 
 HELPERS = [
-    dict(key="purplelink", id="com.purplesquarecube.purplelink", name="Purple Link", version="1.0.0",
+    dict(key="purplelink", id="com.purplesquarecube.purplelink", name="Purple Link", version="1.1.0",
          tagline="Icons for apps the themes don't list.",
          desc="A small helper installed with the themes. It looks at the apps on your phone and gives games, Google apps and fitness apps a matching theme icon, including 2-player games and anything you install later. It runs by itself when apps are added.",
          features=[], where=""),
 ]
 
 CHANGELOG_NEW = "1.0.0: first release."
-THEME_CHANGELOG = ("1.1.0: icons for the Google apps, Strava and Geometry Dash; popular games get their own icons; "
+THEME_CHANGELOG = ("1.2.0: icons for NewTerm 2, iCleaner Pro, Amethyst, Delta and ReProvision, including sideloaded copies (needs the updated Purple Link).\n\n1.1.0: icons for the Google apps, Strava and Geometry Dash; popular games get their own icons; "
                    "games, Google apps and fitness apps you install later (including 2-player games) are themed "
                    "automatically by the new Purple Link helper. Smaller download too.\n\n1.0.0: first release.")
 CHANGELOG = {
