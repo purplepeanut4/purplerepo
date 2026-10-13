@@ -315,6 +315,16 @@ class Glyph:
     def circle(self, c, r, fill=None, outline=None, w=0):
         self.d.ellipse((c[0] - r, c[1] - r, c[0] + r, c[1] + r), fill=fill, outline=outline, width=w)
 
+    def crescent(self, c1, r1, c2, r2, color=(255, 255, 255, 255)):
+        """Circle 1 with circle 2 cut out of it (a true see-through cut)."""
+        m = Image.new("L", (S, S), 0)
+        md = ImageDraw.Draw(m)
+        md.ellipse((c1[0] - r1, c1[1] - r1, c1[0] + r1, c1[1] + r1), fill=255)
+        md.ellipse((c2[0] - r2, c2[1] - r2, c2[0] + r2, c2[1] + r2), fill=0)
+        solid = Image.new("RGBA", (S, S), color)
+        solid.putalpha(m)
+        self.l.alpha_composite(solid)
+
 
 W = (255, 255, 255, 255)
 
@@ -382,6 +392,25 @@ def g_glass(g):
     g.rr((330, 640, 694, 678), 19, fill=(255, 255, 255, 120))
 
 
+def g_moon(g):
+    g.crescent((490, 530), 260, (625, 440), 225)
+
+
+def g_bolt(g):
+    g.d.polygon([(590, 190), (320, 570), (490, 570), (430, 840), (710, 440), (540, 440)], fill=W)
+
+
+def g_sleep(g):
+    g.crescent((420, 570), 200, (525, 500), 172)
+    for (x, y, sz) in ((640, 330, 70), (760, 230, 46)):
+        g.line([(x, y), (x + sz, y), (x, y + sz), (x + sz, y + sz)], max(16, sz // 4))
+
+
+def g_badge(g):
+    g.rr((230, 290, 730, 790), 120, outline=W, w=44)
+    g.crescent((730, 300), 140, (730, 300), 48)
+
+
 def g_link(g):
     g.rr((200, 380, 600, 644), 132, outline=W, w=52)
     g.rr((424, 380, 824, 644), 132, outline=W, w=52)
@@ -398,6 +427,10 @@ TWEAK_STYLES = {
     "launchfx":     ("#7C3AED", "#3B1480", g_launch),
     "liquidglass":  ("#4DA3FF", "#6B4BFF", g_glass),
     "purplelink":   ("#8B5CF6", "#4C1D95", g_link),
+    "dimmer":       ("#44496E", "#161A33", g_moon),
+    "plugin":       ("#FFD60A", "#FF8A00", g_bolt),
+    "sleeptimer":   ("#6E6CF0", "#2B2A8F", g_sleep),
+    "badgecolor":   ("#FF6B8B", "#A81FA8", g_badge),
 }
 
 

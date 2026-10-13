@@ -30,9 +30,13 @@ Pull down to refresh the source, then install.
 | **QuietHUD** | 1.0.0 | No more pop-ups. Hide the volume, brightness, ringer and rotation-lock pop-ups. The change still happens, you just don't see the overlay. | Settings > QuietHUD |
 | **TapFeel** | 1.0.0 | Icons that answer back. Play a sound and bounce the icon when you tap an app. Pick from six system sounds and set how bouncy it is. | Settings > TapFeel |
 | **BatteryLine** | 1.0.0 | A battery meter you can see in any app. A thin line along the top or bottom of the screen that shows your battery level on top of every app. Turns green while charging, orange under 50% and red under 20%. | Settings > BatteryLine |
+| **Dimmer** | 1.0.0 | Darker than dark. Dims the screen below the normal minimum and adds an optional warm tint, on top of everything. Handy at night. It can run on a schedule. | Settings > Dimmer |
+| **PlugIn** | 1.0.0 | A little show when you plug in. A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug. | Settings > PlugIn |
+| **SleepTimer** | 1.0.0 | Falls asleep before you do. Pick a time from 5 minutes to 2 hours and your music or video pauses when it ends. It can lock the device too. | Settings > SleepTimer |
+| **BadgeColor** | 1.0.0 | Badges in your colour. Recolor the red notification badges on your icons and make them bigger or smaller. | Settings > BadgeColor |
 | **AppTunes** | 2.0.0 | A different song in every app. Import your own MP3s and choose a song for each app. It plays while that app is open and stops when you leave. | Settings > AppTunes |
 | **LaunchFX** | 1.0.0 | 50 ways to open an app. Pick one of 50 opening effects (iris shapes, wipes, curtains, blinds, tile dissolves and more). Preview them right in Settings. | Settings > LaunchFX |
-| **Liquid Glass** | 1.1.0 | Clear glass for iOS 12. See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center. | Settings > Liquid Glass |
+| **Sheer** | 1.2.0 | Turns every blur into clear glass. Replaces frosted blur with see-through glass across iOS 12: Control Center, notifications, folders, the dock, the lock screen and the app switcher. Bright glass edges, a soft inner glow and a highlight that moves as you tilt the phone. | Settings > Sheer |
 
 Every tweak adds its own page to the Settings app (they depend on PreferenceLoader, which Sileo installs for you).
 

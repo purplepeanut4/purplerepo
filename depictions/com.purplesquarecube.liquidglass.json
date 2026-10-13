@@ -9,13 +9,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "Clear glass for iOS 12.",
+          "title": "Turns every blur into clear glass.",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.",
+          "markdown": "Replaces frosted blur with see-through glass across iOS 12: Control Center, notifications, folders, the dock, the lock screen and the app switcher. Bright glass edges, a soft inner glow and a highlight that moves as you tilt the phone.",
           "useSpacing": true
         },
         {
@@ -26,18 +26,18 @@
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "- Clear style: the system blur is faded out so panels are see-through (default)\n- Frosted style keeps the blur if you prefer it\n- Adjustable blur, edge glow, shine and tint\n- Dock, folders, panels and optional icons",
+          "markdown": "- Clears every blurred surface, including Control Center's full-screen background\n- Glass edges and a tilt-reactive highlight on panels, the dock and folders\n- Frosted style if you want the blur back\n- Adjustable blur, edge glow, shine and tint",
           "useSpacing": true
         },
         {
           "class": "DepictionTableTextView",
           "title": "Settings",
-          "text": "Settings \u203a Liquid Glass"
+          "text": "Settings \u203a Sheer"
         },
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "1.1.0"
+          "text": "1.2.0"
         },
         {
           "class": "DepictionTableTextView",
@@ -57,13 +57,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "1.1.0",
+          "title": "1.2.0",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
+          "markdown": "1.2.0: renamed from Liquid Glass to Sheer. New Clear Every Blur switch clears every blurred surface in SpringBoard, including Control Center's full-screen background, the lock screen, the app switcher and the dock.\n\n1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
           "useSpacing": true
         }
       ]

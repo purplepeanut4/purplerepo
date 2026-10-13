@@ -47,6 +47,34 @@ TWEAKS = [
         where="Settings > BatteryLine",
     ),
     dict(
+        key="dimmer", id="com.purplesquarecube.dimmer", name="Dimmer", version="1.0.0",
+        tagline="Darker than dark.",
+        desc="Dims the screen below the normal minimum and adds an optional warm tint, on top of everything. Handy at night. It can run on a schedule.",
+        features=["Extra dimming slider", "Warm tint slider", "Always on, or only during hours you choose"],
+        where="Settings > Dimmer",
+    ),
+    dict(
+        key="plugin", id="com.purplesquarecube.plugin", name="PlugIn", version="1.0.0",
+        tagline="A little show when you plug in.",
+        desc="A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug.",
+        features=["Sweep or pulse animation", "Six system sounds with a preview", "Optional on unplug", "Preview button"],
+        where="Settings > PlugIn",
+    ),
+    dict(
+        key="sleeptimer", id="com.purplesquarecube.sleeptimer", name="SleepTimer", version="1.0.0",
+        tagline="Falls asleep before you do.",
+        desc="Pick a time from 5 minutes to 2 hours and your music or video pauses when it ends. It can lock the device too.",
+        features=["5 minutes to 2 hours", "Pauses music, podcasts and video", "Optionally locks the device", "Shows when it will stop"],
+        where="Settings > SleepTimer",
+    ),
+    dict(
+        key="badgecolor", id="com.purplesquarecube.badgecolor", name="BadgeColor", version="1.0.0",
+        tagline="Badges in your colour.",
+        desc="Recolor the red notification badges on your icons and make them bigger or smaller.",
+        features=["Nine colours including the original red", "Adjustable size"],
+        where="Settings > BadgeColor",
+    ),
+    dict(
         key="apptunes", id="com.purplesquarecube.apptunes", name="AppTunes", version="2.0.0",
         tagline="A different song in every app.",
         desc="Import your own MP3s and choose a song for each app. It plays while that app is open and stops when you leave.",
@@ -61,13 +89,13 @@ TWEAKS = [
         where="Settings > LaunchFX", prebuilt=True,
     ),
     dict(
-        key="liquidglass", id="com.purplesquarecube.liquidglass", name="Liquid Glass", version="1.1.0",
-        tagline="Clear glass for iOS 12.",
-        desc="See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone. Works on the Dock, folders, notifications and Control Center.",
-        features=["Clear style: the system blur is faded out so panels are see-through (default)",
-                  "Frosted style keeps the blur if you prefer it", "Adjustable blur, edge glow, shine and tint",
-                  "Dock, folders, panels and optional icons"],
-        where="Settings > Liquid Glass",
+        key="liquidglass", id="com.purplesquarecube.liquidglass", name="Sheer", version="1.2.0",
+        tagline="Turns every blur into clear glass.",
+        desc="Replaces frosted blur with see-through glass across iOS 12: Control Center, notifications, folders, the dock, the lock screen and the app switcher. Bright glass edges, a soft inner glow and a highlight that moves as you tilt the phone.",
+        features=["Clears every blurred surface, including Control Center's full-screen background",
+                  "Glass edges and a tilt-reactive highlight on panels, the dock and folders",
+                  "Frosted style if you want the blur back", "Adjustable blur, edge glow, shine and tint"],
+        where="Settings > Sheer",
     ),
 ]
 
@@ -106,7 +134,7 @@ THEME_CHANGELOG = ("1.1.0: icons for the Google apps, Strava and Geometry Dash; 
                    "automatically by the new Purple Link helper. Smaller download too.\n\n1.0.0: first release.")
 CHANGELOG = {
     "com.purplesquarecube.apptunes": "2.0.0: rebuilt with a Settings page, song import and per-app songs.",
-    "com.purplesquarecube.liquidglass": "1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
+    "com.purplesquarecube.liquidglass": "1.2.0: renamed from Liquid Glass to Sheer. New Clear Every Blur switch clears every blurred surface in SpringBoard, including Control Center's full-screen background, the lock screen, the app switcher and the dock.\n\n1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
 }
 
 # Jailbreaks these packages are expected to run on. Exact iOS ranges change, so each entry points people

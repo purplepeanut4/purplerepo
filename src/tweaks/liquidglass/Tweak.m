@@ -1,8 +1,10 @@
-// Liquid Glass for iOS 12 - by purplesquarecube
+// Sheer (formerly Liquid Glass) for iOS 12 - by purplesquarecube
 //
 // Two styles:
 //   Clear   - the system blur is faded out so panels are see-through; only a glass
-//             edge, a faint inner glow and a tilt-reactive highlight remain.
+//             edge, a faint inner glow and a tilt-reactive highlight remain. With "All
+//             blurs" on, every blurred surface in SpringBoard is cleared, including
+//             Control Center's full-screen background, the lock screen and the dock.
 //   Frosted - keeps the system blur and adds the same edge, sheen and highlight.
 //
 // Applied to the Dock, open folders, notification and Control Center panels, and
@@ -17,7 +19,7 @@ static const char *kNotif = "com.purplesquarecube.liquidglass/prefsChanged";
 #pragma mark - Preferences
 
 typedef struct {
-    BOOL enabled, dock, folders, panels, icons, tilt;
+    BOOL enabled, dock, folders, panels, icons, tilt, all;
     CGFloat edge, shine, dockRadius, blur;
     int tint;    // 0 none, 1 light, 2 dark, 3 purple
     int style;   // 0 clear, 1 frosted
@@ -33,6 +35,7 @@ static void LGLoadPrefs(void) {
     P.panels     = PKBool(kDomain, @"panels", YES);
     P.icons      = PKBool(kDomain, @"icons", NO);
     P.tilt       = PKBool(kDomain, @"tilt", YES);
+    P.all        = PKBool(kDomain, @"all", YES);
     P.edge       = MAX(0, MIN(1, PKDouble(kDomain, @"edge", 0.8)));
     P.shine      = MAX(0, MIN(1, PKDouble(kDomain, @"shine", 0.45)));
     P.dockRadius = MAX(8, MIN(44, PKDouble(kDomain, @"dockRadius", 28)));
@@ -42,6 +45,7 @@ static void LGLoadPrefs(void) {
 }
 
 static BOOL LGClear(void) { return P.style == 0; }
+static BOOL LGClearAll(void) { return P.enabled && P.all && P.style == 0; }
 
 #pragma mark - The glass overlay
 
@@ -306,7 +310,7 @@ static void new_folder(id self, SEL _cmd) {
     LGDecorate(v, on, v.bounds, rad, P.tilt, nil);
 }
 
-// ---- Notification / Control Center / widget panels ----
+// ---- Notification / Control Center / widget panels (and every other material) ----
 static void (*orig_material)(id, SEL);
 static void new_material(id self, SEL _cmd) {
     orig_material(self, _cmd);
@@ -319,7 +323,8 @@ static void new_material(id self, SEL _cmd) {
     BOOL fullBleed = (s.width >= scr.width - 1 && s.height >= scr.height - 1);
     BOOL tiny = (s.width < 40 || s.height < 24);
     BOOL on = P.enabled && P.panels && !fullBleed && !tiny && rad >= 6 && v.window != nil;
-    BOOL clear = on && LGClear();
+    // glass edges only go on rounded panels; the blur itself is cleared everywhere when "all blurs" is on
+    BOOL clear = (on && LGClear()) || LGClearAll();
 
     // MTMaterialView builds its look from a backdrop view plus overlay views
     for (NSString *name in @[@"_backdropView", @"_baseOverlayView", @"_primaryOverlayView",
@@ -327,6 +332,27 @@ static void new_material(id self, SEL _cmd) {
         LGFade(PKIvar(v, name), clear, P.blur);
     }
     LGDecorate(v, on, v.bounds, rad, P.tilt, nil);
+}
+
+// ---- Any blur effect view (switcher, search, banners' backgrounds, lock screen...) ----
+static void (*orig_effect)(id, SEL);
+static void new_effect(id self, SEL _cmd) {
+    orig_effect(self, _cmd);
+    UIVisualEffectView *v = self;
+    // leave vibrancy effects alone; those carry the text and icons that sit on a blur
+    BOOL isBlur = [v.effect isKindOfClass:[UIBlurEffect class]];
+    LGFade(v, isBlur && LGClearAll(), P.blur);
+}
+
+// ---- Wallpaper blur (dock, lock screen, home screen backdrops) ----
+static void (*orig_wall)(id, SEL);
+static void new_wall(id self, SEL _cmd) {
+    orig_wall(self, _cmd);
+    BOOL clear = LGClearAll();
+    for (NSString *name in @[@"_blurView", @"_grayscaleTintView", @"_colorTintView", @"_transitionBlurView",
+                              @"_transitionGrayscaleTintView", @"_transitionColorTintView"]) {
+        LGFade(PKIvar(self, name), clear, P.blur);
+    }
 }
 
 // ---- App icons (optional) ----
@@ -356,6 +382,8 @@ static void LGInit(void) {
         PKHook("SBFolderBackgroundView", lay, (IMP)new_folder, (IMP *)&orig_folder);
         PKHook("MTMaterialView", lay, (IMP)new_material, (IMP *)&orig_material);
         PKHook("SBIconImageView", lay, (IMP)new_icon, (IMP *)&orig_icon);
+        PKHook("UIVisualEffectView", lay, (IMP)new_effect, (IMP *)&orig_effect);
+        PKHook("SBWallpaperEffectView", lay, (IMP)new_wall, (IMP *)&orig_wall);
         dispatch_async(dispatch_get_main_queue(), ^{
             PKOnNotify(kNotif, ^{ LGRefreshAll(); });
         });

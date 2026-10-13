@@ -485,7 +485,7 @@ def copy_source():
     for f in ("art.py", "themes.py", "build.py", "assemble.py", "meta.py"):
         shutil.copy(f"{ROOT}/{f}", dst)
     shutil.copytree(f"{ROOT}/common", f"{dst}/common")
-    for k in ("tidy", "taplock", "quiethud", "tapfeel", "batteryline", "liquidglass"):
+    for k in ("tidy", "taplock", "quiethud", "tapfeel", "batteryline", "liquidglass", "dimmer", "plugin", "sleeptimer", "badgecolor"):
         shutil.copytree(f"{ROOT}/tweaks/{k}", f"{dst}/tweaks/{k}")
     # the three earlier tweaks
     older = {

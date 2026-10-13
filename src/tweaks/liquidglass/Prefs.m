@@ -1,4 +1,4 @@
-// Liquid Glass Settings pane - by purplesquarecube
+// Sheer Settings pane - by purplesquarecube
 #import "PKPrefs.h"
 
 static NSString *const kDomain = @"com.purplesquarecube.liquidglass";
@@ -12,12 +12,14 @@ static NSString *const kNotif  = @"com.purplesquarecube.liquidglass/prefsChanged
     if (_specifiers) return _specifiers;
     NSMutableArray *s = [NSMutableArray array];
 
-    [s addObject:PKGroup(@"Liquid Glass", @"Changes apply instantly.")];
+    [s addObject:PKGroup(@"Sheer", @"Turns frosted blur into clear glass. Changes apply instantly.")];
     [s addObject:PKSwitch(self, kDomain, kNotif, @"Enabled", @"enabled", YES)];
 
     [s addObject:PKGroup(@"Style", @"Clear fades out the system blur so you can see straight through. Frosted keeps it.")];
     [s addObject:PKList(self, kDomain, kNotif, @"Glass", @"style", @0, @[@0, @1], @[@"Clear", @"Frosted"])];
+    [s addObject:PKSwitch(self, kDomain, kNotif, @"Clear Every Blur", @"all", YES)];
     [s addObject:PKSlider(self, kDomain, kNotif, @"Blur Left Behind (Clear)", @"blur", 0.12, 0, 1)];
+    [s addObject:PKGroup(nil, @"Clear Every Blur also clears the full-screen blurs: Control Center's background, the lock screen, the app switcher and the dock. Turn it off to clear only the panels listed below.")];
 
     [s addObject:PKGroup(@"Apply Glass To", @"If something looks wrong, turn that one off.")];
     [s addObject:PKSwitch(self, kDomain, kNotif, @"Dock", @"dock", YES)];

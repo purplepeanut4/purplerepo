@@ -18,6 +18,24 @@ Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.a
 SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.apptunes.json
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-apptunes
 
+Package: com.purplesquarecube.badgecolor
+Version: 1.0.0
+Architecture: iphoneos-arm
+Maintainer: purplesquarecube
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.badgecolor_1.0.0_iphoneos-arm.deb
+Size: 24816
+MD5sum: d1af1af598b2defd321b91a7a61d074b
+SHA1: 86db7354c49e587461065f3f2ded73d9900c97ea
+SHA256: 10d9693b57d152767fcd799641037bd13640aa54c127d4311d8830639ac9a6bd
+Section: Tweaks
+Description: Badges in your colour. Recolor the red notification badges on your icons and make them bigger or smaller.
+Author: purplesquarecube
+Name: BadgeColor
+Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.badgecolor.png
+SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.badgecolor.json
+Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-badgecolor
+
 Package: com.purplesquarecube.batteryline
 Version: 1.0.0
 Architecture: iphoneos-arm
@@ -35,6 +53,24 @@ Name: BatteryLine
 Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.batteryline.png
 SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.batteryline.json
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-batteryline
+
+Package: com.purplesquarecube.dimmer
+Version: 1.0.0
+Architecture: iphoneos-arm
+Maintainer: purplesquarecube
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.dimmer_1.0.0_iphoneos-arm.deb
+Size: 24070
+MD5sum: 347d71d2af62bc9c310a858bd9303a32
+SHA1: 7b11257f73217ea73cf9badff066f69127383adb
+SHA256: 7b7001001df4d14bd04c948b5c2f92d896b7cfae5036b5be6b5336cb3c2fb5f0
+Section: Tweaks
+Description: Darker than dark. Dims the screen below the normal minimum and adds an optional warm tint, on top of everything
+Author: purplesquarecube
+Name: Dimmer
+Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.dimmer.png
+SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.dimmer.json
+Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-dimmer
 
 Package: com.purplesquarecube.launchfx
 Version: 1.0.0
@@ -55,22 +91,40 @@ SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.pur
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-launchfx
 
 Package: com.purplesquarecube.liquidglass
-Version: 1.1.0
+Version: 1.2.0
 Architecture: iphoneos-arm
 Maintainer: purplesquarecube
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.liquidglass_1.1.0_iphoneos-arm.deb
-Size: 33878
-MD5sum: 0718b16332dafe1db085b66ea5e78484
-SHA1: 621a68c2c27aecdf1c4454849547ebeb5dfc9022
-SHA256: bb86b67ca6153910fc874fffaf5a315d3f763f95948459a0d1cf7010cd8c11e7
+Filename: debs/com.purplesquarecube.liquidglass_1.2.0_iphoneos-arm.deb
+Size: 34704
+MD5sum: f37412ed12619db8ca23767ac95998a6
+SHA1: 751c1bb0d7db55176b9ada19ab8c68e798b053ae
+SHA256: fa419d13a4091ebb081e77df38ed9dc248d1ebbb60c1283c220ba552549d78ad
 Section: Tweaks
-Description: Clear glass for iOS 12. See-through glass panels with a bright edge, a faint inner glow and a highlight that moves as you tilt the phone
+Description: Turns every blur into clear glass. Replaces frosted blur with see-through glass across iOS 12: Control Center, notifications, folders, the dock, the lock screen and the app switcher
 Author: purplesquarecube
-Name: Liquid Glass
+Name: Sheer
 Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.liquidglass.png
 SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.liquidglass.json
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-liquidglass
+
+Package: com.purplesquarecube.plugin
+Version: 1.0.0
+Architecture: iphoneos-arm
+Maintainer: purplesquarecube
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.plugin_1.0.0_iphoneos-arm.deb
+Size: 24646
+MD5sum: ae4102abc47e5e2e83077f8191b837ed
+SHA1: 698f81383709efdee1890e67958c747a3943cf66
+SHA256: 9570656ec8f96d3edfe54e0b3321baa9ea1b8536983ac3608be7666ad51c8e26
+Section: Tweaks
+Description: A little show when you plug in. A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug.
+Author: purplesquarecube
+Name: PlugIn
+Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.plugin.png
+SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.plugin.json
+Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-plugin
 
 Package: com.purplesquarecube.purplelink
 Version: 1.0.0
@@ -107,6 +161,24 @@ Name: QuietHUD
 Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.quiethud.png
 SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.quiethud.json
 Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-quiethud
+
+Package: com.purplesquarecube.sleeptimer
+Version: 1.0.0
+Architecture: iphoneos-arm
+Maintainer: purplesquarecube
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.sleeptimer_1.0.0_iphoneos-arm.deb
+Size: 24706
+MD5sum: c9e6acafe6426a99b721b1c13099e62b
+SHA1: a6362fe2afa47f5027a99f39d834c838512497c2
+SHA256: 14fe27eeaf6681c66959aacb5d76f5b484925fa40afde24f658b188f61fc30d3
+Section: Tweaks
+Description: Falls asleep before you do. Pick a time from 5 minutes to 2 hours and your music or video pauses when it ends
+Author: purplesquarecube
+Name: SleepTimer
+Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.sleeptimer.png
+SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.sleeptimer.json
+Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-sleeptimer
 
 Package: com.purplesquarecube.tapfeel
 Version: 1.0.0
