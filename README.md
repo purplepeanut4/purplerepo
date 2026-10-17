@@ -35,8 +35,13 @@ Pull down to refresh the source, then install.
 | **PlugIn** | 1.0.0 | A little show when you plug in. A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug. | Settings > PlugIn |
 | **SleepTimer** | 1.0.0 | Falls asleep before you do. Pick a time from 5 minutes to 2 hours and your music or video pauses when it ends. It can lock the device too. | Settings > SleepTimer |
 | **BadgeColor** | 1.0.0 | Badges in your colour. Recolor the red notification badges on your icons and make them bigger or smaller. | Settings > BadgeColor |
-| **AppTunes** | 2.0.0 | A different song in every app. Import your own MP3s and choose a song for each app. It plays while that app is open and stops when you leave. | Settings > AppTunes |
-| **LaunchFX** | 1.0.0 | 50 ways to open an app. Pick one of 50 opening effects (iris shapes, wipes, curtains, blinds, tile dissolves and more). Preview them right in Settings. | Settings > LaunchFX |
+| **FineVolume** | 1.0.0 | Volume, in smaller steps. Each press of a volume button changes the volume by less, so you can land on exactly the level you want. Set the step anywhere from a tenth to the normal size. | Settings > FineVolume |
+| **WakeUp** | 1.0.0 | Wakes the screen when you plug in. Lights up the screen when you connect or disconnect a charger, so you can see right away that it's charging. | Settings > WakeUp |
+| **IconStyle** | 1.0.0 | Icons with depth. Adds a soft shadow, or a coloured glow, under your app icons, and lets you make the icon pictures bigger or smaller. | Settings > IconStyle |
+| **BatteryAlert** | 1.0.0 | Know when to unplug. Shows a notice and plays a sound when your battery reaches the level you charge to, or when it runs low. | Settings > BatteryAlert |
+| **Breather** | 1.0.0 | A nudge to take a break. Counts the time you spend on your phone and reminds you to take a short break. The count starts over once the phone has been locked for five minutes. | Settings > Breather |
+| **AppTunes** | 2.0.1 | A different song in every app. Import your own MP3s and choose a song for each app. It plays while that app is open and stops when you leave. | Settings > AppTunes |
+| **LaunchFX** | 1.0.1 | 50 ways to open an app. Pick one of 50 opening effects (iris shapes, wipes, curtains, blinds, tile dissolves and more). Preview them right in Settings. | Settings > LaunchFX |
 | **Sheer** | 1.2.0 | Turns every blur into clear glass. Replaces frosted blur with see-through glass across iOS 12: Control Center, notifications, folders, the dock, the lock screen and the app switcher. Bright glass edges, a soft inner glow and a highlight that moves as you tilt the phone. | Settings > Sheer |
 
 Every tweak adds its own page to the Settings app (they depend on PreferenceLoader, which Sileo installs for you).
@@ -73,6 +78,31 @@ Glowing tube-light outlines on midnight blue.
 Frosted pale glass with tinted, softly lit glyphs.
 
 ![Frost](assets/theme-frost.png)
+
+### Sunset
+Warm orange-to-purple dusk with a low sun and white glyphs.
+
+![Sunset](assets/theme-sunset.png)
+
+### Phosphor
+Green terminal glow with scanlines on black.
+
+![Phosphor](assets/theme-phosphor.png)
+
+### Blueprint
+White line drawings on blue graph paper.
+
+![Blueprint](assets/theme-blueprint.png)
+
+### Pixel
+Chunky 8-bit glyphs on a dark pixel grid.
+
+![Pixel](assets/theme-pixel.png)
+
+### Doodle
+Flat colour, wobbly marker outlines and a little pair of eyes.
+
+![Doodle](assets/theme-doodle.png)
 
 ## Works with
 

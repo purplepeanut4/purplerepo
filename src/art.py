@@ -1,7 +1,7 @@
 """Drawing toolkit for purplerepo: logo, tweak icons. Pure PIL + numpy."""
 import math
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
 S = 1024  # working resolution
 
@@ -345,14 +345,14 @@ def g_taplock(g):
     g.line([(352, 430), (352, 520)], 64)
     g.line([(672, 430), (672, 520)], 64)
     g.rr((282, 470, 742, 800), 70, fill=W)
-    g.circle((512, 600), 46, fill=g.bg + (255,))
-    g.rr((492, 610, 532, 710), 18, fill=g.bg + (255,))
+    g.circle((512, 600), 46, fill=(0, 0, 0, 0))
+    g.rr((492, 610, 532, 710), 18, fill=(0, 0, 0, 0))
 
 
 def g_quiet(g):
     sp = [(260, 420), (390, 420), (560, 270), (560, 754), (390, 604), (260, 604)]
     g.d.polygon(sp, fill=W)
-    g.line([(250, 230), (790, 794)], 120, fill=g.bg + (255,))
+    g.line([(250, 230), (790, 794)], 124, fill=(0, 0, 0, 0))
     g.line([(250, 230), (790, 794)], 62, fill=W)
 
 
@@ -416,6 +416,40 @@ def g_umbra(g):
     g.circle((512, 512), 262, outline=W, w=40)
 
 
+def g_finevol(g):
+    g.d.polygon([(200, 410), (320, 410), (460, 290), (460, 734), (320, 614), (200, 614)], fill=W)
+    for i, h in enumerate((55, 105, 165, 235)):
+        x = 540 + i * 78
+        g.rr((x, 512 - h, x + 42, 512 + h), 21, fill=W)
+
+
+def g_wake(g):
+    g.rr((350, 270, 674, 800), 70, outline=W, w=44)
+    g.rr((392, 330, 632, 740), 34, fill=(255, 255, 255, 80))
+    for (a, b) in (((512, 110), (512, 190)), ((372, 150), (415, 215)), ((652, 150), (609, 215))):
+        g.line([a, b], 34)
+
+
+def g_iconstyle(g):
+    g.rr((380, 340, 790, 750), 124, fill=(255, 255, 255, 85))
+    g.rr((250, 230, 660, 640), 124, fill=W)
+
+
+def g_bell(g):
+    g.d.ellipse((330, 250, 694, 614), fill=W)
+    g.d.polygon([(330, 430), (694, 430), (790, 700), (234, 700)], fill=W)
+    g.rr((212, 680, 812, 756), 38, fill=W)
+    g.circle((512, 835), 56, fill=W)
+    g.circle((512, 226), 36, fill=W)
+
+
+def g_cup(g):
+    g.d.polygon([(250, 440), (690, 440), (640, 790), (300, 790)], fill=W)
+    g.circle((722, 590), 92, outline=W, w=46)
+    for x in (360, 470, 580):
+        g.line([(x, 370), (x + 26, 310), (x, 250)], 30)
+
+
 def g_link(g):
     g.rr((200, 380, 600, 644), 132, outline=W, w=52)
     g.rr((424, 380, 824, 644), 132, outline=W, w=52)
@@ -434,22 +468,193 @@ TWEAK_STYLES = {
     "purplelink":   ("#8B5CF6", "#4C1D95", g_link),
     "dimmer":       ("#44496E", "#161A33", g_moon),
     "umbra":        ("#3B3F5C", "#0E1020", g_umbra),
+    "finevolume":   ("#2FB5E8", "#1457B8", g_finevol),
+    "wakeup":       ("#FFB347", "#E8590C", g_wake),
+    "iconstyle":    ("#F06292", "#7B2FF7", g_iconstyle),
+    "batteryalert": ("#FF7A59", "#C2185B", g_bell),
+    "breather":     ("#45C4A0", "#157A8C", g_cup),
     "plugin":       ("#FFD60A", "#FF8A00", g_bolt),
     "sleeptimer":   ("#6E6CF0", "#2B2A8F", g_sleep),
     "badgecolor":   ("#FF6B8B", "#A81FA8", g_badge),
 }
 
 
+
+# ---------------------------------------------------------------- richer package icons
+def _ring(layer, c, r, w, a=40):
+    ImageDraw.Draw(layer).ellipse((c[0] - r, c[1] - r, c[0] + r, c[1] + r), outline=(255, 255, 255, a), width=w)
+
+
+def _spark(layer, c, r, a=170):
+    d = ImageDraw.Draw(layer)
+    d.polygon([(c[0], c[1] - r), (c[0] + r * 0.22, c[1] - r * 0.22), (c[0] + r, c[1]), (c[0] + r * 0.22, c[1] + r * 0.22),
+               (c[0], c[1] + r), (c[0] - r * 0.22, c[1] + r * 0.22), (c[0] - r, c[1]), (c[0] - r * 0.22, c[1] - r * 0.22)],
+              fill=(255, 255, 255, a))
+
+
+def _dots(layer, n, seed, box, rmin, rmax, a=60):
+    rng = np.random.default_rng(seed)
+    d = ImageDraw.Draw(layer)
+    for _ in range(n):
+        x = rng.uniform(box[0], box[2]); y = rng.uniform(box[1], box[3]); r = rng.uniform(rmin, rmax)
+        d.ellipse((x - r, y - r, x + r, y + r), fill=(255, 255, 255, int(a * rng.uniform(0.5, 1))))
+
+
+def _tiles(layer, cols, rows, box, gap, a=26, rad=36):
+    d = ImageDraw.Draw(layer)
+    w = (box[2] - box[0] - gap * (cols - 1)) / cols
+    h = (box[3] - box[1] - gap * (rows - 1)) / rows
+    for r in range(rows):
+        for c in range(cols):
+            x = box[0] + c * (w + gap); y = box[1] + r * (h + gap)
+            d.rounded_rectangle((x, y, x + w, y + h), rad, fill=(255, 255, 255, a))
+
+
+def _phone_ghost(layer, a=34):
+    d = ImageDraw.Draw(layer)
+    d.rounded_rectangle((300, 130, 724, 900), 78, outline=(255, 255, 255, a), width=16)
+
+
+def _beams(layer, c, n, r0, r1, a=36, w=14, rot=0):
+    d = ImageDraw.Draw(layer)
+    for i in range(n):
+        t = math.radians(rot + i * 360 / n)
+        d.line([(c[0] + r0 * math.cos(t), c[1] + r0 * math.sin(t)), (c[0] + r1 * math.cos(t), c[1] + r1 * math.sin(t))],
+               fill=(255, 255, 255, a), width=w)
+
+
+def _x_tidy(L):    _tiles(L, 4, 4, (110, 110, 914, 914), 34, 22, 46)
+def _x_taplock(L): [ _ring(L, (512, 600), r, 12, a) for r, a in ((330, 40), (440, 28), (550, 18)) ]
+def _x_quiet(L):
+    for r, a in ((300, 42), (400, 30), (500, 20)):
+        ImageDraw.Draw(L).arc((512 - r, 512 - r, 512 + r, 512 + r), -35, 35, fill=(255, 255, 255, a), width=14)
+    ImageDraw.Draw(L).rounded_rectangle((300, 90, 724, 160), 35, fill=(255, 255, 255, 34))
+def _x_tapfeel(L): _dots(L, 14, 3, (120, 120, 904, 904), 6, 14, 70); _ring(L, (512, 512), 440, 10, 22)
+def _x_battery(L):
+    _phone_ghost(L)
+    ImageDraw.Draw(L).rounded_rectangle((330, 160, 694, 178), 9, fill=(255, 255, 255, 120))
+    _spark(L, (700, 130), 34, 150)
+def _x_dimmer(L):   _dots(L, 26, 8, (60, 60, 964, 560), 3, 9, 110); _spark(L, (770, 210), 44, 190); _spark(L, (210, 330), 26, 150)
+def _x_umbra(L):
+    d = ImageDraw.Draw(L)
+    d.rectangle((0, 0, 512, S), fill=(0, 0, 0, 62))
+    for x in range(40, 512, 56): d.line([(x, 0), (x - 280, S)], fill=(255, 255, 255, 10), width=8)
+def _x_plugin(L):   _beams(L, (512, 520), 16, 330, 470, 34, 14); _dots(L, 12, 5, (100, 100, 924, 924), 4, 10, 90)
+def _x_sleep(L):    _dots(L, 22, 12, (60, 60, 964, 520), 3, 8, 100); _spark(L, (800, 250), 40, 170); _ring(L, (512, 512), 430, 10, 26)
+def _x_badge(L):
+    d = ImageDraw.Draw(L)
+    for (x, y, r, a) in ((200, 250, 70, 70), (840, 760, 84, 60), (170, 770, 46, 60), (850, 220, 40, 50)):
+        d.ellipse((x - r, y - r, x + r, y + r), fill=(255, 255, 255, a))
+def _x_sheer(L):
+    d = ImageDraw.Draw(L)
+    for (b, a) in (((120, 170, 760, 640), 26), ((260, 360, 910, 860), 34)):
+        d.rounded_rectangle(b, 96, fill=(255, 255, 255, a), outline=(255, 255, 255, 80), width=8)
+    _spark(L, (760, 200), 36, 160)
+def _x_apptunes(L):
+    d = ImageDraw.Draw(L)
+    for i, h in enumerate((120, 210, 300, 170, 250, 140, 200)):
+        x = 130 + i * 112
+        d.rounded_rectangle((x, 900 - h, x + 62, 900), 30, fill=(255, 255, 255, 36))
+def _x_launch(L):   [ _ring(L, (512, 512), r, 10, a) for r, a in ((390, 34), (470, 22)) ]; _beams(L, (512, 512), 24, 420, 500, 30, 10)
+def _x_link(L):     _dots(L, 18, 21, (80, 80, 944, 944), 6, 14, 70)
+def _x_finevol(L):
+    d = ImageDraw.Draw(L)
+    for i in range(24): d.line([(120 + i * 35, 880), (120 + i * 35, 880 - (30 if i % 4 else 56))], fill=(255, 255, 255, 70), width=8)
+def _x_wake(L):     _beams(L, (512, 250), 11, 230, 330, 40, 12, -190)
+def _x_iconstyle(L): _tiles(L, 3, 3, (110, 560, 914, 930), 30, 24, 40)
+def _x_bell(L):     _ring(L, (512, 510), 400, 10, 30); _ring(L, (512, 510), 500, 8, 18); _spark(L, (800, 230), 34, 160)
+def _x_cup(L):      _dots(L, 14, 33, (200, 80, 840, 380), 5, 11, 70)
+
+EXTRAS = {
+    "tidy": _x_tidy, "taplock": _x_taplock, "quiethud": _x_quiet, "tapfeel": _x_tapfeel, "batteryline": _x_battery,
+    "dimmer": _x_dimmer, "umbra": _x_umbra, "plugin": _x_plugin, "sleeptimer": _x_sleep, "badgecolor": _x_badge,
+    "liquidglass": _x_sheer, "apptunes": _x_apptunes, "launchfx": _x_launch, "purplelink": _x_link,
+    "finevolume": _x_finevol, "wakeup": _x_wake, "iconstyle": _x_iconstyle, "batteryalert": _x_bell, "breather": _x_cup,
+}
+
+
+def material_glyph(mask, c_light, c_dark):
+    """Turn a flat glyph mask into a glossy, beveled object: gradient body, inner shadow, rim highlight, aura."""
+    body = lin_grad((S, S), c_light, c_dark, 90)
+    body.putalpha(mask)
+    out = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+
+    aura = Image.new("RGBA", (S, S), c_light + (0,))
+    aura.putalpha(mask.filter(ImageFilter.GaussianBlur(46)).point(lambda v: int(v * 0.55)))
+    out.alpha_composite(aura)
+    out.alpha_composite(shadow(body, offset=(0, 22), blur=22, opacity=0.38, color=(0, 0, 20)))
+    out.alpha_composite(body)
+
+    # inner shadow along the lower edges
+    low = ImageChops.subtract(mask, ImageChops.offset(mask, 0, -16)).filter(ImageFilter.GaussianBlur(9))
+    low = ImageChops.multiply(low, mask).point(lambda v: int(v * 0.55))
+    sh = Image.new("RGBA", (S, S), tuple(int(c * 0.35) for c in c_dark) + (0,))
+    sh.putalpha(low)
+    out.alpha_composite(sh)
+
+    # bright rim along the upper edges
+    top = ImageChops.subtract(mask, ImageChops.offset(mask, 0, 12)).filter(ImageFilter.GaussianBlur(3))
+    top = ImageChops.multiply(top, mask)
+    rim = Image.new("RGBA", (S, S), (255, 255, 255, 0))
+    rim.putalpha(top.point(lambda v: int(min(255, v * 1.4))))
+    out.alpha_composite(rim)
+
+    # soft glossy reflection across the top half of the glyph
+    gloss = Image.new("L", (S, S), 0)
+    ImageDraw.Draw(gloss).ellipse((-S * 0.2, -S * 0.9, S * 1.2, S * 0.55), fill=70)
+    gloss = ImageChops.multiply(gloss.filter(ImageFilter.GaussianBlur(14)), mask)
+    gl = Image.new("RGBA", (S, S), (255, 255, 255, 0))
+    gl.putalpha(gloss)
+    out.alpha_composite(gl)
+    return out
+
+
+def rich_background(c1, c2, seed):
+    bg = lin_grad((S, S), hexc(c1), hexc(c2), 125)
+    lighter = tuple(min(255, int(v * 1.35 + 30)) for v in hexc(c1))
+    bg.alpha_composite(radial_glow((S, S), (S * 0.26, S * 0.12), S * 0.95, lighter, 0.55))
+    bg.alpha_composite(radial_glow((S, S), (S * 0.92, S * 1.0), S * 0.70, tuple(int(v * 0.5) for v in hexc(c2)), 0.55))
+    # big soft bokeh discs for depth
+    rng = np.random.default_rng(seed)
+    bok = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    bd = ImageDraw.Draw(bok)
+    for _ in range(7):
+        x, y, r = rng.uniform(0, S), rng.uniform(0, S), rng.uniform(70, 210)
+        bd.ellipse((x - r, y - r, x + r, y + r), fill=(255, 255, 255, int(rng.uniform(10, 26))))
+    bg.alpha_composite(bok.filter(ImageFilter.GaussianBlur(10)))
+    return grain(bg, 5, seed=seed % 997)
+
+
 def tweak_icon(key, size=1024, rounded=False):
     c1, c2, fn = TWEAK_STYLES[key]
-    bg = lin_grad((S, S), hexc(c1), hexc(c2), 125)
-    bg.alpha_composite(radial_glow((S, S), (S * 0.30, S * 0.18), S * 0.75, (255, 255, 255), 0.20))
-    bg = grain(bg, 5, seed=hash(key) % 1000)
-    darkest = tuple(int(v * 0.72) for v in hexc(c2))
+    seed = sum(ord(ch) for ch in key) * 7
+    bg = rich_background(c1, c2, seed)
+
+    extras = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    if key in EXTRAS:
+        EXTRAS[key](extras)
+    bg.alpha_composite(extras)
+
+    darkest = tuple(int(v * 0.62) for v in hexc(c2))
     g = Glyph(bgdark=darkest)
     fn(g)
-    bg.alpha_composite(shadow(g.l, offset=(0, 16), blur=16, opacity=0.28, color=(0, 0, 0)))
-    bg.alpha_composite(g.l)
+    mask = g.l.split()[3]
+    soft = lin_grad((S, S), (255, 255, 255), (214, 222, 255), 90)
+    soft.putalpha(g.l.split()[3])
+    # keep the glyph's own translucent parts (alpha < 255) translucent
+    mat = material_glyph(mask, (255, 255, 255), tuple(min(255, int(v * 0.25 + 190)) for v in hexc(c1)))
+    bg.alpha_composite(mat)
+
+    # glass sheen across the upper part of the tile + thin inner edge light
+    sheen = Image.new("L", (S, S), 0)
+    ImageDraw.Draw(sheen).ellipse((-S * 0.35, -S * 0.95, S * 1.35, S * 0.52), fill=44)
+    sh = Image.new("RGBA", (S, S), (255, 255, 255, 0))
+    sh.putalpha(sheen.filter(ImageFilter.GaussianBlur(6)))
+    bg.alpha_composite(sh)
+    edge = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    ImageDraw.Draw(edge).rounded_rectangle((10, 10, S - 11, S - 11), 210, outline=(255, 255, 255, 46), width=8)
+    bg.alpha_composite(edge)
+
     out = bg.resize((size, size), Image.LANCZOS)
     return squircle(out) if rounded else out.convert("RGB")
 

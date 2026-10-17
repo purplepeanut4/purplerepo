@@ -763,6 +763,142 @@ def style_frost(idx, accent, gm):
     return bg
 
 
+
+def _vignette(img, strength=0.55):
+    ys, xs = np.mgrid[0:S, 0:S].astype(np.float32)
+    d = np.sqrt(((xs - S / 2) / (S / 2)) ** 2 + ((ys - S / 2) / (S / 2)) ** 2)
+    a = np.clip((d - 0.55) / 0.9, 0, 1) ** 1.6 * strength
+    layer = np.zeros((S, S, 4), np.uint8)
+    layer[..., 3] = (a * 255).astype(np.uint8)
+    img.alpha_composite(Image.fromarray(layer, "RGBA"))
+
+
+def style_sunset(idx, accent, gm):
+    shift = ((idx % 5) - 2) * 4
+    c1 = _hue_shift(hexc("#FF9F43"), shift)
+    c2 = _hue_shift(hexc("#6B2BB5"), shift)
+    bg = lin_grad((S, S), c1, c2, 100)
+    bg.alpha_composite(radial_glow((S, S), (S * 0.5, S * 0.9), S * 0.85, (255, 64, 120), 0.6))
+    sun = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(sun)
+    sd.ellipse((S * 0.5 - 330, S * 0.9 - 330, S * 0.5 + 330, S * 0.9 + 330), fill=(255, 226, 160, 120))
+    for k, y in enumerate(range(int(S * 0.80), S, 34)):          # retro bands across the lower sun
+        sd.rectangle((0, y, S, y + 8 + k * 2), fill=(0, 0, 0, 0))
+    bg.alpha_composite(sun.filter(ImageFilter.GaussianBlur(5)))
+    bg = grain(bg, 5, seed=idx)
+    m = gm.fill_mask()
+    g = colorize(m, (255, 255, 255))
+    bg.alpha_composite(shadow(g, (0, 18), 18, 0.32, (60, 0, 70)))
+    bg.alpha_composite(g)
+    return bg
+
+
+def style_phosphor(idx, accent, gm):
+    bg = lin_grad((S, S), hexc("#06210F"), hexc("#010603"), 100)
+    bg = grain(bg, 4, seed=idx)
+    m = gm.stroke_mask()
+    green = (66, 255, 128)
+    bg.alpha_composite(colorize(m.filter(ImageFilter.GaussianBlur(44)).point(lambda v: min(255, int(v * 1.5))), green + (170,)))
+    bg.alpha_composite(colorize(m.filter(ImageFilter.GaussianBlur(14)).point(lambda v: min(255, int(v * 1.3))), green + (255,)))
+    bg.alpha_composite(colorize(ImageChops.offset(m, -7, 0), (255, 70, 70, 70)))      # slight colour fringing
+    bg.alpha_composite(colorize(ImageChops.offset(m, 7, 0), (70, 130, 255, 70)))
+    bg.alpha_composite(colorize(m, (190, 255, 210)))
+    sc = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(sc)
+    for y in range(0, S, 10):                                                           # CRT scanlines
+        sd.line([(0, y), (S, y)], fill=(0, 0, 0, 58), width=4)
+    bg.alpha_composite(sc)
+    _vignette(bg, 0.7)
+    return bg
+
+
+def style_blueprint(idx, accent, gm):
+    bg = lin_grad((S, S), hexc("#3170C8"), hexc("#103262"), 120)
+    bg = grain(bg, 4, seed=idx)
+    gl = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    gd = ImageDraw.Draw(gl)
+    for x in range(0, S, 64):
+        gd.line([(x, 0), (x, S)], fill=(255, 255, 255, 58 if x % 256 == 0 else 24), width=4 if x % 256 == 0 else 2)
+        gd.line([(0, x), (S, x)], fill=(255, 255, 255, 58 if x % 256 == 0 else 24), width=4 if x % 256 == 0 else 2)
+    for (x, y) in ((70, 70), (S - 70, 70), (70, S - 70), (S - 70, S - 70)):            # registration crosses
+        gd.line([(x - 26, y), (x + 26, y)], fill=(255, 255, 255, 120), width=5)
+        gd.line([(x, y - 26), (x, y + 26)], fill=(255, 255, 255, 120), width=5)
+    bg.alpha_composite(gl)
+    fillm = gm.fill_mask().point(lambda v: int(v * 0.16))
+    bg.alpha_composite(colorize(fillm, (255, 255, 255)))
+    m = gm.stroke_mask()
+    bg.alpha_composite(shadow(colorize(m, (255, 255, 255)), (0, 8), 6, 0.30, (0, 20, 70)))
+    bg.alpha_composite(colorize(m, (245, 250, 255)))
+    d = ImageDraw.Draw(bg)                                                               # dimension line along the bottom
+    d.line([(150, S - 120), (S - 150, S - 120)], fill=(255, 255, 255, 150), width=4)
+    for x in (150, S - 150):
+        d.line([(x, S - 138), (x, S - 102)], fill=(255, 255, 255, 150), width=4)
+    return bg
+
+
+def style_pixel(idx, accent, gm):
+    N = 28
+    base = hexc(accent)
+    light = tuple(min(255, int(v * 1.25 + 50)) for v in base)
+    bg = lin_grad((S, S), hexc("#2C1F62"), hexc("#110B2B"), 115)
+    bg = grain(bg, 3, seed=idx)
+    gl = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    gd = ImageDraw.Draw(gl)
+    cell = S / N
+    for i in range(N + 1):
+        gd.line([(i * cell, 0), (i * cell, S)], fill=(255, 255, 255, 12), width=2)
+        gd.line([(0, i * cell), (S, i * cell)], fill=(255, 255, 255, 12), width=2)
+    rng = np.random.default_rng(idx + 5)
+    for _ in range(9):                                                                   # a few lit pixels
+        x, y = int(rng.integers(0, N)), int(rng.integers(0, N))
+        gd.rectangle((x * cell, y * cell, (x + 1) * cell, (y + 1) * cell), fill=base + (int(rng.integers(30, 80)),))
+    bg.alpha_composite(gl)
+    small = gm.fill_mask().resize((N, N), Image.LANCZOS).point(lambda v: 255 if v > 105 else 0)
+    pix = small.resize((S, S), Image.NEAREST)
+    step = int(cell)
+    bg.alpha_composite(colorize(ImageChops.offset(pix, step, step), (0, 0, 0, 150)))      # hard drop shadow
+    bg.alpha_composite(colorize(pix, base))
+    hi = ImageChops.subtract(pix, ImageChops.offset(pix, 0, step))                        # lit top row of each shape
+    bg.alpha_composite(colorize(hi, light))
+    lo = ImageChops.subtract(pix, ImageChops.offset(pix, 0, -step))                       # shaded bottom row
+    bg.alpha_composite(colorize(lo, tuple(int(v * 0.6) for v in base)))
+    return bg
+
+
+def _warp(mask, amp, seed, scale=96):
+    rng = np.random.default_rng(seed)
+    n = S // scale + 3
+    chans = []
+    for c in range(2):
+        arr = rng.normal(0, 1, (n, n))
+        img = Image.fromarray(np.clip((arr + 3) * 42, 0, 255).astype(np.uint8), "L").resize((S, S), Image.BICUBIC)
+        chans.append((np.array(img, np.float32) / 42 - 3) * amp)
+    ys, xs = np.mgrid[0:S, 0:S]
+    xx = np.clip(xs + chans[0], 0, S - 1).astype(int)
+    yy = np.clip(ys + chans[1], 0, S - 1).astype(int)
+    return Image.fromarray(np.array(mask)[yy, xx], "L")
+
+
+def style_doodle(idx, accent, gm):
+    base = hexc(accent)
+    flat = tuple(int(v * 0.88) for v in base)
+    bg = Image.new("RGBA", (S, S), flat + (255,))
+    bg.alpha_composite(radial_glow((S, S), (S * 0.3, S * 0.2), S * 0.9, (255, 255, 255), 0.22))
+    bg = grain(bg, 7, seed=idx)
+    d = ImageDraw.Draw(bg)
+    d.rounded_rectangle((64, 64, S - 65, S - 65), 150, outline=(12, 8, 18, 235), width=18)   # marker border
+    m = _warp(gm.fill_mask(), 11, idx + 3)
+    dil = m.filter(ImageFilter.GaussianBlur(15)).point(lambda v: 255 if v > 24 else 0)
+    outline = ImageChops.subtract(dil, m)
+    bg.alpha_composite(colorize(outline, (12, 8, 18)))
+    bg.alpha_composite(colorize(m, (255, 255, 255)))
+    # the little signature: two eyes, as in the original drawing
+    for cx in (S - 232, S - 128):
+        d.ellipse((cx - 30, S - 190 - 30, cx + 30, S - 190 + 30), fill=(12, 8, 18, 255))
+        d.ellipse((cx - 17, S - 190 - 15, cx - 6, S - 190 - 4), fill=(255, 255, 255, 255))
+    return bg
+
+
 THEMES = [
     # id, display name, blurb, style fn, glyph stroke width
     ("violet", "Violet", "Deep violet squares with solid white glyphs.", style_violet, 0.060),
@@ -770,7 +906,47 @@ THEMES = [
     ("paper",  "Paper",  "Warm cream stock with ink glyphs on an offset colour print.", style_paper, 0.058),
     ("neon",   "Neon",   "Glowing tube-light outlines on midnight blue.", style_neon, 0.042),
     ("frost",  "Frost",  "Frosted pale glass with tinted, softly lit glyphs.", style_frost, 0.060),
+    ("sunset", "Sunset", "Warm orange-to-purple dusk with a low sun and white glyphs.", style_sunset, 0.060),
+    ("phosphor", "Phosphor", "Green terminal glow with scanlines on black.", style_phosphor, 0.044),
+    ("blueprint", "Blueprint", "White line drawings on blue graph paper.", style_blueprint, 0.040),
+    ("pixel",  "Pixel",  "Chunky 8-bit glyphs on a dark pixel grid.", style_pixel, 0.060),
+    ("doodle", "Doodle", "Flat colour, wobbly marker outlines and a little pair of eyes.", style_doodle, 0.060),
 ]
+
+THEME_PALETTE = {
+    "violet": ("#8B5CF6", "#3B1480"), "mono": ("#3A3A42", "#0A0A0E"), "paper": ("#F2EADA", "#D2C3A2"),
+    "neon": ("#2E1C70", "#07050F"), "frost": ("#E0EDFC", "#98B9E4"), "sunset": ("#FF8F3F", "#6B2BB5"),
+    "phosphor": ("#0E4220", "#010603"), "blueprint": ("#3C7AD3", "#0F2E60"), "pixel": ("#4B3694", "#130D33"),
+    "doodle": ("#862CED", "#2A0E52"),
+}
+
+
+def theme_icon(theme_row, size=256):
+    """Package icon for a theme: a glossy tray with four icons from that theme."""
+    import art
+    tid = theme_row[0]
+    c1, c2 = THEME_PALETTE[tid]
+    bg = art.rich_background(c1, c2, sum(ord(ch) for ch in tid) * 5)
+    ids = [b for b, _, _ in APPS]
+    cell, gap = 372, 44
+    x0 = (S - 2 * cell - gap) // 2
+    for n, bid in enumerate(("com.apple.mobilephone", "com.apple.mobilesafari", "com.apple.Music", "com.apple.Preferences")):
+        ic = squircle(render_icon(theme_row, ids.index(bid), cell).convert("RGBA"))
+        x = x0 + (n % 2) * (cell + gap)
+        y = x0 + (n // 2) * (cell + gap)
+        tile = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+        tile.alpha_composite(ic, (x, y))
+        bg.alpha_composite(shadow(tile, (0, 16), 16, 0.42, (0, 0, 20)))
+        bg.alpha_composite(tile)
+    sheen = Image.new("L", (S, S), 0)
+    ImageDraw.Draw(sheen).ellipse((-S * 0.35, -S * 0.95, S * 1.35, S * 0.50), fill=40)
+    sh = Image.new("RGBA", (S, S), (255, 255, 255, 0))
+    sh.putalpha(sheen.filter(ImageFilter.GaussianBlur(6)))
+    bg.alpha_composite(sh)
+    edge = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    ImageDraw.Draw(edge).rounded_rectangle((10, 10, S - 11, S - 11), 210, outline=(255, 255, 255, 44), width=8)
+    bg.alpha_composite(edge)
+    return bg.resize((size, size), Image.LANCZOS).convert("RGB")
 
 
 def render_glyph(theme, seed, glyph, accent, size):

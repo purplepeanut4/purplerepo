@@ -26,7 +26,8 @@ FRAMEWORKS = ["-framework", "Foundation", "-framework", "UIKit", "-framework", "
 TWEAK_SRC = {
     "tidy": "Tidy", "taplock": "TapLock", "quiethud": "QuietHUD",
     "tapfeel": "TapFeel", "batteryline": "BatteryLine", "liquidglass": "LiquidGlass",
-    "dimmer": "Dimmer", "umbra": "Umbra", "plugin": "PlugIn", "sleeptimer": "SleepTimer", "badgecolor": "BadgeColor",
+    "dimmer": "Dimmer", "umbra": "Umbra",
+    "finevolume": "FineVolume", "wakeup": "WakeUp", "iconstyle": "IconStyle", "batteryalert": "BatteryAlert", "breather": "Breather", "plugin": "PlugIn", "sleeptimer": "SleepTimer", "badgecolor": "BadgeColor",
 }
 
 
@@ -179,19 +180,43 @@ def build_purplelink(pkg):
     print("helper", pkg["name"], os.path.getsize(deb), "bytes")
 
 
+def repack_old(pkg, bundle, old_version):
+    """AppTunes and LaunchFX were built earlier; swap in the new Settings icons and bump the patch version."""
+    src = f"/tmp/pr/debs/{pkg['id']}_{old_version}_iphoneos-arm.deb"
+    work = f"{BUILD}/repack-{pkg['key']}"
+    shutil.rmtree(work, ignore_errors=True)
+    run(["dpkg-deb", "-R", src, work])
+    ctl = open(f"{work}/DEBIAN/control").read()
+    import re
+    ctl = re.sub(r"^Version: .*$", f"Version: {pkg['version']}", ctl, flags=re.M)
+    open(f"{work}/DEBIAN/control", "w").write(ctl)
+    for px, name in ((29, "icon.png"), (58, "icon@2x.png"), (87, "icon@3x.png")):
+        art.tweak_icon(pkg["key"], px, rounded=False).save(f"{work}/Library/PreferenceBundles/{bundle}.bundle/{name}")
+    deb = f"{DEBS}/{pkg['id']}_{pkg['version']}_iphoneos-arm.deb"
+    make_deb(work, deb)
+    print("repacked", pkg["name"], pkg["version"])
+
+
 def main():
-    only = sys.argv[1:] or ["tweaks", "helper", "themes"]
+    only = sys.argv[1:] or ["tweaks", "repack", "helper", "themes"]
     os.makedirs(DEBS, exist_ok=True)
     if "tweaks" in only:
         for pkg in meta.TWEAKS:
             if pkg.get("prebuilt"):
                 continue
             build_tweak(pkg)
+    if "repack" in only:
+        by = {t["key"]: t for t in meta.TWEAKS}
+        repack_old(by["apptunes"], "AppTunesPrefs", "2.0.0")
+        repack_old(by["launchfx"], "LaunchFXPrefs", "1.0.0")
     if "helper" in only:
         build_purplelink(meta.HELPERS[0])
     if "themes" in only:
         by_key = {t["key"]: t for t in meta.THEMES}
+        only_themes = [k for k in os.environ.get("THEME_ONLY", "").split(",") if k]
         for row in th.THEMES:
+            if only_themes and row[0] not in only_themes:
+                continue
             build_theme(row, by_key[row[0]])
 
 

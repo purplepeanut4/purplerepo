@@ -83,14 +83,49 @@ TWEAKS = [
         where="Settings > BadgeColor",
     ),
     dict(
-        key="apptunes", id="com.purplesquarecube.apptunes", name="AppTunes", version="2.0.0",
+        key="finevolume", id="com.purplesquarecube.finevolume", name="FineVolume", version="1.0.0",
+        tagline="Volume, in smaller steps.",
+        desc="Each press of a volume button changes the volume by less, so you can land on exactly the level you want. Set the step anywhere from a tenth to the normal size.",
+        features=["Adjustable step size", "Works with the volume buttons"],
+        where="Settings > FineVolume",
+    ),
+    dict(
+        key="wakeup", id="com.purplesquarecube.wakeup", name="WakeUp", version="1.0.0",
+        tagline="Wakes the screen when you plug in.",
+        desc="Lights up the screen when you connect or disconnect a charger, so you can see right away that it's charging.",
+        features=["On plugging in", "Optionally on unplugging"],
+        where="Settings > WakeUp",
+    ),
+    dict(
+        key="iconstyle", id="com.purplesquarecube.iconstyle", name="IconStyle", version="1.0.0",
+        tagline="Icons with depth.",
+        desc="Adds a soft shadow, or a coloured glow, under your app icons, and lets you make the icon pictures bigger or smaller.",
+        features=["Shadow strength, softness and drop", "Seven shadow and glow colours", "Icon size slider"],
+        where="Settings > IconStyle",
+    ),
+    dict(
+        key="batteryalert", id="com.purplesquarecube.batteryalert", name="BatteryAlert", version="1.0.0",
+        tagline="Know when to unplug.",
+        desc="Shows a notice and plays a sound when your battery reaches the level you charge to, or when it runs low.",
+        features=["Alert at a charge level from 50% to 100%", "Alert when the battery is low", "Six sounds with a preview"],
+        where="Settings > BatteryAlert",
+    ),
+    dict(
+        key="breather", id="com.purplesquarecube.breather", name="Breather", version="1.0.0",
+        tagline="A nudge to take a break.",
+        desc="Counts the time you spend on your phone and reminds you to take a short break. The count starts over once the phone has been locked for five minutes.",
+        features=["Remind after 10 minutes to 1.5 hours", "Optional sound", "Resets after a real break"],
+        where="Settings > Breather",
+    ),
+    dict(
+        key="apptunes", id="com.purplesquarecube.apptunes", name="AppTunes", version="2.0.1",
         tagline="A different song in every app.",
         desc="Import your own MP3s and choose a song for each app. It plays while that app is open and stops when you leave.",
         features=["Import songs from the Files picker", "Pick a song per app", "Loop and volume controls"],
         where="Settings > AppTunes", prebuilt=True,
     ),
     dict(
-        key="launchfx", id="com.purplesquarecube.launchfx", name="LaunchFX", version="1.0.0",
+        key="launchfx", id="com.purplesquarecube.launchfx", name="LaunchFX", version="1.0.1",
         tagline="50 ways to open an app.",
         desc="Pick one of 50 opening effects (iris shapes, wipes, curtains, blinds, tile dissolves and more). Preview them right in Settings.",
         features=["50 animations", "Preview button", "Speed and cover colour", "Per-app on/off", "Random mode"],
@@ -118,10 +153,20 @@ THEMES = [
          desc="Glowing tube-light outlines on midnight blue."),
     dict(key="frost", name="Frost",
          desc="Frosted pale glass with tinted, softly lit glyphs."),
+    dict(key="sunset", name="Sunset", version="1.0.0",
+         desc="Warm orange-to-purple dusk with a low sun and white glyphs."),
+    dict(key="phosphor", name="Phosphor", version="1.0.0",
+         desc="Green terminal glow with scanlines on black."),
+    dict(key="blueprint", name="Blueprint", version="1.0.0",
+         desc="White line drawings on blue graph paper."),
+    dict(key="pixel", name="Pixel", version="1.0.0",
+         desc="Chunky 8-bit glyphs on a dark pixel grid."),
+    dict(key="doodle", name="Doodle", version="1.0.0",
+         desc="Flat colour, wobbly marker outlines and a little pair of eyes."),
 ]
 for t in THEMES:
     t["id"] = "com.purplesquarecube.theme." + t["key"]
-    t["version"] = "1.2.0"
+    t.setdefault("version", "1.2.0")
     t["tagline"] = t["desc"]
 
 THEME_FOOTNOTE = ("Icon themes for Snowboard or Anemone. They cover the stock Apple apps, Sileo, Zebra, Cydia, Filza and the "
@@ -142,7 +187,8 @@ THEME_CHANGELOG = ("1.2.0: icons for NewTerm 2, iCleaner Pro, Amethyst, Delta an
                    "games, Google apps and fitness apps you install later (including 2-player games) are themed "
                    "automatically by the new Purple Link helper. Smaller download too.\n\n1.0.0: first release.")
 CHANGELOG = {
-    "com.purplesquarecube.apptunes": "2.0.0: rebuilt with a Settings page, song import and per-app songs.",
+    "com.purplesquarecube.apptunes": "2.0.1: new, more detailed icon.\n\n2.0.0: rebuilt with a Settings page, song import and per-app songs.",
+    "com.purplesquarecube.launchfx": "1.0.1: new, more detailed icon.\n\n1.0.0: first release.",
     "com.purplesquarecube.liquidglass": "1.2.0: renamed from Liquid Glass to Sheer. New Clear Every Blur switch clears every blurred surface in SpringBoard, including Control Center's full-screen background, the lock screen, the app switcher and the dock.\n\n1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
 }
 

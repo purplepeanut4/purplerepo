@@ -58,9 +58,8 @@ def make_images():
     for p in meta.HELPERS:
         art.tweak_icon(p["key"], 256).save(f"{REPO}/icons/{p['id']}.png", optimize=True)
     rows = {r[0]: r for r in th.THEMES}
-    idx_phone = [b for b, _, _ in th.APPS].index("com.apple.mobilephone")
     for t in meta.THEMES:
-        th.render_icon(rows[t["key"]], idx_phone, 256).save(f"{REPO}/icons/{t['id']}.png", optimize=True)
+        th.theme_icon(rows[t["key"]], 256).save(f"{REPO}/icons/{t['id']}.png", optimize=True)
         pv = th.preview(rows[t["key"]])
         pv.thumbnail((900, 900))
         pv.save(f"{REPO}/assets/theme-{t['key']}.png", optimize=True)
@@ -485,7 +484,7 @@ def copy_source():
     for f in ("art.py", "themes.py", "build.py", "assemble.py", "meta.py"):
         shutil.copy(f"{ROOT}/{f}", dst)
     shutil.copytree(f"{ROOT}/common", f"{dst}/common")
-    for k in ("tidy", "taplock", "quiethud", "tapfeel", "batteryline", "liquidglass", "dimmer", "plugin", "sleeptimer", "badgecolor", "umbra"):
+    for k in ("tidy", "taplock", "quiethud", "tapfeel", "batteryline", "liquidglass", "dimmer", "plugin", "sleeptimer", "badgecolor", "umbra", "finevolume", "wakeup", "iconstyle", "batteryalert", "breather"):
         shutil.copytree(f"{ROOT}/tweaks/{k}", f"{dst}/tweaks/{k}")
     # the three earlier tweaks
     older = {
