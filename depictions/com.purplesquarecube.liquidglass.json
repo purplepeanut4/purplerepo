@@ -37,7 +37,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "1.2.1"
+          "text": "1.2.2"
         },
         {
           "class": "DepictionTableTextView",
@@ -57,13 +57,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "1.2.1",
+          "title": "1.2.2",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "1.2.1: new hand-drawn icon.\n\n1.2.0: renamed from Liquid Glass to Sheer. New Clear Every Blur switch clears every blurred surface in SpringBoard, including Control Center's full-screen background, the lock screen, the app switcher and the dock.\n\n1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
+          "markdown": "1.2.2: new icon, a bit rougher than before.\n\n1.2.1: new icon.\n\n1.2.0: renamed from Liquid Glass to Sheer. New Clear Every Blur switch clears every blurred surface in SpringBoard, including Control Center's full-screen background, the lock screen, the app switcher and the dock.\n\n1.1.0: new Clear style (now the default) that fades out the system blur so the glass is see-through. Frosted keeps the old look. Added a blur slider and a soft inner glow.\n\n1.0.0: first release.",
           "useSpacing": true
         }
       ]

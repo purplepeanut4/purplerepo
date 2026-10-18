@@ -220,12 +220,13 @@ JB_CHECKED = "Version ranges checked against public sources in October 2026. The
 
 
 
-# ---- every tweak got a new hand-drawn icon: bump the patch version so the Settings icon updates too
+# ---- every tweak got a new icon: bump the patch version so the Settings icon updates too.
+# "old_version" is what is already published (base + 1); the new release is base + 2.
 AUTHOR = "purplepeanut4"
 for _t in TWEAKS:
     _maj, _min, _pat = _t["version"].split(".")
-    _old = _t["version"]
-    _t["old_version"] = _old
-    _t["version"] = f"{_maj}.{_min}.{int(_pat) + 1}"
+    _pub = f"{_maj}.{_min}.{int(_pat) + 1}"
+    _t["old_version"] = _pub
+    _t["version"] = f"{_maj}.{_min}.{int(_pat) + 2}"
     _prev = CHANGELOG.get(_t["id"], CHANGELOG_NEW)
-    CHANGELOG[_t["id"]] = f"{_t['version']}: new hand-drawn icon.\n\n{_prev}"
+    CHANGELOG[_t["id"]] = f"{_t['version']}: new icon, a bit rougher than before.\n\n{_pub}: new icon.\n\n{_prev}"

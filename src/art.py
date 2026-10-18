@@ -782,6 +782,116 @@ def basement_icon(key, size=1024, rounded=False):
     return squircle(out) if rounded else out.convert("RGB")
 
 
+
+# ---------------------------------------------------------------- "first time in an image editor" icons
+ART_NAMES = {
+    "tidy": "Tidy", "taplock": "TapLock", "quiethud": "QuietHUD", "tapfeel": "TapFeel", "batteryline": "BatteryLine",
+    "dimmer": "Dimmer", "umbra": "Umbra", "plugin": "PlugIn", "sleeptimer": "SleepTimer", "badgecolor": "BadgeColor",
+    "finevolume": "FineVolume", "wakeup": "WakeUp", "iconstyle": "IconStyle", "batteryalert": "BatteryAlert",
+    "breather": "Breather", "apptunes": "AppTunes", "launchfx": "LaunchFX", "liquidglass": "Sheer",
+    "purplelink": "PurpleLink",
+}
+
+
+def _sat(rgb, k=1.2, v=1.0):
+    import colorsys
+    h, s_, v_ = colorsys.rgb_to_hsv(*(c / 255 for c in rgb))
+    return tuple(int(c * 255) for c in colorsys.hsv_to_rgb(h, min(1, s_ * k), min(1, v_ * v)))
+
+
+def _dilate(mask, px):
+    return mask.filter(ImageFilter.GaussianBlur(px * 0.8)).point(lambda v: 255 if v > 14 else 0)
+
+
+def _label_font(text, max_w):
+    for path in ("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf"):
+        try:
+            for size in range(170, 40, -6):
+                f = ImageFont.truetype(path, size)
+                bb = f.getbbox(text, stroke_width=9)
+                if bb[2] - bb[0] <= max_w:
+                    return f
+            return ImageFont.truetype(path, 40)
+        except OSError:
+            continue
+    return ImageFont.load_default()
+
+
+def amateur_icon(key, size=1024, rounded=False):
+    seed = sum(ord(ch) for ch in key) * 17 + 3
+    rng = np.random.default_rng(seed)
+    fn = TWEAK_STYLES[key][2]
+    base = _sat(hexc(CRAYON[key]), 1.25)
+    edge = tuple(int(c * 0.50) for c in base)
+    lite = tuple(min(255, int(c * 0.35 + 255 * 0.65)) for c in base)
+
+    # loud radial background
+    ys, xs = np.mgrid[0:S, 0:S].astype(np.float32)
+    t = np.clip(np.sqrt((xs - S * 0.5) ** 2 + (ys - S * 0.40) ** 2) / (S * 0.80), 0, 1)[..., None] ** 1.15
+    arr = np.array(lite if rng.random() > 0.5 else base, np.float32) * (1 - t) + np.array(edge, np.float32) * t
+    img = Image.fromarray(arr.astype(np.uint8), "RGB").convert("RGBA")
+
+    # sunburst rays (very "first poster")
+    if rng.random() > 0.25:
+        rays = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+        rd = ImageDraw.Draw(rays)
+        n = int(rng.integers(14, 22)); c = (S * 0.5, S * 0.42)
+        for i in range(n):
+            a0 = 2 * math.pi * i / n; a1 = a0 + math.pi / n
+            rd.polygon([c, (c[0] + 1500 * math.cos(a0), c[1] + 1500 * math.sin(a0)),
+                        (c[0] + 1500 * math.cos(a1), c[1] + 1500 * math.sin(a1))], fill=(255, 255, 255, 34))
+        img.alpha_composite(rays)
+
+    # chunky frame
+    d = ImageDraw.Draw(img)
+    frame = (255, 255, 255, 235) if rng.random() > 0.4 else (20, 20, 20, 235)
+    d.rounded_rectangle((26, 26, S - 27, S - 27), 150, outline=frame, width=20)
+    d.rounded_rectangle((60, 60, S - 61, S - 61), 120, outline=(0, 0, 0, 110), width=5)
+
+    # the symbol: too big, slightly off-centre, fat stroke, heavy default drop shadow, cheap bevel and glow
+    g = Glyph(bgdark=(0, 0, 0))
+    fn(g)
+    m0 = g.l.split()[3].point(lambda v: 255 if v > 30 else 0)
+    sc = int(S * 0.80)
+    m = Image.new("L", (S, S), 0)
+    m.paste(m0.resize((sc, sc), Image.LANCZOS), (int(S * 0.5 - sc / 2 + rng.integers(4, 26)), int(S * 0.405 - sc / 2 + rng.integers(-10, 14))))
+    glow_col = (255, 232, 110) if rng.random() > 0.5 else (120, 245, 255)
+    img.alpha_composite(_paint(m.filter(ImageFilter.GaussianBlur(40)).point(lambda v: min(255, int(v * 1.9))), glow_col + (210,)))
+    stroke = _dilate(m, 18)
+    img.alpha_composite(_paint(ImageChops.offset(stroke, 15, 19).filter(ImageFilter.GaussianBlur(4)), (0, 0, 0, 215)))
+    img.alpha_composite(_paint(stroke, (255, 255, 255, 255) if rng.random() > 0.3 else (16, 16, 16, 255)))
+    body = lin_grad((S, S), (255, 255, 255), tuple(min(255, int(c * 0.55 + 110)) for c in base), 90)
+    body.putalpha(m)
+    img.alpha_composite(body)
+    low = ImageChops.multiply(ImageChops.subtract(m, ImageChops.offset(m, 0, -20)).filter(ImageFilter.GaussianBlur(5)), m)
+    img.alpha_composite(_paint(low.point(lambda v: int(v * 0.85)), tuple(int(c * 0.45) for c in base) + (255,)))
+    top = ImageChops.multiply(ImageChops.subtract(m, ImageChops.offset(m, 0, 14)).filter(ImageFilter.GaussianBlur(2)), m)
+    img.alpha_composite(_paint(top, (255, 255, 255, 255)))
+
+    # hard-edged "shine" across the top, and a lens-flare sparkle
+    shine = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    ImageDraw.Draw(shine).ellipse((-S * 0.15, -S * 0.62, S * 1.15, S * 0.40), fill=(255, 255, 255, 64))
+    img.alpha_composite(shine)
+    fx, fy = S * float(rng.uniform(0.70, 0.84)), S * float(rng.uniform(0.15, 0.26))
+    d = ImageDraw.Draw(img)
+    r = 74
+    d.polygon([(fx, fy - r), (fx + r * .2, fy - r * .2), (fx + r, fy), (fx + r * .2, fy + r * .2), (fx, fy + r),
+               (fx - r * .2, fy + r * .2), (fx - r, fy), (fx - r * .2, fy - r * .2)], fill=(255, 255, 255, 245))
+    for k, rr in ((1, 15), (2, 9), (3, 6)):
+        d.ellipse((fx - 62 * k - rr, fy + 56 * k - rr, fx - 62 * k + rr, fy + 56 * k + rr), fill=(255, 255, 255, 150))
+
+    # the name, in a default-looking bold font with a black outline
+    label = ART_NAMES.get(key, key)
+    f = _label_font(label, 800)
+    bb = d.textbbox((0, 0), label, font=f, stroke_width=9)
+    tx, ty = (S - (bb[2] - bb[0])) / 2 - bb[0], S * 0.835 - (bb[3] - bb[1]) / 2 - bb[1]
+    d.text((tx + 7, ty + 9), label, font=f, fill=(0, 0, 0, 170), stroke_width=9, stroke_fill=(0, 0, 0, 170))
+    d.text((tx, ty), label, font=f, fill=(255, 255, 255, 255), stroke_width=9, stroke_fill=(18, 18, 18, 255))
+
+    out = img.resize((size, size), Image.LANCZOS)
+    return squircle(out) if rounded else out.convert("RGB")
+
+
 # ---------------------------------------------------------------- banner
 def banner(w=1600, h=480):
     bg = lin_grad((w, h), hexc("#1A0C38"), hexc("#0E0620"), 20)
@@ -809,4 +919,4 @@ if __name__ == "__main__":
 
 
 def tweak_icon(key, size=1024, rounded=False):
-    return basement_icon(key, size, rounded)
+    return amateur_icon(key, size, rounded)

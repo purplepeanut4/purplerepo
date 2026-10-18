@@ -37,7 +37,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "2.0.2"
+          "text": "2.0.3"
         },
         {
           "class": "DepictionTableTextView",
@@ -57,13 +57,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "2.0.2",
+          "title": "2.0.3",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "2.0.2: new hand-drawn icon.\n\n2.0.1: new, more detailed icon.\n\n2.0.0: rebuilt with a Settings page, song import and per-app songs.",
+          "markdown": "2.0.3: new icon, a bit rougher than before.\n\n2.0.2: new icon.\n\n2.0.1: new, more detailed icon.\n\n2.0.0: rebuilt with a Settings page, song import and per-app songs.",
           "useSpacing": true
         }
       ]

@@ -37,7 +37,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "1.0.1"
+          "text": "1.0.2"
         },
         {
           "class": "DepictionTableTextView",
@@ -57,13 +57,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "1.0.1",
+          "title": "1.0.2",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "1.0.1: new hand-drawn icon.\n\n1.0.0: first release.",
+          "markdown": "1.0.2: new icon, a bit rougher than before.\n\n1.0.1: new icon.\n\n1.0.0: first release.",
           "useSpacing": true
         }
       ]
