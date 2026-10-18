@@ -1,4 +1,4 @@
-// BatteryLine - by purplesquarecube
+// BatteryLine - by purplepeanut4
 // A thin battery meter along the top or bottom edge of the screen, above every app.
 #import "PKCommon.h"
 #import <QuartzCore/QuartzCore.h>

@@ -1,4 +1,4 @@
-// QuietHUD - by purplesquarecube
+// QuietHUD - by purplepeanut4
 // Hide the volume, brightness, ringer and rotation-lock pop-ups.
 #import "PKCommon.h"
 

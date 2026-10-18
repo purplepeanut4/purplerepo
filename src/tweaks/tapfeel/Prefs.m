@@ -1,4 +1,4 @@
-// TapFeel Settings pane - by purplesquarecube
+// TapFeel Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 #import <AudioToolbox/AudioToolbox.h>
 

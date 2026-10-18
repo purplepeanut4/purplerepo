@@ -1,4 +1,4 @@
-// Dimmer - by purplesquarecube
+// Dimmer - by purplepeanut4
 // Dims the screen below the normal minimum and adds an optional warm tint, over everything.
 #import "PKCommon.h"
 #import <QuartzCore/QuartzCore.h>

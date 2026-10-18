@@ -1,4 +1,4 @@
-// BadgeColor Settings pane - by purplesquarecube
+// BadgeColor Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 
 static NSString *const kDomain = @"com.purplesquarecube.badgecolor";

@@ -1,4 +1,4 @@
-// Sheer (formerly Liquid Glass) for iOS 12 - by purplesquarecube
+// Sheer (formerly Liquid Glass) for iOS 12 - by purplepeanut4
 //
 // Two styles:
 //   Clear   - the system blur is faded out so panels are see-through; only a glass

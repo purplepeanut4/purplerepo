@@ -1,4 +1,4 @@
-// WakeUp Settings pane - by purplesquarecube
+// WakeUp Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 
 static NSString *const kDomain = @"com.purplesquarecube.wakeup";

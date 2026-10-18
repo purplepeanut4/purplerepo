@@ -1,4 +1,4 @@
-// WakeUp - by purplesquarecube
+// WakeUp - by purplepeanut4
 // Lights up the screen when you connect (or disconnect) a charger.
 #import "PKCommon.h"
 

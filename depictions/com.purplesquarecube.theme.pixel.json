@@ -25,7 +25,7 @@
           "screenshots": [
             {
               "accessibilityText": "Pixel theme preview",
-              "url": "https://purplesquarecube.github.io/purplerepo/assets/theme-pixel.png"
+              "url": "https://purplepeanut4.github.io/purplerepo/assets/theme-pixel.png"
             }
           ]
         },
@@ -47,7 +47,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Author",
-          "text": "purplesquarecube"
+          "text": "purplepeanut4"
         }
       ]
     },

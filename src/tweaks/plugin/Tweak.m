@@ -1,4 +1,4 @@
-// PlugIn - by purplesquarecube
+// PlugIn - by purplepeanut4
 // A light sweep around the screen edge and a sound when a charger is connected.
 #import "PKCommon.h"
 #import <AudioToolbox/AudioToolbox.h>

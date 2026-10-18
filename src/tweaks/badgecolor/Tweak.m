@@ -1,4 +1,4 @@
-// BadgeColor - by purplesquarecube
+// BadgeColor - by purplepeanut4
 // Recolor and resize the red notification badges on app icons.
 #import "PKCommon.h"
 

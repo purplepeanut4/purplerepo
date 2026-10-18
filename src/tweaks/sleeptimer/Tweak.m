@@ -1,4 +1,4 @@
-// SleepTimer - by purplesquarecube
+// SleepTimer - by purplepeanut4
 // Pauses music or video after a set time, and can lock the device.
 #import "PKCommon.h"
 

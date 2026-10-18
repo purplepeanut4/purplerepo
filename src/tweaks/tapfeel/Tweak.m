@@ -1,4 +1,4 @@
-// TapFeel - by purplesquarecube
+// TapFeel - by purplepeanut4
 // A sound and a little bounce when you tap an app icon.
 #import "PKCommon.h"
 #import <AudioToolbox/AudioToolbox.h>

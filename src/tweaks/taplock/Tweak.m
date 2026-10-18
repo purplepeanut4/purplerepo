@@ -1,4 +1,4 @@
-// TapLock - by purplesquarecube
+// TapLock - by purplepeanut4
 // Double-tap empty space on the Home Screen (or the Dock) to lock the device.
 #import "PKCommon.h"
 

@@ -1,4 +1,4 @@
-// Umbra Settings pane - by purplesquarecube
+// Umbra Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 #import <objc/message.h>
 

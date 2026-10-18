@@ -1,4 +1,4 @@
-// BatteryAlert Settings pane - by purplesquarecube
+// BatteryAlert Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 #import <AudioToolbox/AudioToolbox.h>
 

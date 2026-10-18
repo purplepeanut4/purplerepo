@@ -1,4 +1,4 @@
-// Tidy - by purplesquarecube
+// Tidy - by purplepeanut4
 // Hide icon labels, badges and page dots; make the dock background clear.
 #import "PKCommon.h"
 

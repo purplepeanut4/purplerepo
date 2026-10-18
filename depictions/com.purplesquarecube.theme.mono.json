@@ -25,7 +25,7 @@
           "screenshots": [
             {
               "accessibilityText": "Mono theme preview",
-              "url": "https://purplesquarecube.github.io/purplerepo/assets/theme-mono.png"
+              "url": "https://purplepeanut4.github.io/purplerepo/assets/theme-mono.png"
             }
           ]
         },
@@ -47,7 +47,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Author",
-          "text": "purplesquarecube"
+          "text": "purplepeanut4"
         }
       ]
     },

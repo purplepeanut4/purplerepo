@@ -37,7 +37,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Version",
-          "text": "1.0.1"
+          "text": "1.0.2"
         },
         {
           "class": "DepictionTableTextView",
@@ -47,7 +47,7 @@
         {
           "class": "DepictionTableTextView",
           "title": "Author",
-          "text": "purplesquarecube"
+          "text": "purplepeanut4"
         }
       ]
     },
@@ -57,13 +57,13 @@
       "views": [
         {
           "class": "DepictionSubheaderView",
-          "title": "1.0.1",
+          "title": "1.0.2",
           "useBoldText": true,
           "useBottomMargin": false
         },
         {
           "class": "DepictionMarkdownView",
-          "markdown": "1.0.1: new, more detailed icon.\n\n1.0.0: first release.",
+          "markdown": "1.0.2: new hand-drawn icon.\n\n1.0.1: new, more detailed icon.\n\n1.0.0: first release.",
           "useSpacing": true
         }
       ]

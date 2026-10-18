@@ -1,4 +1,4 @@
-// SleepTimer Settings pane - by purplesquarecube
+// SleepTimer Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 
 static NSString *const kDomain = @"com.purplesquarecube.sleeptimer";

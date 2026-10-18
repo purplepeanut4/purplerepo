@@ -1,4 +1,4 @@
-// Breather - by purplesquarecube
+// Breather - by purplepeanut4
 // A gentle reminder to take a break after a stretch of screen time.
 #import "PKCommon.h"
 #import <AudioToolbox/AudioToolbox.h>

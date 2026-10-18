@@ -3,482 +3,70 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F4EFE4">
+<meta name="theme-color" content="#15111b">
 <title>purplerepo</title>
-<meta name="description" content="Jailbreak tweaks and icon themes for iOS 12, by purplesquarecube.">
-<link rel="icon" href="assets/logo.png">
+<link rel="icon" href="assets/favicon.png">
 <style>
-:root{
-  --paper:#F4EFE4; --paper2:#EAE3D3; --ink:#1B1527; --muted:#6C6480; --rule:rgba(27,21,39,.16);
-  --accent:#6A3DE8; --accent-ink:#ffffff;
-}
-@media (prefers-color-scheme: dark){
-  :root{ --paper:#130E20; --paper2:#1B1530; --ink:#EEE8FB; --muted:#9C92B6; --rule:rgba(238,232,251,.16);
-         --accent:#B59CFF; --accent-ink:#130E20; }
-}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--paper); color:var(--ink);
-  font:17px/1.55 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  padding:0 20px env(safe-area-inset-bottom);
-}
-.wrap{max-width:720px; margin:0 auto; padding:30px 0 56px}
-a{color:var(--ink)}
-.serif,h1,h2,h3{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
-.mono,.url,.ver,.label,.count,.where,.dl,.tagrow span,.stamp,footer,.btn{
-  font-family:Menlo,"SF Mono",Monaco,Consolas,"Courier New",monospace}
-
-/* masthead */
-.top{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;position:relative;padding-bottom:22px;border-bottom:2px solid var(--ink)}
-.mark{width:72px;height:72px;border-radius:17px;margin-right:16px;flex:none;display:block}
-h1{margin:0;font-size:40px;line-height:1;letter-spacing:-.5px;font-weight:700}
-.by{margin:8px 0 0;font-size:13px;color:var(--muted)}
-.stamp{position:absolute;right:0;top:-6px;transform:rotate(5deg);-webkit-transform:rotate(5deg);
-  border:2px solid var(--accent);color:var(--accent);padding:3px 8px;font-size:11px;line-height:1.25;
-  text-transform:uppercase;letter-spacing:.8px;text-align:center}
-
-/* ticket */
-.ticket{margin:28px 0 8px;padding:18px;background:var(--paper2);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
-.label{margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted)}
-.url{margin:0 0 14px;font-size:14px;word-break:break-all;padding:9px 11px;background:var(--paper);border:1px solid var(--rule)}
-.actions{margin:0 -4px}
-.btn{display:inline-block;margin:4px;padding:9px 13px;font-size:13px;color:var(--ink);text-decoration:none;
-  background:var(--paper);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;
-  -webkit-appearance:none;appearance:none;border-radius:0;white-space:nowrap}
-.btn.main{background:var(--accent);color:var(--accent-ink)}
-.btn:active{box-shadow:0 0 0 var(--ink);transform:translate(3px,3px);-webkit-transform:translate(3px,3px)}
-
-/* sections */
-h2{margin:44px 0 6px;font-size:27px;line-height:1.1;font-weight:700}
-.count{font-size:13px;font-weight:400;color:var(--muted);vertical-align:super;margin-left:5px}
-.lede{margin:0 0 6px;color:var(--muted);font-size:15px}
-
-/* package list */
-.index{list-style:none;margin:10px 0 0;padding:0;counter-reset:pkg}
-.pkg{counter-increment:pkg;display:-webkit-box;display:flex;padding:20px 0;border-top:1px solid var(--rule);position:relative}
-.pkg:last-child{border-bottom:1px solid var(--rule)}
-.pkg:before{content:counter(pkg,decimal-leading-zero);font:11px Menlo,monospace;color:var(--muted);width:26px;flex:none;padding-top:5px}
-.ico{width:56px;height:56px;border-radius:13px;flex:none;margin-right:14px;display:block}
-.pbody{min-width:0;-webkit-box-flex:1;flex:1}
-h3{margin:0;font-size:22px;line-height:1.2;font-weight:700}
-.ver{font-size:11px;font-weight:400;color:var(--muted);margin-left:6px;vertical-align:middle}
-.tag{margin:2px 0 6px;font-style:italic;color:var(--accent)}
-.pbody p{margin:0 0 8px;font-size:15.5px}
-details{margin-top:6px;font-size:15px}
-summary{cursor:pointer;font:12px Menlo,monospace;color:var(--muted);padding:3px 0;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary:before{content:"+ ";}
-details[open] summary:before{content:"- ";}
-details ul{margin:6px 0 8px 0;padding-left:20px}
-details li{margin:2px 0}
-.where{font-size:12px;color:var(--muted);margin:6px 0}
-.dl{font-size:12px}
-
-/* themes */
-.themes{display:grid;grid-template-columns:1fr 1fr;grid-gap:22px 16px;margin-top:18px}
-@media(min-width:620px){.themes{grid-template-columns:1fr 1fr 1fr}}
-figure{margin:0}
-figure img{width:100%;height:auto;display:block;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
-figcaption{margin-top:12px;font-size:14px;line-height:1.35}
-figcaption b{display:block;font:700 18px "Iowan Old Style",Georgia,serif}
-figcaption span{display:block;color:var(--muted);font-size:13px;margin:2px 0 4px}
-
-
-/* jailbreak list */
-.jb{list-style:none;margin:12px 0 0;padding:0}
-.jb li{padding:15px 0;border-top:1px solid var(--rule)}
-.jb li:last-child{border-bottom:1px solid var(--rule)}
-.jb b{font:700 20px "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
-.jb .ios{display:block;font:12px Menlo,"SF Mono",Monaco,monospace;color:var(--accent);margin:4px 0 1px}
-.jb .dev{display:block;font:12px Menlo,"SF Mono",Monaco,monospace;color:var(--muted)}
-.jb p{margin:7px 0 0;font-size:15px}
-.nope{margin:16px 0 0;font-size:14.5px;padding-left:12px;border-left:3px solid var(--accent)}
-.nope b{font:700 12px Menlo,"SF Mono",Monaco,monospace;text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:2px}
-
-/* how-to */
-.how ol{margin:12px 0 0;padding-left:22px}
-.how li{margin:8px 0}
-code{font:14px Menlo,monospace;background:var(--paper2);padding:1px 5px}
-
-footer{margin-top:48px;padding-top:16px;border-top:2px solid var(--ink);font-size:11.5px;color:var(--muted);line-height:1.7}
-footer a{color:var(--muted)}
-@media(max-width:380px){h1{font-size:34px}.stamp{display:none}}
+html,body{height:100%}
+body{margin:0;background:#15111b;color:#f6e6c6;
+  font:700 17px/1.2 "Marker Felt","Chalkboard SE","Comic Sans MS","Arial Rounded MT Bold",-apple-system,"Helvetica Neue",sans-serif;
+  -webkit-text-size-adjust:100%}
+.sky{position:fixed;top:0;right:0;bottom:0;left:0;overflow:hidden;pointer-events:none;z-index:0}
+.p{position:absolute;bottom:-170px;height:auto;will-change:transform;
+  -webkit-animation:rise linear infinite;animation:rise linear infinite;
+  -webkit-user-select:none;user-select:none}
+@-webkit-keyframes rise{from{-webkit-transform:translate3d(0,0,0) rotate(var(--a0))}to{-webkit-transform:translate3d(var(--dx),-135vh,0) rotate(var(--a1))}}
+@keyframes rise{from{transform:translate3d(0,0,0) rotate(var(--a0))}to{transform:translate3d(var(--dx),-135vh,0) rotate(var(--a1))}}
+@media (prefers-reduced-motion: reduce){.p{-webkit-animation:none;animation:none;bottom:auto;top:var(--t);transform:rotate(var(--a0))}}
+main{position:relative;z-index:1;min-height:100%;display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  -webkit-box-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;align-items:center;
+  padding:28px 20px calc(28px + env(safe-area-inset-bottom))}
+h1{margin:0 0 26px;font-size:40px;font-weight:700;letter-spacing:.5px;color:#f6e6c6;text-shadow:0 0 14px #15111b,0 0 6px #15111b,3px 3px 0 #4b1a7a}
+.btn{display:block;width:100%;max-width:310px;margin:0 0 14px;padding:17px 18px;text-align:center;text-decoration:none;
+  font:inherit;font-size:19px;color:#4b1a7a;background:#f1d6a0;border:3px solid #15111b;border-radius:18px;
+  box-shadow:4px 5px 0 #4b1a7a;-webkit-transform:rotate(-1.2deg);transform:rotate(-1.2deg)}
+.btn:nth-of-type(2){-webkit-transform:rotate(1deg);transform:rotate(1deg)}
+.btn.main{background:#6a2bb8;color:#fff1d6;border-color:#f1d6a0;box-shadow:4px 5px 0 #f1d6a0;-webkit-transform:rotate(-1.6deg);transform:rotate(-1.6deg)}
+.btn:active{box-shadow:0 0 0 transparent;margin-top:4px;margin-bottom:10px}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-  <header class="top">
-    <img class="mark" src="assets/logo.png" width="72" height="72" alt="purplerepo">
-    <div>
-      <h1>purplerepo</h1>
-      <p class="by">tweaks &amp; themes for iOS 12 &middot; by purplesquarecube</p>
-    </div>
-    <div class="stamp">iOS 12<br>rootful</div>
-  </header>
-
-  <section class="ticket" id="add">
-    <p class="label">Repo address</p>
-    <p class="url" id="repoUrl">https://purplesquarecube.github.io/purplerepo/</p>
-    <div class="actions">
-      <a class="btn main" id="sileo" href="sileo://source/https://purplesquarecube.github.io/purplerepo/">Add to Sileo</a>
-      <a class="btn" id="zebra" href="zbra://sources/add/https://purplesquarecube.github.io/purplerepo/">Zebra</a>
-      <a class="btn" id="cydia" href="#">Cydia</a>
-      <button class="btn" id="copy" type="button">Copy</button>
-    </div>
-  </section>
-
-  <h2>Tweaks<span class="count">18</span></h2>
-  <p class="lede">Each one adds a page to the Settings app.</p>
-  <ol class="index">
-      <li class="pkg" id="com-purplesquarecube-tidy">
-        <img class="ico" src="icons/com.purplesquarecube.tidy.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>Tidy<span class="ver">1.0.0</span></h3>
-          <p class="tag">Clean up the Home Screen.</p>
-          <p>Hide icon labels, notification badges and page dots, or make the dock background clear. Changes apply instantly.</p>
-          <details><summary>details</summary>
-            <ul><li>Hide icon labels</li><li>Hide notification badges</li><li>Hide the page dots</li><li>Clear dock background</li><li>Respring button in Settings</li></ul>
-            <p class="where">Settings &gt; Tidy</p>
-            <a class="dl" href="debs/com.purplesquarecube.tidy_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-taplock">
-        <img class="ico" src="icons/com.purplesquarecube.taplock.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>TapLock<span class="ver">1.0.0</span></h3>
-          <p class="tag">Double-tap to lock.</p>
-          <p>Double-tap an empty spot on the Home Screen or Dock to lock your device, so you never have to reach for the power button.</p>
-          <details><summary>details</summary>
-            <ul><li>Works on the Home Screen and the Dock</li><li>Ignores taps on icons, widgets and folders</li><li>Each area can be switched off separately</li></ul>
-            <p class="where">Settings &gt; TapLock</p>
-            <a class="dl" href="debs/com.purplesquarecube.taplock_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-quiethud">
-        <img class="ico" src="icons/com.purplesquarecube.quiethud.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>QuietHUD<span class="ver">1.0.0</span></h3>
-          <p class="tag">No more pop-ups.</p>
-          <p>Hide the volume, brightness, ringer and rotation-lock pop-ups. The change still happens, you just don&#x27;t see the overlay.</p>
-          <details><summary>details</summary>
-            <ul><li>Hide the volume HUD</li><li>Hide the brightness HUD</li><li>Hide the ringer switch HUD</li><li>Hide the rotation lock HUD</li></ul>
-            <p class="where">Settings &gt; QuietHUD</p>
-            <a class="dl" href="debs/com.purplesquarecube.quiethud_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-tapfeel">
-        <img class="ico" src="icons/com.purplesquarecube.tapfeel.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>TapFeel<span class="ver">1.0.0</span></h3>
-          <p class="tag">Icons that answer back.</p>
-          <p>Play a sound and bounce the icon when you tap an app. Pick from six system sounds and set how bouncy it is.</p>
-          <details><summary>details</summary>
-            <ul><li>Six system sounds with a preview button</li><li>Adjustable bounce strength</li><li>Sound and bounce can be used separately</li></ul>
-            <p class="where">Settings &gt; TapFeel</p>
-            <a class="dl" href="debs/com.purplesquarecube.tapfeel_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-batteryline">
-        <img class="ico" src="icons/com.purplesquarecube.batteryline.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>BatteryLine<span class="ver">1.0.0</span></h3>
-          <p class="tag">A battery meter you can see in any app.</p>
-          <p>A thin line along the top or bottom of the screen that shows your battery level on top of every app. Turns green while charging, orange under 50% and red under 20%.</p>
-          <details><summary>details</summary>
-            <ul><li>Top or bottom edge</li><li>Adjustable thickness and opacity</li><li>Automatic or fixed colour</li><li>Optional pulse while charging</li><li>Can show only while charging</li></ul>
-            <p class="where">Settings &gt; BatteryLine</p>
-            <a class="dl" href="debs/com.purplesquarecube.batteryline_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-dimmer">
-        <img class="ico" src="icons/com.purplesquarecube.dimmer.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>Dimmer<span class="ver">1.0.0</span></h3>
-          <p class="tag">Darker than dark.</p>
-          <p>Dims the screen below the normal minimum and adds an optional warm tint, on top of everything. Handy at night. It can run on a schedule.</p>
-          <details><summary>details</summary>
-            <ul><li>Extra dimming slider</li><li>Warm tint slider</li><li>Always on, or only during hours you choose</li></ul>
-            <p class="where">Settings &gt; Dimmer</p>
-            <a class="dl" href="debs/com.purplesquarecube.dimmer_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-umbra">
-        <img class="ico" src="icons/com.purplesquarecube.umbra.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>Umbra<span class="ver">1.0.0</span></h3>
-          <p class="tag">A dark mode for iOS 12.</p>
-          <p>Makes app backgrounds dark using iOS&#x27;s Smart Invert, one app at a time. Pictures and videos are left alone in most apps. It can run on a schedule, and the Home Screen can stay light.</p>
-          <details><summary>details</summary>
-            <ul><li>Dark backgrounds in any app</li><li>Pick which apps stay light</li><li>Always on, or only during hours you choose</li><li>Home Screen and system UI can stay normal</li></ul>
-            <p class="where">Settings &gt; Umbra</p>
-            <a class="dl" href="debs/com.purplesquarecube.umbra_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-plugin">
-        <img class="ico" src="icons/com.purplesquarecube.plugin.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>PlugIn<span class="ver">1.0.0</span></h3>
-          <p class="tag">A little show when you plug in.</p>
-          <p>A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug.</p>
-          <details><summary>details</summary>
-            <ul><li>Sweep or pulse animation</li><li>Six system sounds with a preview</li><li>Optional on unplug</li><li>Preview button</li></ul>
-            <p class="where">Settings &gt; PlugIn</p>
-            <a class="dl" href="debs/com.purplesquarecube.plugin_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-sleeptimer">
-        <img class="ico" src="icons/com.purplesquarecube.sleeptimer.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>SleepTimer<span class="ver">1.0.0</span></h3>
-          <p class="tag">Falls asleep before you do.</p>
-          <p>Pick a time from 5 minutes to 2 hours and your music or video pauses when it ends. It can lock the device too.</p>
-          <details><summary>details</summary>
-            <ul><li>5 minutes to 2 hours</li><li>Pauses music, podcasts and video</li><li>Optionally locks the device</li><li>Shows when it will stop</li></ul>
-            <p class="where">Settings &gt; SleepTimer</p>
-            <a class="dl" href="debs/com.purplesquarecube.sleeptimer_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-badgecolor">
-        <img class="ico" src="icons/com.purplesquarecube.badgecolor.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>BadgeColor<span class="ver">1.0.0</span></h3>
-          <p class="tag">Badges in your colour.</p>
-          <p>Recolor the red notification badges on your icons and make them bigger or smaller.</p>
-          <details><summary>details</summary>
-            <ul><li>Nine colours including the original red</li><li>Adjustable size</li></ul>
-            <p class="where">Settings &gt; BadgeColor</p>
-            <a class="dl" href="debs/com.purplesquarecube.badgecolor_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-finevolume">
-        <img class="ico" src="icons/com.purplesquarecube.finevolume.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>FineVolume<span class="ver">1.0.0</span></h3>
-          <p class="tag">Volume, in smaller steps.</p>
-          <p>Each press of a volume button changes the volume by less, so you can land on exactly the level you want. Set the step anywhere from a tenth to the normal size.</p>
-          <details><summary>details</summary>
-            <ul><li>Adjustable step size</li><li>Works with the volume buttons</li></ul>
-            <p class="where">Settings &gt; FineVolume</p>
-            <a class="dl" href="debs/com.purplesquarecube.finevolume_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-wakeup">
-        <img class="ico" src="icons/com.purplesquarecube.wakeup.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>WakeUp<span class="ver">1.0.0</span></h3>
-          <p class="tag">Wakes the screen when you plug in.</p>
-          <p>Lights up the screen when you connect or disconnect a charger, so you can see right away that it&#x27;s charging.</p>
-          <details><summary>details</summary>
-            <ul><li>On plugging in</li><li>Optionally on unplugging</li></ul>
-            <p class="where">Settings &gt; WakeUp</p>
-            <a class="dl" href="debs/com.purplesquarecube.wakeup_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-iconstyle">
-        <img class="ico" src="icons/com.purplesquarecube.iconstyle.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>IconStyle<span class="ver">1.0.0</span></h3>
-          <p class="tag">Icons with depth.</p>
-          <p>Adds a soft shadow, or a coloured glow, under your app icons, and lets you make the icon pictures bigger or smaller.</p>
-          <details><summary>details</summary>
-            <ul><li>Shadow strength, softness and drop</li><li>Seven shadow and glow colours</li><li>Icon size slider</li></ul>
-            <p class="where">Settings &gt; IconStyle</p>
-            <a class="dl" href="debs/com.purplesquarecube.iconstyle_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-batteryalert">
-        <img class="ico" src="icons/com.purplesquarecube.batteryalert.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>BatteryAlert<span class="ver">1.0.0</span></h3>
-          <p class="tag">Know when to unplug.</p>
-          <p>Shows a notice and plays a sound when your battery reaches the level you charge to, or when it runs low.</p>
-          <details><summary>details</summary>
-            <ul><li>Alert at a charge level from 50% to 100%</li><li>Alert when the battery is low</li><li>Six sounds with a preview</li></ul>
-            <p class="where">Settings &gt; BatteryAlert</p>
-            <a class="dl" href="debs/com.purplesquarecube.batteryalert_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-breather">
-        <img class="ico" src="icons/com.purplesquarecube.breather.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>Breather<span class="ver">1.0.0</span></h3>
-          <p class="tag">A nudge to take a break.</p>
-          <p>Counts the time you spend on your phone and reminds you to take a short break. The count starts over once the phone has been locked for five minutes.</p>
-          <details><summary>details</summary>
-            <ul><li>Remind after 10 minutes to 1.5 hours</li><li>Optional sound</li><li>Resets after a real break</li></ul>
-            <p class="where">Settings &gt; Breather</p>
-            <a class="dl" href="debs/com.purplesquarecube.breather_1.0.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-apptunes">
-        <img class="ico" src="icons/com.purplesquarecube.apptunes.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>AppTunes<span class="ver">2.0.1</span></h3>
-          <p class="tag">A different song in every app.</p>
-          <p>Import your own MP3s and choose a song for each app. It plays while that app is open and stops when you leave.</p>
-          <details><summary>details</summary>
-            <ul><li>Import songs from the Files picker</li><li>Pick a song per app</li><li>Loop and volume controls</li></ul>
-            <p class="where">Settings &gt; AppTunes</p>
-            <a class="dl" href="debs/com.purplesquarecube.apptunes_2.0.1_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-launchfx">
-        <img class="ico" src="icons/com.purplesquarecube.launchfx.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>LaunchFX<span class="ver">1.0.1</span></h3>
-          <p class="tag">50 ways to open an app.</p>
-          <p>Pick one of 50 opening effects (iris shapes, wipes, curtains, blinds, tile dissolves and more). Preview them right in Settings.</p>
-          <details><summary>details</summary>
-            <ul><li>50 animations</li><li>Preview button</li><li>Speed and cover colour</li><li>Per-app on/off</li><li>Random mode</li></ul>
-            <p class="where">Settings &gt; LaunchFX</p>
-            <a class="dl" href="debs/com.purplesquarecube.launchfx_1.0.1_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-      <li class="pkg" id="com-purplesquarecube-liquidglass">
-        <img class="ico" src="icons/com.purplesquarecube.liquidglass.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>Sheer<span class="ver">1.2.0</span></h3>
-          <p class="tag">Turns every blur into clear glass.</p>
-          <p>Replaces frosted blur with see-through glass across iOS 12: Control Center, notifications, folders, the dock, the lock screen and the app switcher. Bright glass edges, a soft inner glow and a highlight that moves as you tilt the phone.</p>
-          <details><summary>details</summary>
-            <ul><li>Clears every blurred surface, including Control Center&#x27;s full-screen background</li><li>Glass edges and a tilt-reactive highlight on panels, the dock and folders</li><li>Frosted style if you want the blur back</li><li>Adjustable blur, edge glow, shine and tint</li></ul>
-            <p class="where">Settings &gt; Sheer</p>
-            <a class="dl" href="debs/com.purplesquarecube.liquidglass_1.2.0_iphoneos-arm.deb">download .deb</a>
-          </details>
-        </div>
-      </li>
-  </ol>
-
-  <h2>Themes<span class="count">10</span></h2>
-  <p class="lede">Icon themes for Snowboard or Anemone. They cover the stock Apple apps, Sileo, Zebra, Cydia, Filza and the Google apps (Chrome, Gmail, Maps, YouTube, Drive, Photos, Docs and more), plus Strava, Geometry Dash, NewTerm 2, iCleaner Pro, Amethyst, Delta and ReProvision. Games, Google apps and fitness apps you install later, including 2-player games, get a matching icon automatically through the small Purple Link helper.</p>
-  <div class="themes">
-      <figure id="com-purplesquarecube-theme-violet">
-        <img src="assets/theme-violet.png" alt="Violet theme preview" width="450" height="337">
-        <figcaption><b>Violet</b><span>Deep violet squares with solid white glyphs.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.violet_1.2.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-mono">
-        <img src="assets/theme-mono.png" alt="Mono theme preview" width="450" height="337">
-        <figcaption><b>Mono</b><span>Near-black with thin white line art and a single colour dot.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.mono_1.2.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-paper">
-        <img src="assets/theme-paper.png" alt="Paper theme preview" width="450" height="337">
-        <figcaption><b>Paper</b><span>Warm cream stock with ink glyphs on an offset colour print.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.paper_1.2.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-neon">
-        <img src="assets/theme-neon.png" alt="Neon theme preview" width="450" height="337">
-        <figcaption><b>Neon</b><span>Glowing tube-light outlines on midnight blue.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.neon_1.2.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-frost">
-        <img src="assets/theme-frost.png" alt="Frost theme preview" width="450" height="337">
-        <figcaption><b>Frost</b><span>Frosted pale glass with tinted, softly lit glyphs.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.frost_1.2.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-sunset">
-        <img src="assets/theme-sunset.png" alt="Sunset theme preview" width="450" height="337">
-        <figcaption><b>Sunset</b><span>Warm orange-to-purple dusk with a low sun and white glyphs.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.sunset_1.0.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-phosphor">
-        <img src="assets/theme-phosphor.png" alt="Phosphor theme preview" width="450" height="337">
-        <figcaption><b>Phosphor</b><span>Green terminal glow with scanlines on black.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.phosphor_1.0.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-blueprint">
-        <img src="assets/theme-blueprint.png" alt="Blueprint theme preview" width="450" height="337">
-        <figcaption><b>Blueprint</b><span>White line drawings on blue graph paper.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.blueprint_1.0.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-pixel">
-        <img src="assets/theme-pixel.png" alt="Pixel theme preview" width="450" height="337">
-        <figcaption><b>Pixel</b><span>Chunky 8-bit glyphs on a dark pixel grid.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.pixel_1.0.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
-      <figure id="com-purplesquarecube-theme-doodle">
-        <img src="assets/theme-doodle.png" alt="Doodle theme preview" width="450" height="337">
-        <figcaption><b>Doodle</b><span>Flat colour, wobbly marker outlines and a little pair of eyes.</span>
-          <a class="dl" href="debs/com.purplesquarecube.theme.doodle_1.0.0_iphoneos-arm.deb">download .deb</a></figcaption>
-      </figure>
+  <div class="sky" aria-hidden="true">
+    <img class="p" src="assets/peanut.png" alt="" width="64" style="left:6%;width:64px;animation-duration:26s;-webkit-animation-duration:26s;animation-delay:-4s;-webkit-animation-delay:-4s;opacity:0.95;--dx:40px;--a0:-20deg;--a1:300deg;--t:12%">
+    <img class="p" src="assets/peanut.png" alt="" width="40" style="left:14%;width:40px;animation-duration:32s;-webkit-animation-duration:32s;animation-delay:-19s;-webkit-animation-delay:-19s;opacity:0.75;--dx:-30px;--a0:15deg;--a1:-280deg;--t:62%">
+    <img class="p" src="assets/peanut.png" alt="" width="96" style="left:23%;width:96px;animation-duration:21s;-webkit-animation-duration:21s;animation-delay:-11s;-webkit-animation-delay:-11s;opacity:1.0;--dx:55px;--a0:-40deg;--a1:330deg;--t:35%">
+    <img class="p" src="assets/peanut.png" alt="" width="52" style="left:31%;width:52px;animation-duration:29s;-webkit-animation-duration:29s;animation-delay:-26s;-webkit-animation-delay:-26s;opacity:0.85;--dx:-45px;--a0:30deg;--a1:-320deg;--t:80%">
+    <img class="p" src="assets/peanut.png" alt="" width="76" style="left:40%;width:76px;animation-duration:24s;-webkit-animation-duration:24s;animation-delay:-7s;-webkit-animation-delay:-7s;opacity:0.95;--dx:35px;--a0:-10deg;--a1:290deg;--t:22%">
+    <img class="p" src="assets/peanut.png" alt="" width="36" style="left:48%;width:36px;animation-duration:35s;-webkit-animation-duration:35s;animation-delay:-30s;-webkit-animation-delay:-30s;opacity:0.7;--dx:-25px;--a0:50deg;--a1:-250deg;--t:70%">
+    <img class="p" src="assets/peanut.png" alt="" width="110" style="left:56%;width:110px;animation-duration:20s;-webkit-animation-duration:20s;animation-delay:-15s;-webkit-animation-delay:-15s;opacity:1.0;--dx:60px;--a0:-30deg;--a1:360deg;--t:48%">
+    <img class="p" src="assets/peanut.png" alt="" width="48" style="left:63%;width:48px;animation-duration:30s;-webkit-animation-duration:30s;animation-delay:-2s;-webkit-animation-delay:-2s;opacity:0.8;--dx:-40px;--a0:20deg;--a1:-300deg;--t:9%">
+    <img class="p" src="assets/peanut.png" alt="" width="84" style="left:71%;width:84px;animation-duration:23s;-webkit-animation-duration:23s;animation-delay:-21s;-webkit-animation-delay:-21s;opacity:0.95;--dx:45px;--a0:-50deg;--a1:310deg;--t:58%">
+    <img class="p" src="assets/peanut.png" alt="" width="44" style="left:79%;width:44px;animation-duration:33s;-webkit-animation-duration:33s;animation-delay:-12s;-webkit-animation-delay:-12s;opacity:0.75;--dx:-35px;--a0:35deg;--a1:-270deg;--t:28%">
+    <img class="p" src="assets/peanut.png" alt="" width="100" style="left:86%;width:100px;animation-duration:22s;-webkit-animation-duration:22s;animation-delay:-9s;-webkit-animation-delay:-9s;opacity:1.0;--dx:50px;--a0:-15deg;--a1:340deg;--t:74%">
+    <img class="p" src="assets/peanut.png" alt="" width="58" style="left:93%;width:58px;animation-duration:28s;-webkit-animation-duration:28s;animation-delay:-24s;-webkit-animation-delay:-24s;opacity:0.85;--dx:-55px;--a0:40deg;--a1:-310deg;--t:40%">
+    <img class="p" src="assets/peanut.png" alt="" width="88" style="left:3%;width:88px;animation-duration:25s;-webkit-animation-duration:25s;animation-delay:-17s;-webkit-animation-delay:-17s;opacity:0.9;--dx:30px;--a0:25deg;--a1:-330deg;--t:90%">
+    <img class="p" src="assets/peanut.png" alt="" width="42" style="left:35%;width:42px;animation-duration:34s;-webkit-animation-duration:34s;animation-delay:-33s;-webkit-animation-delay:-33s;opacity:0.7;--dx:25px;--a0:-35deg;--a1:260deg;--t:52%">
+    <img class="p" src="assets/peanut.png" alt="" width="66" style="left:52%;width:66px;animation-duration:27s;-webkit-animation-duration:27s;animation-delay:-5s;-webkit-animation-delay:-5s;opacity:0.9;--dx:-50px;--a0:10deg;--a1:-290deg;--t:88%">
+    <img class="p" src="assets/peanut.png" alt="" width="38" style="left:68%;width:38px;animation-duration:36s;-webkit-animation-duration:36s;animation-delay:-28s;-webkit-animation-delay:-28s;opacity:0.7;--dx:30px;--a0:45deg;--a1:-240deg;--t:15%">
+    <img class="p" src="assets/peanut.png" alt="" width="74" style="left:90%;width:74px;animation-duration:24s;-webkit-animation-duration:24s;animation-delay:-14s;-webkit-animation-delay:-14s;opacity:0.9;--dx:-45px;--a0:-25deg;--a1:320deg;--t:18%">
+    <img class="p" src="assets/peanut.png" alt="" width="56" style="left:19%;width:56px;animation-duration:31s;-webkit-animation-duration:31s;animation-delay:-22s;-webkit-animation-delay:-22s;opacity:0.8;--dx:35px;--a0:20deg;--a1:280deg;--t:94%">
   </div>
-
-  <p class="lede" style="margin-top:22px"><b style="color:var(--ink)">Purple Link</b>
-    <span class="ver">1.1.0</span> &mdash; A small helper installed with the themes. It looks at the apps on your phone and gives games, Google apps and fitness apps a matching theme icon, including 2-player games and anything you install later. It runs by itself when apps are added.
-    <a class="dl" href="debs/com.purplesquarecube.purplelink_1.1.0_iphoneos-arm.deb">download .deb</a></p>
-
-  <h2>Works with<span class="count">5</span></h2>
-  <p class="lede">Any jailbreak should work if it gives you iOS 12 on an arm64 device, a rootful filesystem, a tweak injector (Substrate, Substitute or libhooker) and PreferenceLoader.</p>
-  <ul class="jb">
-    <li><b>checkra1n</b><span class="ios">iOS 12.0 to 14.8.1</span>
-      <span class="dev">A7 to A11 chips: iPhone 5s up to iPhone X, plus iPads and iPods with the same chips</span><p>Semi-tethered: run it from a Mac or Linux PC again after every reboot. Rootful on iOS 12, so everything installs the normal way. The main target for this repo.</p></li>
-    <li><b>Odysseyra1n</b><span class="ios">iOS 12.0 to 14.8.1</span>
-      <span class="dev">Same devices as checkra1n</span><p>Runs on top of checkra1n and also needs a computer after every reboot. It uses libhooker where older jailbreaks use Substrate; libhooker stands in for it.</p></li>
-    <li><b>Amethyst</b><span class="ios">iOS 12.0 to 13.7</span>
-      <span class="dev">arm64 devices (listed for all devices on those versions)</span><p>Released June 2026. Semi-untethered: sideload the app and tap to re-jailbreak after a reboot. It loads tweaks, and a community write-up reports it working on an iPhone 6 running iOS 12.5.8.</p></li>
-    <li><b>unc0ver</b><span class="ios">iOS 12.0 to 12.4.8 (skips 12.3 to 12.3.2)</span>
-      <span class="dev">A7 to A11 chips, partial support on A12</span><p>Does not cover iOS 12.5.x. If you are on 12.5.x, use one of the others.</p></li>
-    <li><b>Chimera</b><span class="ios">iOS 12.0 to 12.5.7</span>
-      <span class="dev">A7 to A12 chips</span><p>Comes with Substitute and Sileo. iOS 12.5.x needs the community chimera_patch.</p></li>
-  </ul>
-  <p class="nope"><b>Not compatible</b>Odyssey (iOS 13), Taurine (iOS 14), Dopamine, palera1n and XinaA15 (iOS 15 and up), and any jailbreak for iOS 13 or later. Amethyst and Odysseyra1n can reach those versions, but these packages are only built for iOS 12 and rootful systems.</p>
-  <p class="lede" style="margin-top:14px">Version ranges checked against public sources in October 2026. They can change, so confirm on each project&#x27;s own page. These packages were not tested on every one.</p>
-
-  <section class="how">
-    <h2>Using the repo</h2>
-    <ol>
-      <li>Open this page on your iPhone and tap <b>Add to Sileo</b>, or paste the address into Sources.</li>
-      <li>Pull down in Sileo to refresh, then install what you like.</li>
-      <li>Respring. Tweaks show up in <b>Settings</b>; themes are applied from Snowboard or Anemone.</li>
-    </ol>
-  </section>
-
-  <footer>
-    Written for iOS 12. Provided as-is, use at your own risk.<br>
-    Made by purplesquarecube &middot; <a href="https://github.com/purplesquarecube/purplerepo">source on GitHub</a>
-  </footer>
-</div>
+  <main>
+    <h1>purplerepo</h1>
+    <a class="btn main" id="sileo" href="sileo://source/https://purplepeanut4.github.io/purplerepo/">Add to Sileo</a>
+    <a class="btn" id="zebra" href="zbra://sources/add/https://purplepeanut4.github.io/purplerepo/">Add to Zebra</a>
+    <a class="btn" id="cydia" href="cydia://url/https://cydia.saurik.com/api/share#?source=https://purplepeanut4.github.io/purplerepo/">Add to Cydia</a>
+  </main>
 <script>
 (function(){
   var url = location.origin + location.pathname.replace(/index\.html$/, "");
   if (url.charAt(url.length-1) !== "/") url += "/";
-  var set = function(id, fn){ var el = document.getElementById(id); if (el) fn(el); };
-  set("repoUrl", function(e){ e.textContent = url; });
-  set("sileo", function(e){ e.href = "sileo://source/" + url; });
-  set("zebra", function(e){ e.href = "zbra://sources/add/" + url; });
-  set("cydia", function(e){ e.href = "cydia://url/https://cydia.saurik.com/api/share#?source=" + encodeURIComponent(url); });
-  set("copy", function(btn){
-    btn.addEventListener("click", function(){
-      var done = function(){ btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = "Copy"; }, 1400); };
-      var fallback = function(){
-        var t = document.createElement("textarea"); t.value = url; document.body.appendChild(t); t.select();
-        try { document.execCommand("copy"); done(); } catch (e) {}
-        document.body.removeChild(t);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, fallback);
-      else fallback();
-    });
-  });
+  var set = function(id, href){ var el = document.getElementById(id); if (el) el.href = href; };
+  set("sileo", "sileo://source/" + url);
+  set("zebra", "zbra://sources/add/" + url);
+  set("cydia", "cydia://url/https://cydia.saurik.com/api/share#?source=" + encodeURIComponent(url));
 })();
 </script>
 </body>

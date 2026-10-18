@@ -52,7 +52,7 @@ def control(pkg, section, depends, desc, extra=""):
     return (f"Package: {pkg['id']}\nName: {pkg['name']}\nVersion: {pkg['version']}\n"
             f"Architecture: iphoneos-arm\nDescription: {desc}\n"
             + (f"Depends: {depends}\n" if depends else "")
-            + f"Maintainer: purplesquarecube\nAuthor: purplesquarecube\nSection: {section}\n"
+            + f"Maintainer: purplepeanut4\nAuthor: purplepeanut4\nSection: {section}\n"
             + extra)
 
 
@@ -133,7 +133,7 @@ def build_theme(theme_row, tmeta):
         th.render_generic(theme_row, i, 180).save(f"{ib}/_generic/{name}.png", optimize=True)
     with open(f"{tdir}/Info.plist", "wb") as f:
         plistlib.dump({"PackageVersion": 2, "IB-MaskIcons": True, "ThemeName": display,
-                       "ThemeAuthor": "purplesquarecube"}, f)
+                       "ThemeAuthor": "purplepeanut4"}, f)
     write(f"{stage}/DEBIAN/control", control(
         tmeta, "Themes (Icons)", "com.purplesquarecube.purplelink", f"{blurb} Needs Snowboard or Anemone."))
     write(f"{stage}/DEBIAN/postinst",
@@ -207,8 +207,8 @@ def main():
             build_tweak(pkg)
     if "repack" in only:
         by = {t["key"]: t for t in meta.TWEAKS}
-        repack_old(by["apptunes"], "AppTunesPrefs", "2.0.0")
-        repack_old(by["launchfx"], "LaunchFXPrefs", "1.0.0")
+        repack_old(by["apptunes"], "AppTunesPrefs", by["apptunes"]["old_version"])
+        repack_old(by["launchfx"], "LaunchFXPrefs", by["launchfx"]["old_version"])
     if "helper" in only:
         build_purplelink(meta.HELPERS[0])
     if "themes" in only:

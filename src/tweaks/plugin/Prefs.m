@@ -1,4 +1,4 @@
-// PlugIn Settings pane - by purplesquarecube
+// PlugIn Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 #import <AudioToolbox/AudioToolbox.h>
 

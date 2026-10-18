@@ -1,4 +1,4 @@
-// FineVolume - by purplesquarecube
+// FineVolume - by purplepeanut4
 // Smaller steps for the volume buttons, so you can land on the exact level.
 #import "PKCommon.h"
 

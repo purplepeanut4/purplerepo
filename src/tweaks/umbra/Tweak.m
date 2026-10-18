@@ -1,4 +1,4 @@
-// Umbra - by purplesquarecube
+// Umbra - by purplepeanut4
 // A dark mode for iOS 12, built on iOS's own Smart Invert. Invert is switched on while a chosen app is
 // in front and off again when you leave it, so you can pick which apps go dark.
 #import "PKCommon.h"

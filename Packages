@@ -1,207 +1,207 @@
 Package: com.purplesquarecube.apptunes
-Version: 2.0.1
+Version: 2.0.2
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
 Conflicts: com.yourname.apptunes
 Replaces: com.yourname.apptunes
-Filename: debs/com.purplesquarecube.apptunes_2.0.1_iphoneos-arm.deb
-Size: 34256
-MD5sum: c05331194a44cfe847b18f26deb7fc71
-SHA1: 2fb239bae73ca034e4e677bc1baf30f7be750e07
-SHA256: 1e82e1a3aa580ccfdc422d0b08c5116f99dd3d2a981cbdb86aab03432f470fc0
+Filename: debs/com.purplesquarecube.apptunes_2.0.2_iphoneos-arm.deb
+Size: 39930
+MD5sum: 26eebfd5f2409daa6cfb87c85b240a1d
+SHA1: 746f42c48b22ea303f4f27283b59c5b6bf889a21
+SHA256: f0b357ec34e17bdea9d71bc66dc20e2cffae46b824a21774f85a9d53778b5b28
 Section: Tweaks
 Description: Play a different song in each app you choose
-Author: purplesquarecube
+Author: purplepeanut4
 Name: AppTunes
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.apptunes.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.apptunes.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-apptunes
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.apptunes.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.apptunes.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-apptunes
 
 Package: com.purplesquarecube.badgecolor
-Version: 1.0.0
-Architecture: iphoneos-arm
-Maintainer: purplesquarecube
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.badgecolor_1.0.0_iphoneos-arm.deb
-Size: 27688
-MD5sum: 51f36888b729ed2237838f1ee0e43fa5
-SHA1: 0a7363ec3f9fe5d29b5e35c1c3f82d49ff3b937e
-SHA256: 28b1222e7abaa1ab9faaab1b8081aaff5fba29766c3d4cf284f8245cd52a743a
-Section: Tweaks
-Description: Badges in your colour. Recolor the red notification badges on your icons and make them bigger or smaller.
-Author: purplesquarecube
-Name: BadgeColor
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.badgecolor.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.badgecolor.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-badgecolor
-
-Package: com.purplesquarecube.batteryalert
-Version: 1.0.0
-Architecture: iphoneos-arm
-Maintainer: purplesquarecube
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.batteryalert_1.0.0_iphoneos-arm.deb
-Size: 29058
-MD5sum: 72f81a6ed6649f9bd178382ee46140a3
-SHA1: ca75b8e2987255b04a9748409924f92b32ae3320
-SHA256: f0f68def4a85c0aedf170ac1ba90fee61fddea725afe4b7b26374a699378b682
-Section: Tweaks
-Description: Know when to unplug. Shows a notice and plays a sound when your battery reaches the level you charge to, or when it runs low.
-Author: purplesquarecube
-Name: BatteryAlert
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.batteryalert.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.batteryalert.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-batteryalert
-
-Package: com.purplesquarecube.batteryline
-Version: 1.0.0
-Architecture: iphoneos-arm
-Maintainer: purplesquarecube
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.batteryline_1.0.0_iphoneos-arm.deb
-Size: 27576
-MD5sum: 169d4cfc98a811ae3c70d70acc957ebe
-SHA1: b8ddb7800ff4f8e921cf2f238e3024f2b74c4cf6
-SHA256: 96c9d62338d376de1d290229d3c59363796da108f42e4d0b186b0ffb80e7b097
-Section: Tweaks
-Description: A battery meter you can see in any app. A thin line along the top or bottom of the screen that shows your battery level on top of every app
-Author: purplesquarecube
-Name: BatteryLine
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.batteryline.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.batteryline.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-batteryline
-
-Package: com.purplesquarecube.breather
-Version: 1.0.0
-Architecture: iphoneos-arm
-Maintainer: purplesquarecube
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.breather_1.0.0_iphoneos-arm.deb
-Size: 27176
-MD5sum: 11b58526610417b95551433ef96e08a3
-SHA1: 752814df0be1ecd743f7b888910d1d121f7b3ecd
-SHA256: 2a4637bc644aa86ae6248eeedf638634614ab4485ff49a814889b4818faf2740
-Section: Tweaks
-Description: A nudge to take a break. Counts the time you spend on your phone and reminds you to take a short break
-Author: purplesquarecube
-Name: Breather
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.breather.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.breather.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-breather
-
-Package: com.purplesquarecube.dimmer
-Version: 1.0.0
-Architecture: iphoneos-arm
-Maintainer: purplesquarecube
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.dimmer_1.0.0_iphoneos-arm.deb
-Size: 27422
-MD5sum: 3f003c3c550a5aceb1dc51daf113b5a6
-SHA1: ecde230e0421370c6b7104aa81b5cb8bd90785e5
-SHA256: 3ca4cdb713c8c7030de0eb6e3e0e82ae1adf1c16605ceb260d656c3e4d82cc31
-Section: Tweaks
-Description: Darker than dark. Dims the screen below the normal minimum and adds an optional warm tint, on top of everything
-Author: purplesquarecube
-Name: Dimmer
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.dimmer.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.dimmer.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-dimmer
-
-Package: com.purplesquarecube.finevolume
-Version: 1.0.0
-Architecture: iphoneos-arm
-Maintainer: purplesquarecube
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.finevolume_1.0.0_iphoneos-arm.deb
-Size: 23586
-MD5sum: eec75d147d6a83dd0e37f59d13476152
-SHA1: 09c6611af53c3a247b8d84dab59186274805cc6d
-SHA256: a955c844e978f53e706e1c4ce6fcd263505518564efcbe18667b2f98bc43d527
-Section: Tweaks
-Description: Volume, in smaller steps. Each press of a volume button changes the volume by less, so you can land on exactly the level you want
-Author: purplesquarecube
-Name: FineVolume
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.finevolume.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.finevolume.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-finevolume
-
-Package: com.purplesquarecube.iconstyle
-Version: 1.0.0
-Architecture: iphoneos-arm
-Maintainer: purplesquarecube
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.iconstyle_1.0.0_iphoneos-arm.deb
-Size: 26382
-MD5sum: b985f88a1b661936c4e6aebd444ff95c
-SHA1: 479a576067c5d824e86b7909d710accddb7ff8b2
-SHA256: 38e9376c927da58f783838c8c94b96349119d31d818d1739916a787eb5e8364e
-Section: Tweaks
-Description: Icons with depth. Adds a soft shadow, or a coloured glow, under your app icons, and lets you make the icon pictures bigger or smaller.
-Author: purplesquarecube
-Name: IconStyle
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.iconstyle.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.iconstyle.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-iconstyle
-
-Package: com.purplesquarecube.launchfx
 Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.launchfx_1.0.1_iphoneos-arm.deb
-Size: 68736
-MD5sum: 8999be5ff94ec7dfc65683499f3b46f3
-SHA1: e08ec81759fdcabe91a7680b4de6645fef097d1b
-SHA256: 442968c073558a9c482b6ebfdafe4e51cac432ebbc3f84a384278331aada0b1b
+Filename: debs/com.purplesquarecube.badgecolor_1.0.1_iphoneos-arm.deb
+Size: 34020
+MD5sum: 271187751f6e64c77234e6cfc0ad0a1e
+SHA1: 5b4be1d27f585fae65cfc8754fd6f2543290b8e4
+SHA256: dcbfc4f5cea743e943608e13c5cfb184b291f533d9686d4a73e3ac96d6908f5d
+Section: Tweaks
+Description: Badges in your colour. Recolor the red notification badges on your icons and make them bigger or smaller.
+Author: purplepeanut4
+Name: BadgeColor
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.badgecolor.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.badgecolor.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-badgecolor
+
+Package: com.purplesquarecube.batteryalert
+Version: 1.0.1
+Architecture: iphoneos-arm
+Maintainer: purplepeanut4
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.batteryalert_1.0.1_iphoneos-arm.deb
+Size: 33302
+MD5sum: 0792e293a7e680f79ca7693aac16a5b4
+SHA1: b9b458ffc23662cbeba532ca14019c54d45aacd2
+SHA256: da60fc46d5873994fcdbefc4a8d007a3bc6ed720e51eeba6d3b294d65da89102
+Section: Tweaks
+Description: Know when to unplug. Shows a notice and plays a sound when your battery reaches the level you charge to, or when it runs low.
+Author: purplepeanut4
+Name: BatteryAlert
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.batteryalert.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.batteryalert.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-batteryalert
+
+Package: com.purplesquarecube.batteryline
+Version: 1.0.1
+Architecture: iphoneos-arm
+Maintainer: purplepeanut4
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.batteryline_1.0.1_iphoneos-arm.deb
+Size: 34172
+MD5sum: e797e3b0e9fba0f8c7d2edd688f6be38
+SHA1: d3e564a76cf531c678d7aa751f2601a74154b2d6
+SHA256: 2d708303522ebe08bf1f0654e4d4d66d0602715ab2a29cd082b982b85765573c
+Section: Tweaks
+Description: A battery meter you can see in any app. A thin line along the top or bottom of the screen that shows your battery level on top of every app
+Author: purplepeanut4
+Name: BatteryLine
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.batteryline.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.batteryline.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-batteryline
+
+Package: com.purplesquarecube.breather
+Version: 1.0.1
+Architecture: iphoneos-arm
+Maintainer: purplepeanut4
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.breather_1.0.1_iphoneos-arm.deb
+Size: 33548
+MD5sum: 84886af102734fc0b3249c05aaaec30e
+SHA1: 928d31b7d436923a6ac5008026c953ff30f0bd48
+SHA256: 4c3d27a24142a90484bc8813820a927a0bbabb7d8dd847d977d5961650b21ed6
+Section: Tweaks
+Description: A nudge to take a break. Counts the time you spend on your phone and reminds you to take a short break
+Author: purplepeanut4
+Name: Breather
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.breather.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.breather.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-breather
+
+Package: com.purplesquarecube.dimmer
+Version: 1.0.1
+Architecture: iphoneos-arm
+Maintainer: purplepeanut4
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.dimmer_1.0.1_iphoneos-arm.deb
+Size: 32476
+MD5sum: 055b3ab39e713e23732f9794459dbbd8
+SHA1: c28e66c2ad2396b69d007ee21846db2021405ae8
+SHA256: 5f184d8386f7475ef25031d0d6242499862296e3e994e23d932d86a167f84cc6
+Section: Tweaks
+Description: Darker than dark. Dims the screen below the normal minimum and adds an optional warm tint, on top of everything
+Author: purplepeanut4
+Name: Dimmer
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.dimmer.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.dimmer.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-dimmer
+
+Package: com.purplesquarecube.finevolume
+Version: 1.0.1
+Architecture: iphoneos-arm
+Maintainer: purplepeanut4
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.finevolume_1.0.1_iphoneos-arm.deb
+Size: 29992
+MD5sum: a0e25ec076237c6f4b4776089cea3b6c
+SHA1: c80796c6da0ddedc2c366fd36cff797ffb5d5a04
+SHA256: 5d147606f5e996901c98b7bed26541450fc569ae751582c1ea808ac93f8b2f2a
+Section: Tweaks
+Description: Volume, in smaller steps. Each press of a volume button changes the volume by less, so you can land on exactly the level you want
+Author: purplepeanut4
+Name: FineVolume
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.finevolume.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.finevolume.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-finevolume
+
+Package: com.purplesquarecube.iconstyle
+Version: 1.0.1
+Architecture: iphoneos-arm
+Maintainer: purplepeanut4
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.iconstyle_1.0.1_iphoneos-arm.deb
+Size: 31902
+MD5sum: 9cc45f1c205513eeeb0f9970f4da82db
+SHA1: 28fa5e3a1738fe895281984797ccc8ae7cb9529e
+SHA256: d1622a39c02c3c33eb5442ac8055f16c13d4d9a6f7d0134460c5ae1de0e099b3
+Section: Tweaks
+Description: Icons with depth. Adds a soft shadow, or a coloured glow, under your app icons, and lets you make the icon pictures bigger or smaller.
+Author: purplepeanut4
+Name: IconStyle
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.iconstyle.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.iconstyle.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-iconstyle
+
+Package: com.purplesquarecube.launchfx
+Version: 1.0.2
+Architecture: iphoneos-arm
+Maintainer: purplepeanut4
+Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
+Filename: debs/com.purplesquarecube.launchfx_1.0.2_iphoneos-arm.deb
+Size: 72710
+MD5sum: 027a0136f71d28cc4b69f76c37ab4503
+SHA1: 7fc576693dd05983755507ebed505d44ac6cfed9
+SHA256: 5457bd60398d20862ce754856eaf69611c85d8f73d564beed3a405b0da247bc6
 Section: Tweaks
 Description: 50 custom app opening animations, chosen in Settings
-Author: purplesquarecube
+Author: purplepeanut4
 Name: LaunchFX
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.launchfx.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.launchfx.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-launchfx
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.launchfx.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.launchfx.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-launchfx
 
 Package: com.purplesquarecube.liquidglass
-Version: 1.2.0
+Version: 1.2.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.liquidglass_1.2.0_iphoneos-arm.deb
-Size: 36668
-MD5sum: 63ba805e29e43d67a061633208f45d79
-SHA1: b55b4cf9bcbee640227ce76c06a9e5fcd0eee5b7
-SHA256: 4ae7ac18c4558c4fec8022bddaf6c5cbd3bbe13762774a3c7b5beaf94a08a3c8
+Filename: debs/com.purplesquarecube.liquidglass_1.2.1_iphoneos-arm.deb
+Size: 41126
+MD5sum: 2418bbff2a114a9ec4a79071b37899e8
+SHA1: c435d97ddd427966347a414840eb9c7c42d71e8f
+SHA256: 96ecc7accda6a9047c84c313ed2b37e506c7649780dfd21ac06be17d0bb2ec1e
 Section: Tweaks
 Description: Turns every blur into clear glass. Replaces frosted blur with see-through glass across iOS 12: Control Center, notifications, folders, the dock, the lock screen and the app switcher
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Sheer
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.liquidglass.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.liquidglass.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-liquidglass
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.liquidglass.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.liquidglass.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-liquidglass
 
 Package: com.purplesquarecube.plugin
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.plugin_1.0.0_iphoneos-arm.deb
-Size: 28356
-MD5sum: e1b4442ca6dc8fd285465c44ad6f0841
-SHA1: 4c0fd959083a997d83ffbf98862936bf839c33d9
-SHA256: 11061382a9b929e3b594a72d079517d8e7c81f15f0a187c3b232448f5304ac68
+Filename: debs/com.purplesquarecube.plugin_1.0.1_iphoneos-arm.deb
+Size: 33594
+MD5sum: 8c6d878df3bec9147e5f23421ee85428
+SHA1: 34f8a43d2b9e2c06461f39b4d87b7f585218585d
+SHA256: f42b6da24fe51010608ca4608667a1126b088ff64c2e88397e6e41646e7d2836
 Section: Tweaks
 Description: A little show when you plug in. A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: PlugIn
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.plugin.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.plugin.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-plugin
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.plugin.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.plugin.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-plugin
 
 Package: com.purplesquarecube.purplelink
 Version: 1.1.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: firmware (>= 12.0)
 Filename: debs/com.purplesquarecube.purplelink_1.1.0_iphoneos-arm.deb
 Size: 5570
@@ -210,88 +210,88 @@ SHA1: 513ac8ae9fd92019ef5e9b1b10f923acad3ba9d7
 SHA256: c50f80aaeec1f6814d611c21f1b4e2c3f3987ba2da8ebe714a6995a367fb975d
 Section: Utilities
 Description: Icons for apps the themes don't list.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Purple Link
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.purplelink.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.purplelink.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-purplelink
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.purplelink.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.purplelink.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-purplelink
 
 Package: com.purplesquarecube.quiethud
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.quiethud_1.0.0_iphoneos-arm.deb
-Size: 27414
-MD5sum: 15c3c25d1b4f2516ffc7b65fbce8b937
-SHA1: 1563835acfe0e95053b8630f84c609e1c52c129b
-SHA256: dabc8795af649325532890f4ecd16708d0cf3807a71f305095a76c7b983e5d6f
+Filename: debs/com.purplesquarecube.quiethud_1.0.1_iphoneos-arm.deb
+Size: 32246
+MD5sum: a33d72456329571c6a011a893d4c9bf2
+SHA1: 3678a12e8c5217f4c5e51e52b21d42f81bdc1849
+SHA256: c457c258142e99a4ad8f9420a63657985aa705f2bc455bc3cad50ef97d6f71f9
 Section: Tweaks
 Description: No more pop-ups. Hide the volume, brightness, ringer and rotation-lock pop-ups
-Author: purplesquarecube
+Author: purplepeanut4
 Name: QuietHUD
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.quiethud.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.quiethud.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-quiethud
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.quiethud.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.quiethud.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-quiethud
 
 Package: com.purplesquarecube.sleeptimer
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.sleeptimer_1.0.0_iphoneos-arm.deb
-Size: 28058
-MD5sum: 29b563f9d3af1671f696dab8e4173926
-SHA1: e38e4575e3a9fea9146964179567107ec13167ba
-SHA256: 7d83aeec78446581a36f2a054ace9c5e4eda2d3efb40d73b4dc7abd23ecf5715
+Filename: debs/com.purplesquarecube.sleeptimer_1.0.1_iphoneos-arm.deb
+Size: 32810
+MD5sum: b6cadfbd9de2aa717a4936a9feb53a2e
+SHA1: c94f1906369032713f7cce73939cdfb31e62f63b
+SHA256: 085b7c8fa079ca07cbe54a0b666e5df12388b83d441562b5049a7b5fd92ecff0
 Section: Tweaks
 Description: Falls asleep before you do. Pick a time from 5 minutes to 2 hours and your music or video pauses when it ends
-Author: purplesquarecube
+Author: purplepeanut4
 Name: SleepTimer
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.sleeptimer.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.sleeptimer.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-sleeptimer
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.sleeptimer.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.sleeptimer.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-sleeptimer
 
 Package: com.purplesquarecube.tapfeel
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.tapfeel_1.0.0_iphoneos-arm.deb
-Size: 31288
-MD5sum: 08263221ba51d6ac5eddbb2cdf8a140c
-SHA1: 91e7de70950511785959eb75602b68cf01adfdae
-SHA256: 5a981130930dbac5771ee2e896194e18bc59a6b7ff05b0c62fdf3b53e26ad50b
+Filename: debs/com.purplesquarecube.tapfeel_1.0.1_iphoneos-arm.deb
+Size: 37778
+MD5sum: 9f13d390d1bd85d803eb7387c72629ac
+SHA1: 1643841ce5d31e268a277c96c16e33df8993e58d
+SHA256: d7605b97ca70872025480feb1feda2e1ded4d6f2d74da5b8074f2ad938575ec4
 Section: Tweaks
 Description: Icons that answer back. Play a sound and bounce the icon when you tap an app
-Author: purplesquarecube
+Author: purplepeanut4
 Name: TapFeel
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.tapfeel.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.tapfeel.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-tapfeel
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.tapfeel.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.tapfeel.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-tapfeel
 
 Package: com.purplesquarecube.taplock
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.taplock_1.0.0_iphoneos-arm.deb
-Size: 29532
-MD5sum: 84c620cf0e715bfeb04a64c3ff0e702f
-SHA1: 2fd12bd74e0bd6a9cd8a33bf62cf620530ef32a7
-SHA256: 61fb673fc41c691bb4eb23564dfedcc81248b3084097c97a21e2cae7f15ee9b1
+Filename: debs/com.purplesquarecube.taplock_1.0.1_iphoneos-arm.deb
+Size: 33618
+MD5sum: 33664430df71a8926db53ec35343fe13
+SHA1: 20a3a18966a0bd70310512351f0d1f499ebf2094
+SHA256: d1d44708a659a9147c24ddcb0e75970c4b484b717b4e5b8c3dbeb1d864fc6eb4
 Section: Tweaks
 Description: Double-tap to lock. Double-tap an empty spot on the Home Screen or Dock to lock your device, so you never have to reach for the power button.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: TapLock
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.taplock.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.taplock.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-taplock
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.taplock.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.taplock.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-taplock
 
 Package: com.purplesquarecube.theme.blueprint
 Version: 1.0.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.blueprint_1.0.0_iphoneos-arm.deb
 Size: 2947332
@@ -300,16 +300,16 @@ SHA1: 2df3bce1f84919154d171e407434576fc77ff0f7
 SHA256: c3679cf1aabed9bb44f5ef4a2fc092622f56beb39062fb796bbd65effd475478
 Section: Themes (Icons)
 Description: White line drawings on blue graph paper. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Blueprint
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.blueprint.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.blueprint.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-blueprint
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.blueprint.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.blueprint.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-blueprint
 
 Package: com.purplesquarecube.theme.doodle
 Version: 1.0.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.doodle_1.0.0_iphoneos-arm.deb
 Size: 2739924
@@ -318,16 +318,16 @@ SHA1: 92b336e9fb19cdceffc174dc62447a4e7e02ad83
 SHA256: 8ac568349103a6556bea7d66020ee2402b7b40fd82316db825b12d961303fcba
 Section: Themes (Icons)
 Description: Flat colour, wobbly marker outlines and a little pair of eyes. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Doodle
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.doodle.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.doodle.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-doodle
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.doodle.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.doodle.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-doodle
 
 Package: com.purplesquarecube.theme.frost
 Version: 1.2.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.frost_1.2.0_iphoneos-arm.deb
 Size: 2277982
@@ -336,16 +336,16 @@ SHA1: f54a9bcc4983843555454f84b4b64930e9af2fbc
 SHA256: 6f35fff042f835b77c08616c3daff8608eb60678e09f3cf805824770be0eccc1
 Section: Themes (Icons)
 Description: Frosted pale glass with tinted, softly lit glyphs. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Frost
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.frost.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.frost.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-frost
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.frost.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.frost.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-frost
 
 Package: com.purplesquarecube.theme.mono
 Version: 1.2.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.mono_1.2.0_iphoneos-arm.deb
 Size: 1992078
@@ -354,16 +354,16 @@ SHA1: 7be4e0bf7414f5c2f5880bbb10e761e90357c6c6
 SHA256: 8fb498b318e3896d54b92bfd267fd5a21ec7b9cd91fdf6b5b03959f98cad7495
 Section: Themes (Icons)
 Description: Near-black with thin white line art and a single colour dot. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Mono
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.mono.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.mono.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-mono
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.mono.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.mono.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-mono
 
 Package: com.purplesquarecube.theme.neon
 Version: 1.2.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.neon_1.2.0_iphoneos-arm.deb
 Size: 2462090
@@ -372,16 +372,16 @@ SHA1: cee3667c757efe561489fe382f54e16ea73087b4
 SHA256: 1faf679e0441e362ed54489414ee348bccd2db409233450ea0e0b711d4f54918
 Section: Themes (Icons)
 Description: Glowing tube-light outlines on midnight blue. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Neon
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.neon.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.neon.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-neon
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.neon.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.neon.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-neon
 
 Package: com.purplesquarecube.theme.paper
 Version: 1.2.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.paper_1.2.0_iphoneos-arm.deb
 Size: 2235452
@@ -390,16 +390,16 @@ SHA1: f66d4a721d0855f68e2820393bcaf9e164c8b53b
 SHA256: 37d136565e989ebf2038c9b430a410eb93913d2f3024df0ae66263873842c449
 Section: Themes (Icons)
 Description: Warm cream stock with ink glyphs on an offset colour print. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Paper
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.paper.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.paper.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-paper
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.paper.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.paper.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-paper
 
 Package: com.purplesquarecube.theme.phosphor
 Version: 1.0.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.phosphor_1.0.0_iphoneos-arm.deb
 Size: 2665386
@@ -408,16 +408,16 @@ SHA1: 68011c49ec89cfaba5436c8a22424da8c77cc8bb
 SHA256: e9bb13436988308ab88f86448c34fe6812a893ab8d6e0a47a90f26ff39e9a176
 Section: Themes (Icons)
 Description: Green terminal glow with scanlines on black. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Phosphor
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.phosphor.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.phosphor.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-phosphor
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.phosphor.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.phosphor.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-phosphor
 
 Package: com.purplesquarecube.theme.pixel
 Version: 1.0.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.pixel_1.0.0_iphoneos-arm.deb
 Size: 2169474
@@ -426,16 +426,16 @@ SHA1: d9d0b6d240674bbfd379696a552ca7a234326dde
 SHA256: e45836c971c7ae28e44dea3033221156650590653cb1f9fdc1231f77f22bf0d7
 Section: Themes (Icons)
 Description: Chunky 8-bit glyphs on a dark pixel grid. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Pixel
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.pixel.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.pixel.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-pixel
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.pixel.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.pixel.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-pixel
 
 Package: com.purplesquarecube.theme.sunset
 Version: 1.0.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.sunset_1.0.0_iphoneos-arm.deb
 Size: 2569692
@@ -444,16 +444,16 @@ SHA1: c6ebebc705ee37efdfb5fe093b9aaa20c1464130
 SHA256: 287ebe9c13cb1bf9fa9ef93f7ef45c89a6d403fbb437528bb3a510c8095e0ab6
 Section: Themes (Icons)
 Description: Warm orange-to-purple dusk with a low sun and white glyphs. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Sunset
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.sunset.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.sunset.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-sunset
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.sunset.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.sunset.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-sunset
 
 Package: com.purplesquarecube.theme.violet
 Version: 1.2.0
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: com.purplesquarecube.purplelink
 Filename: debs/com.purplesquarecube.theme.violet_1.2.0_iphoneos-arm.deb
 Size: 2448666
@@ -462,63 +462,63 @@ SHA1: d980494a89ba74464f3be2d17e1b61092c7c80cf
 SHA256: f3ac716d1d7ff08a8c8cb1ea96bea8738fa43ba67d92aabfc3a2eeb2c279cbaa
 Section: Themes (Icons)
 Description: Deep violet squares with solid white glyphs. Needs Snowboard or Anemone.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Violet
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.theme.violet.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.theme.violet.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-theme-violet
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.theme.violet.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.theme.violet.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-violet
 
 Package: com.purplesquarecube.tidy
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.tidy_1.0.0_iphoneos-arm.deb
-Size: 26770
-MD5sum: dfaca6f33700a26b31f65bb14748f0a3
-SHA1: faf5e852e5a04c0df27ca1ae275a2e88971299f5
-SHA256: f76ec2ee25c64d1c5e3f188a2fd7eb76d93ef3197b85d03fc84c34b436b6971e
+Filename: debs/com.purplesquarecube.tidy_1.0.1_iphoneos-arm.deb
+Size: 33324
+MD5sum: 3e859eca51187376860e9d58b8c8c00b
+SHA1: 56d6d29e0a0caec9ff8ae46d4df7c495ad838a88
+SHA256: 885ff426c8d467f35c639c0fdf46abcca91d7c9318f8203dffe32833e7bb5f9a
 Section: Tweaks
 Description: Clean up the Home Screen. Hide icon labels, notification badges and page dots, or make the dock background clear
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Tidy
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.tidy.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.tidy.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-tidy
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.tidy.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.tidy.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-tidy
 
 Package: com.purplesquarecube.umbra
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.umbra_1.0.0_iphoneos-arm.deb
-Size: 31360
-MD5sum: c15982353b489a10f1ab4edcc39a2a56
-SHA1: b1d438a0c5d02656ef5622d052b3edb2f5a3974d
-SHA256: f1567ce016d4ca59918f34b761ba64189d354934f77d94c2391b05f7b51995f2
+Filename: debs/com.purplesquarecube.umbra_1.0.1_iphoneos-arm.deb
+Size: 35248
+MD5sum: bea7a79584daee61373edb0c300b5f9f
+SHA1: 89cb197c22a211f45eeb4977df5c6c4ad6e00f6b
+SHA256: 9c52c6b33466c9dbaf44a25d49918e3d95595a74f7e12869570d3e081e39e522
 Section: Tweaks
 Description: A dark mode for iOS 12. Makes app backgrounds dark using iOS's Smart Invert, one app at a time
-Author: purplesquarecube
+Author: purplepeanut4
 Name: Umbra
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.umbra.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.umbra.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-umbra
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.umbra.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.umbra.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-umbra
 
 Package: com.purplesquarecube.wakeup
-Version: 1.0.0
+Version: 1.0.1
 Architecture: iphoneos-arm
-Maintainer: purplesquarecube
+Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.wakeup_1.0.0_iphoneos-arm.deb
-Size: 23606
-MD5sum: 76ca97c77b8ac4be3714284cad70f3cf
-SHA1: e95eb794f8916b8ac752fcf293a7bde3190b3d51
-SHA256: 576fa613819eb2651e33fb84a84430dbe31294a45270eff1cd7792f76c3a4459
+Filename: debs/com.purplesquarecube.wakeup_1.0.1_iphoneos-arm.deb
+Size: 29314
+MD5sum: 77df7ec4979d0b74d4cf9917e1e6228b
+SHA1: f8afd8fe411ac086a98cc8fa927af8285f002217
+SHA256: d409365a715f342fdc2c09e0779ad9cd9b357d0f27c07ce5bc0a987e139b7a70
 Section: Tweaks
 Description: Wakes the screen when you plug in. Lights up the screen when you connect or disconnect a charger, so you can see right away that it's charging.
-Author: purplesquarecube
+Author: purplepeanut4
 Name: WakeUp
-Icon: https://purplesquarecube.github.io/purplerepo/icons/com.purplesquarecube.wakeup.png
-SileoDepiction: https://purplesquarecube.github.io/purplerepo/depictions/com.purplesquarecube.wakeup.json
-Depiction: https://purplesquarecube.github.io/purplerepo/#com-purplesquarecube-wakeup
+Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.wakeup.png
+SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.wakeup.json
+Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-wakeup
 

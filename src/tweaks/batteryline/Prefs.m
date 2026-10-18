@@ -1,4 +1,4 @@
-// BatteryLine Settings pane - by purplesquarecube
+// BatteryLine Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 
 static NSString *const kDomain = @"com.purplesquarecube.batteryline";

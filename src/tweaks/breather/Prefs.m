@@ -1,4 +1,4 @@
-// Breather Settings pane - by purplesquarecube
+// Breather Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 #import <AudioToolbox/AudioToolbox.h>
 

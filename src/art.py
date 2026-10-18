@@ -625,7 +625,7 @@ def rich_background(c1, c2, seed):
     return grain(bg, 5, seed=seed % 997)
 
 
-def tweak_icon(key, size=1024, rounded=False):
+def tweak_icon_polished(key, size=1024, rounded=False):
     c1, c2, fn = TWEAK_STYLES[key]
     seed = sum(ord(ch) for ch in key) * 7
     bg = rich_background(c1, c2, seed)
@@ -659,6 +659,129 @@ def tweak_icon(key, size=1024, rounded=False):
     return squircle(out) if rounded else out.convert("RGB")
 
 
+
+# ---------------------------------------------------------------- "made in the basement" icons
+CRAYON = {
+    "tidy": "#3FB8AF", "taplock": "#7B61FF", "quiethud": "#7F93AD", "tapfeel": "#FF6B6B", "batteryline": "#7ED957",
+    "dimmer": "#5468A8", "umbra": "#6A7094", "plugin": "#FFD23F", "sleeptimer": "#8E7CF0", "badgecolor": "#FF5FA2",
+    "finevolume": "#35B6E8", "wakeup": "#FFA94D", "iconstyle": "#C264E8", "batteryalert": "#FF7B54",
+    "breather": "#4FCBA6", "apptunes": "#FF8C42", "launchfx": "#9B5DE5", "liquidglass": "#5AB0FF",
+    "purplelink": "#A06CD5",
+}
+INK = (18, 14, 24, 255)
+
+
+def _warp_mask(mask, amp, seed, scale=110):
+    rng = np.random.default_rng(seed)
+    n = S // scale + 3
+    chans = []
+    for _ in range(2):
+        arr = rng.normal(0, 1, (n, n))
+        img = Image.fromarray(np.clip((arr + 3) * 42, 0, 255).astype(np.uint8), "L").resize((S, S), Image.BICUBIC)
+        chans.append((np.array(img, np.float32) / 42 - 3) * amp)
+    ys, xs = np.mgrid[0:S, 0:S]
+    xx = np.clip(xs + chans[0], 0, S - 1).astype(int)
+    yy = np.clip(ys + chans[1], 0, S - 1).astype(int)
+    return Image.fromarray(np.array(mask)[yy, xx], "L")
+
+
+def _paint(mask, rgba):
+    layer = Image.new("RGBA", (S, S), tuple(rgba[:3]) + (0,))
+    a = mask if len(rgba) < 4 or rgba[3] == 255 else mask.point(lambda v: int(v * rgba[3] / 255))
+    layer.putalpha(a)
+    return layer
+
+
+def _ring(mask, width):
+    dil = mask.filter(ImageFilter.GaussianBlur(width * 0.8)).point(lambda v: 255 if v > 18 else 0)
+    return ImageChops.subtract(dil, mask)
+
+
+def _wobbly_line(d, pts, rng, width, fill=INK):
+    out = [(x + rng.normal(0, 7), y + rng.normal(0, 7)) for x, y in pts]
+    d.line(out, fill=fill, width=width, joint="curve")
+    for p in (out[0], out[-1]):
+        d.ellipse((p[0] - width / 2, p[1] - width / 2, p[0] + width / 2, p[1] + width / 2), fill=fill)
+
+
+def basement_icon(key, size=1024, rounded=False):
+    seed = sum(ord(ch) for ch in key) * 13 + 5
+    rng = np.random.default_rng(seed)
+    fn = TWEAK_STYLES[key][2]
+
+    # stained, slightly grubby paper
+    paper = Image.new("RGBA", (S, S), (241, 236, 221, 255))
+    stains = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(stains)
+    for _ in range(6):
+        x, y, r = rng.uniform(0, S), rng.uniform(0, S), rng.uniform(60, 190)
+        sd.ellipse((x - r, y - r, x + r, y + r), fill=(150, 112, 62, int(rng.uniform(10, 24))))
+    paper.alpha_composite(stains.filter(ImageFilter.GaussianBlur(34)))
+    paper = grain(paper, 9, seed=seed % 991)
+    fold = ImageDraw.Draw(paper)
+    fold.line([(0, S * 0.52), (S, S * 0.47)], fill=(120, 100, 70, 26), width=5)       # a fold crease
+
+    # crayon blob, crooked and off-centre
+    base = Image.new("L", (S, S), 0)
+    ImageDraw.Draw(base).rounded_rectangle((160, 160, 864, 864), 175, fill=255)
+    blob = _warp_mask(base, 26, seed + 1)
+    blob = blob.rotate(float(rng.uniform(-4.5, 4.5)), resample=Image.BICUBIC)
+    blob = ImageChops.offset(blob, int(rng.integers(-24, 24)), int(rng.integers(-20, 20)))
+    color = hexc(CRAYON[key])
+    fill = Image.new("RGBA", (S, S), color + (255,))
+    streak = Image.new("L", (S, S), 0)
+    st = ImageDraw.Draw(streak)
+    for x in range(-S, S * 2, 20):
+        st.line([(x, 0), (x + int(S * 0.55), S)], fill=int(rng.integers(0, 70)), width=int(rng.integers(7, 16)))
+    dark = Image.new("RGBA", (S, S), tuple(int(c * 0.80) for c in color) + (0,))
+    dark.putalpha(streak)
+    fill.alpha_composite(dark)
+    speck = Image.fromarray(((rng.random((S, S)) > 0.92) * 85).astype(np.uint8), "L")
+    pap = Image.new("RGBA", (S, S), (245, 241, 228, 0))
+    pap.putalpha(speck)
+    fill.alpha_composite(pap)
+    fill.putalpha(blob)
+    bleed = fill.copy()
+    bleed.putalpha(ImageChops.offset(blob, 18, -14).point(lambda v: int(v * 0.30)))   # colour spilling over
+    paper.alpha_composite(bleed)
+    paper.alpha_composite(fill)
+    # marker outline that doesn't quite sit on the fill
+    outline = _ring(_warp_mask(ImageChops.offset(blob, -9, 7), 8, seed + 2), 20)
+    paper.alpha_composite(_paint(outline, INK))
+
+    # the symbol: white fill shifted off its outline, like a bad colouring job
+    g = Glyph(bgdark=(0, 0, 0))
+    fn(g)
+    gm = g.l.split()[3].point(lambda v: 255 if v > 30 else 0)
+    gm = _warp_mask(gm, 6, seed + 3, 150).rotate(float(rng.uniform(-3, 3)), resample=Image.BICUBIC)
+    paper.alpha_composite(_paint(ImageChops.offset(gm, 9, 10), (255, 255, 255, 255)))
+    paper.alpha_composite(_paint(_ring(gm, 15), INK))
+
+    # scribbles, an asterisk, and a bit of tape
+    d = ImageDraw.Draw(paper)
+    for _ in range(2):
+        side = int(rng.integers(0, 4))
+        t = rng.uniform(0.2, 0.8)
+        if side == 0:   x, y, dx, dy = S * t, 70, 0, 70
+        elif side == 1: x, y, dx, dy = S - 70, S * t, -70, 0
+        elif side == 2: x, y, dx, dy = S * t, S - 70, 0, -70
+        else:           x, y, dx, dy = 70, S * t, 70, 0
+        _wobbly_line(d, [(x, y), (x + dx * 0.5 + 24, y + dy * 0.5 - 18), (x + dx, y + dy)], rng, int(rng.integers(8, 13)))
+    cx, cy = float(rng.uniform(780, 930)), float(rng.uniform(780, 930))
+    for a in (0, 60, 120):
+        t = math.radians(a + float(rng.uniform(-8, 8)))
+        _wobbly_line(d, [(cx - 34 * math.cos(t), cy - 34 * math.sin(t)), (cx + 34 * math.cos(t), cy + 34 * math.sin(t))], rng, 9)
+    tape = Image.new("RGBA", (S, S), (0, 0, 0, 0))
+    td = ImageDraw.Draw(tape)
+    td.polygon([(-30, 170), (210, -40), (270, 26), (30, 236)], fill=(222, 204, 150, 205))
+    td.line([(-10, 190), (230, -20)], fill=(255, 250, 230, 90), width=10)
+    paper.alpha_composite(shadow(tape, (6, 9), 8, 0.25, (60, 40, 10)))
+    paper.alpha_composite(tape)
+
+    out = paper.resize((size, size), Image.LANCZOS)
+    return squircle(out) if rounded else out.convert("RGB")
+
+
 # ---------------------------------------------------------------- banner
 def banner(w=1600, h=480):
     bg = lin_grad((w, h), hexc("#1A0C38"), hexc("#0E0620"), 20)
@@ -669,7 +792,7 @@ def banner(w=1600, h=480):
     d = ImageDraw.Draw(bg)
     d.text((440, 120), "purplerepo", font=font("poppins-m", 128), fill=(245, 238, 255, 255))
     d.text((446, 285), "jailbreak tweaks & themes for iOS 12", font=font("mono", 36), fill=(190, 165, 245, 255))
-    d.text((446, 345), "by purplesquarecube", font=font("mono", 30), fill=(130, 108, 190, 255))
+    d.text((446, 345), "by purplepeanut4", font=font("mono", 30), fill=(130, 108, 190, 255))
     return bg.convert("RGB")
 
 
@@ -683,3 +806,7 @@ if __name__ == "__main__":
     sheet.save("/home/claude/purple/out/preview/tweaks.png")
     banner().save("/home/claude/purple/out/preview/banner.png")
     print("ok")
+
+
+def tweak_icon(key, size=1024, rounded=False):
+    return basement_icon(key, size, rounded)

@@ -1,7 +1,7 @@
 """Single source of truth for purplerepo: packages, copy, versions."""
 
-REPO_URL = "https://purplesquarecube.github.io/purplerepo/"
-GITHUB_URL = "https://github.com/purplesquarecube/purplerepo"
+REPO_URL = "https://purplepeanut4.github.io/purplerepo/"
+GITHUB_URL = "https://github.com/purplepeanut4/purplerepo"
 ACCENT = "#7C3AED"
 
 # kind: tweak | theme
@@ -218,3 +218,14 @@ JB_NOT_COMPATIBLE = ("Odyssey (iOS 13), Taurine (iOS 14), Dopamine, palera1n and
                      "only built for iOS 12 and rootful systems.")
 JB_CHECKED = "Version ranges checked against public sources in October 2026. They can change, so confirm on each project's own page."
 
+
+
+# ---- every tweak got a new hand-drawn icon: bump the patch version so the Settings icon updates too
+AUTHOR = "purplepeanut4"
+for _t in TWEAKS:
+    _maj, _min, _pat = _t["version"].split(".")
+    _old = _t["version"]
+    _t["old_version"] = _old
+    _t["version"] = f"{_maj}.{_min}.{int(_pat) + 1}"
+    _prev = CHANGELOG.get(_t["id"], CHANGELOG_NEW)
+    CHANGELOG[_t["id"]] = f"{_t['version']}: new hand-drawn icon.\n\n{_prev}"

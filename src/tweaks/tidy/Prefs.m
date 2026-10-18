@@ -1,4 +1,4 @@
-// Tidy Settings pane - by purplesquarecube
+// Tidy Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 
 static NSString *const kDomain = @"com.purplesquarecube.tidy";

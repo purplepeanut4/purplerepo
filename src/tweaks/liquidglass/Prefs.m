@@ -1,4 +1,4 @@
-// Sheer Settings pane - by purplesquarecube
+// Sheer Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 
 static NSString *const kDomain = @"com.purplesquarecube.liquidglass";

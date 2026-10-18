@@ -1,4 +1,4 @@
-// Dimmer Settings pane - by purplesquarecube
+// Dimmer Settings pane - by purplepeanut4
 #import "PKPrefs.h"
 
 static NSString *const kDomain = @"com.purplesquarecube.dimmer";

@@ -1,4 +1,4 @@
-// IconStyle - by purplesquarecube
+// IconStyle - by purplepeanut4
 // A soft shadow (or glow) under app icons, and an adjustable icon size.
 #import "PKCommon.h"
 #import <QuartzCore/QuartzCore.h>

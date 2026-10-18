@@ -1,4 +1,4 @@
-// BatteryAlert - by purplesquarecube
+// BatteryAlert - by purplepeanut4
 // A notice (and sound) when the battery reaches the level you charge to, or runs low.
 #import "PKCommon.h"
 #import <AudioToolbox/AudioToolbox.h>

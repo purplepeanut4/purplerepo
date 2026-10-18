@@ -64,8 +64,13 @@ def make_images():
         pv.thumbnail((900, 900))
         pv.save(f"{REPO}/assets/theme-{t['key']}.png", optimize=True)
     art.logo(180).save(f"{REPO}/CydiaIcon.png", optimize=True)          # repo icon shown in Sileo
-    art.logo(512, rounded=True).save(f"{REPO}/assets/logo.png", optimize=True)
-    art.banner().save(f"{REPO}/assets/banner.png", optimize=True)
+    shutil.copy(f"{ROOT}/peanut-hi.png", f"{REPO}/assets/peanut.png")
+    pn = Image.open(f"{ROOT}/peanut-hi.png").convert("RGBA")
+    fav = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
+    ph = 120
+    small = pn.resize((int(pn.size[0] * ph / pn.size[1]), ph), Image.LANCZOS)
+    fav.alpha_composite(small, ((128 - small.size[0]) // 2, 4))
+    fav.save(f"{REPO}/assets/favicon.png", optimize=True)
 
 
 # ------------------------------------------------------------------ Packages + depictions
@@ -96,7 +101,7 @@ def depiction(p):
     views.append({"class": "DepictionTableTextView", "title": "Version", "text": p["version"]})
     views.append({"class": "DepictionTableTextView", "title": "Requires",
                   "text": "iOS 12" + (" + Snowboard/Anemone" if is_theme else "")})
-    views.append({"class": "DepictionTableTextView", "title": "Author", "text": "purplesquarecube"})
+    views.append({"class": "DepictionTableTextView", "title": "Author", "text": meta.AUTHOR})
     return {
         "minVersion": "0.1", "class": "DepictionTabView", "tintColor": meta.ACCENT,
         "tabs": [
@@ -125,6 +130,9 @@ def build_packages():
         p = by_id[d["Package"]]
         # replace/add presentation fields
         fields = [f for f in fields if f[0] not in ("Icon", "SileoDepiction", "Depiction")]
+        for f in fields:
+            if f[0] in ("Maintainer", "Author"):
+                f[1] = meta.AUTHOR
         fields.append(["Icon", f"{meta.REPO_URL}icons/{p['id']}.png"])
         fields.append(["SileoDepiction", f"{meta.REPO_URL}depictions/{p['id']}.json"])
         fields.append(["Depiction", f"{meta.REPO_URL}#{slug(p)}"])
@@ -138,241 +146,86 @@ def build_packages():
         f.write(gzip.compress(raw, 9, mtime=0))
     write(f"{REPO}/Release",
           "Origin: purplerepo\nLabel: purplerepo\nSuite: stable\nVersion: 1.0\nCodename: ios\n"
-          "Architectures: iphoneos-arm\nComponents: main\nDescription: Tweaks and themes by purplesquarecube\n")
+          "Architectures: iphoneos-arm\nComponents: main\nDescription: Tweaks and themes by purplepeanut4\n")
     write(f"{REPO}/.nojekyll", "")
 
 
 # ------------------------------------------------------------------ website
-CSS = """
-:root{
-  --paper:#F4EFE4; --paper2:#EAE3D3; --ink:#1B1527; --muted:#6C6480; --rule:rgba(27,21,39,.16);
-  --accent:#6A3DE8; --accent-ink:#ffffff;
-}
-@media (prefers-color-scheme: dark){
-  :root{ --paper:#130E20; --paper2:#1B1530; --ink:#EEE8FB; --muted:#9C92B6; --rule:rgba(238,232,251,.16);
-         --accent:#B59CFF; --accent-ink:#130E20; }
-}
+PEANUTS = [
+    # left %, width px, seconds, delay (negative = already mid-flight), drift px, start deg, end deg, top % (reduced-motion), opacity
+    (6, 64, 26, -4, 40, -20, 300, 12, .95), (14, 40, 32, -19, -30, 15, -280, 62, .75), (23, 96, 21, -11, 55, -40, 330, 35, 1.0),
+    (31, 52, 29, -26, -45, 30, -320, 80, .85), (40, 76, 24, -7, 35, -10, 290, 22, .95), (48, 36, 35, -30, -25, 50, -250, 70, .7),
+    (56, 110, 20, -15, 60, -30, 360, 48, 1.0), (63, 48, 30, -2, -40, 20, -300, 9, .8), (71, 84, 23, -21, 45, -50, 310, 58, .95),
+    (79, 44, 33, -12, -35, 35, -270, 28, .75), (86, 100, 22, -9, 50, -15, 340, 74, 1.0), (93, 58, 28, -24, -55, 40, -310, 40, .85),
+    (3, 88, 25, -17, 30, 25, -330, 90, .9), (35, 42, 34, -33, 25, -35, 260, 52, .7), (52, 66, 27, -5, -50, 10, -290, 88, .9),
+    (68, 38, 36, -28, 30, 45, -240, 15, .7), (90, 74, 24, -14, -45, -25, 320, 18, .9), (19, 56, 31, -22, 35, 20, 280, 94, .8),
+]
+
+SITE_CSS = """
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--paper); color:var(--ink);
-  font:17px/1.55 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  padding:0 20px env(safe-area-inset-bottom);
-}
-.wrap{max-width:720px; margin:0 auto; padding:30px 0 56px}
-a{color:var(--ink)}
-.serif,h1,h2,h3{font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif}
-.mono,.url,.ver,.label,.count,.where,.dl,.tagrow span,.stamp,footer,.btn{
-  font-family:Menlo,"SF Mono",Monaco,Consolas,"Courier New",monospace}
-
-/* masthead */
-.top{display:-webkit-box;display:flex;-webkit-box-align:center;align-items:center;position:relative;padding-bottom:22px;border-bottom:2px solid var(--ink)}
-.mark{width:72px;height:72px;border-radius:17px;margin-right:16px;flex:none;display:block}
-h1{margin:0;font-size:40px;line-height:1;letter-spacing:-.5px;font-weight:700}
-.by{margin:8px 0 0;font-size:13px;color:var(--muted)}
-.stamp{position:absolute;right:0;top:-6px;transform:rotate(5deg);-webkit-transform:rotate(5deg);
-  border:2px solid var(--accent);color:var(--accent);padding:3px 8px;font-size:11px;line-height:1.25;
-  text-transform:uppercase;letter-spacing:.8px;text-align:center}
-
-/* ticket */
-.ticket{margin:28px 0 8px;padding:18px;background:var(--paper2);border:2px solid var(--ink);box-shadow:5px 5px 0 var(--ink)}
-.label{margin:0 0 6px;font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted)}
-.url{margin:0 0 14px;font-size:14px;word-break:break-all;padding:9px 11px;background:var(--paper);border:1px solid var(--rule)}
-.actions{margin:0 -4px}
-.btn{display:inline-block;margin:4px;padding:9px 13px;font-size:13px;color:var(--ink);text-decoration:none;
-  background:var(--paper);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;
-  -webkit-appearance:none;appearance:none;border-radius:0;white-space:nowrap}
-.btn.main{background:var(--accent);color:var(--accent-ink)}
-.btn:active{box-shadow:0 0 0 var(--ink);transform:translate(3px,3px);-webkit-transform:translate(3px,3px)}
-
-/* sections */
-h2{margin:44px 0 6px;font-size:27px;line-height:1.1;font-weight:700}
-.count{font-size:13px;font-weight:400;color:var(--muted);vertical-align:super;margin-left:5px}
-.lede{margin:0 0 6px;color:var(--muted);font-size:15px}
-
-/* package list */
-.index{list-style:none;margin:10px 0 0;padding:0;counter-reset:pkg}
-.pkg{counter-increment:pkg;display:-webkit-box;display:flex;padding:20px 0;border-top:1px solid var(--rule);position:relative}
-.pkg:last-child{border-bottom:1px solid var(--rule)}
-.pkg:before{content:counter(pkg,decimal-leading-zero);font:11px Menlo,monospace;color:var(--muted);width:26px;flex:none;padding-top:5px}
-.ico{width:56px;height:56px;border-radius:13px;flex:none;margin-right:14px;display:block}
-.pbody{min-width:0;-webkit-box-flex:1;flex:1}
-h3{margin:0;font-size:22px;line-height:1.2;font-weight:700}
-.ver{font-size:11px;font-weight:400;color:var(--muted);margin-left:6px;vertical-align:middle}
-.tag{margin:2px 0 6px;font-style:italic;color:var(--accent)}
-.pbody p{margin:0 0 8px;font-size:15.5px}
-details{margin-top:6px;font-size:15px}
-summary{cursor:pointer;font:12px Menlo,monospace;color:var(--muted);padding:3px 0;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary:before{content:"+ ";}
-details[open] summary:before{content:"- ";}
-details ul{margin:6px 0 8px 0;padding-left:20px}
-details li{margin:2px 0}
-.where{font-size:12px;color:var(--muted);margin:6px 0}
-.dl{font-size:12px}
-
-/* themes */
-.themes{display:grid;grid-template-columns:1fr 1fr;grid-gap:22px 16px;margin-top:18px}
-@media(min-width:620px){.themes{grid-template-columns:1fr 1fr 1fr}}
-figure{margin:0}
-figure img{width:100%;height:auto;display:block;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink)}
-figcaption{margin-top:12px;font-size:14px;line-height:1.35}
-figcaption b{display:block;font:700 18px "Iowan Old Style",Georgia,serif}
-figcaption span{display:block;color:var(--muted);font-size:13px;margin:2px 0 4px}
-
-
-/* jailbreak list */
-.jb{list-style:none;margin:12px 0 0;padding:0}
-.jb li{padding:15px 0;border-top:1px solid var(--rule)}
-.jb li:last-child{border-bottom:1px solid var(--rule)}
-.jb b{font:700 20px "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
-.jb .ios{display:block;font:12px Menlo,"SF Mono",Monaco,monospace;color:var(--accent);margin:4px 0 1px}
-.jb .dev{display:block;font:12px Menlo,"SF Mono",Monaco,monospace;color:var(--muted)}
-.jb p{margin:7px 0 0;font-size:15px}
-.nope{margin:16px 0 0;font-size:14.5px;padding-left:12px;border-left:3px solid var(--accent)}
-.nope b{font:700 12px Menlo,"SF Mono",Monaco,monospace;text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:2px}
-
-/* how-to */
-.how ol{margin:12px 0 0;padding-left:22px}
-.how li{margin:8px 0}
-code{font:14px Menlo,monospace;background:var(--paper2);padding:1px 5px}
-
-footer{margin-top:48px;padding-top:16px;border-top:2px solid var(--ink);font-size:11.5px;color:var(--muted);line-height:1.7}
-footer a{color:var(--muted)}
-@media(max-width:380px){h1{font-size:34px}.stamp{display:none}}
+html,body{height:100%}
+body{margin:0;background:#15111b;color:#f6e6c6;
+  font:700 17px/1.2 "Marker Felt","Chalkboard SE","Comic Sans MS","Arial Rounded MT Bold",-apple-system,"Helvetica Neue",sans-serif;
+  -webkit-text-size-adjust:100%}
+.sky{position:fixed;top:0;right:0;bottom:0;left:0;overflow:hidden;pointer-events:none;z-index:0}
+.p{position:absolute;bottom:-170px;height:auto;will-change:transform;
+  -webkit-animation:rise linear infinite;animation:rise linear infinite;
+  -webkit-user-select:none;user-select:none}
+@-webkit-keyframes rise{from{-webkit-transform:translate3d(0,0,0) rotate(var(--a0))}to{-webkit-transform:translate3d(var(--dx),-135vh,0) rotate(var(--a1))}}
+@keyframes rise{from{transform:translate3d(0,0,0) rotate(var(--a0))}to{transform:translate3d(var(--dx),-135vh,0) rotate(var(--a1))}}
+@media (prefers-reduced-motion: reduce){.p{-webkit-animation:none;animation:none;bottom:auto;top:var(--t);transform:rotate(var(--a0))}}
+main{position:relative;z-index:1;min-height:100%;display:-webkit-box;display:-webkit-flex;display:flex;
+  -webkit-box-orient:vertical;-webkit-flex-direction:column;flex-direction:column;
+  -webkit-box-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;align-items:center;
+  padding:28px 20px calc(28px + env(safe-area-inset-bottom))}
+h1{margin:0 0 26px;font-size:40px;font-weight:700;letter-spacing:.5px;color:#f6e6c6;text-shadow:0 0 14px #15111b,0 0 6px #15111b,3px 3px 0 #4b1a7a}
+.btn{display:block;width:100%;max-width:310px;margin:0 0 14px;padding:17px 18px;text-align:center;text-decoration:none;
+  font:inherit;font-size:19px;color:#4b1a7a;background:#f1d6a0;border:3px solid #15111b;border-radius:18px;
+  box-shadow:4px 5px 0 #4b1a7a;-webkit-transform:rotate(-1.2deg);transform:rotate(-1.2deg)}
+.btn:nth-of-type(2){-webkit-transform:rotate(1deg);transform:rotate(1deg)}
+.btn.main{background:#6a2bb8;color:#fff1d6;border-color:#f1d6a0;box-shadow:4px 5px 0 #f1d6a0;-webkit-transform:rotate(-1.6deg);transform:rotate(-1.6deg)}
+.btn:active{box-shadow:0 0 0 transparent;margin-top:4px;margin-bottom:10px}
 """
 
-JS = """
+SITE_JS = """
 (function(){
   var url = location.origin + location.pathname.replace(/index\\.html$/, "");
   if (url.charAt(url.length-1) !== "/") url += "/";
-  var set = function(id, fn){ var el = document.getElementById(id); if (el) fn(el); };
-  set("repoUrl", function(e){ e.textContent = url; });
-  set("sileo", function(e){ e.href = "sileo://source/" + url; });
-  set("zebra", function(e){ e.href = "zbra://sources/add/" + url; });
-  set("cydia", function(e){ e.href = "cydia://url/https://cydia.saurik.com/api/share#?source=" + encodeURIComponent(url); });
-  set("copy", function(btn){
-    btn.addEventListener("click", function(){
-      var done = function(){ btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = "Copy"; }, 1400); };
-      var fallback = function(){
-        var t = document.createElement("textarea"); t.value = url; document.body.appendChild(t); t.select();
-        try { document.execCommand("copy"); done(); } catch (e) {}
-        document.body.removeChild(t);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, fallback);
-      else fallback();
-    });
-  });
+  var set = function(id, href){ var el = document.getElementById(id); if (el) el.href = href; };
+  set("sileo", "sileo://source/" + url);
+  set("zebra", "zbra://sources/add/" + url);
+  set("cydia", "cydia://url/https://cydia.saurik.com/api/share#?source=" + encodeURIComponent(url));
 })();
 """
 
 
-def esc(s):
-    return html.escape(s, quote=True)
-
-
 def build_site():
-    items = []
-    for p in meta.TWEAKS:
-        feats = "".join(f"<li>{esc(f)}</li>" for f in p["features"])
-        items.append(f"""
-      <li class="pkg" id="{slug(p)}">
-        <img class="ico" src="icons/{p['id']}.png" width="56" height="56" alt="">
-        <div class="pbody">
-          <h3>{esc(p['name'])}<span class="ver">{p['version']}</span></h3>
-          <p class="tag">{esc(p['tagline'])}</p>
-          <p>{esc(p['desc'])}</p>
-          <details><summary>details</summary>
-            <ul>{feats}</ul>
-            <p class="where">{esc(p['where'])}</p>
-            <a class="dl" href="debs/{deb_name(p)}">download .deb</a>
-          </details>
-        </div>
-      </li>""")
-    theme_figs = []
-    for t in meta.THEMES:
-        theme_figs.append(f"""
-      <figure id="{slug(t)}">
-        <img src="assets/theme-{t['key']}.png" alt="{esc(t['name'])} theme preview" width="450" height="337">
-        <figcaption><b>{esc(t['name'])}</b><span>{esc(t['desc'])}</span>
-          <a class="dl" href="debs/{deb_name(t)}">download .deb</a></figcaption>
-      </figure>""")
-
-    jb_items = "".join(
-        f"""
-    <li><b>{esc(j['name'])}</b><span class="ios">{esc(j['ios'])}</span>
-      <span class="dev">{esc(j['devices'])}</span><p>{esc(j['note'])}</p></li>""" for j in meta.JAILBREAKS)
-
+    peanuts = "\n".join(
+        f'    <img class="p" src="assets/peanut.png" alt="" width="{w}" '
+        f'style="left:{l}%;width:{w}px;animation-duration:{d}s;-webkit-animation-duration:{d}s;'
+        f'animation-delay:{dl}s;-webkit-animation-delay:{dl}s;opacity:{o};--dx:{dx}px;--a0:{a0}deg;--a1:{a1}deg;--t:{t}%">'
+        for (l, w, d, dl, dx, a0, a1, t, o) in PEANUTS)
     page = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F4EFE4">
+<meta name="theme-color" content="#15111b">
 <title>purplerepo</title>
-<meta name="description" content="Jailbreak tweaks and icon themes for iOS 12, by purplesquarecube.">
-<link rel="icon" href="assets/logo.png">
-<style>{CSS}</style>
+<link rel="icon" href="assets/favicon.png">
+<style>{SITE_CSS}</style>
 </head>
 <body>
-<div class="wrap">
-
-  <header class="top">
-    <img class="mark" src="assets/logo.png" width="72" height="72" alt="purplerepo">
-    <div>
-      <h1>purplerepo</h1>
-      <p class="by">tweaks &amp; themes for iOS 12 &middot; by purplesquarecube</p>
-    </div>
-    <div class="stamp">iOS 12<br>rootful</div>
-  </header>
-
-  <section class="ticket" id="add">
-    <p class="label">Repo address</p>
-    <p class="url" id="repoUrl">{meta.REPO_URL}</p>
-    <div class="actions">
-      <a class="btn main" id="sileo" href="sileo://source/{meta.REPO_URL}">Add to Sileo</a>
-      <a class="btn" id="zebra" href="zbra://sources/add/{meta.REPO_URL}">Zebra</a>
-      <a class="btn" id="cydia" href="#">Cydia</a>
-      <button class="btn" id="copy" type="button">Copy</button>
-    </div>
-  </section>
-
-  <h2>Tweaks<span class="count">{len(meta.TWEAKS)}</span></h2>
-  <p class="lede">Each one adds a page to the Settings app.</p>
-  <ol class="index">{''.join(items)}
-  </ol>
-
-  <h2>Themes<span class="count">{len(meta.THEMES)}</span></h2>
-  <p class="lede">{esc(meta.THEME_FOOTNOTE)}</p>
-  <div class="themes">{''.join(theme_figs)}
+  <div class="sky" aria-hidden="true">
+{peanuts}
   </div>
-
-  <p class="lede" style="margin-top:22px"><b style="color:var(--ink)">{esc(meta.HELPERS[0]['name'])}</b>
-    <span class="ver">{meta.HELPERS[0]['version']}</span> &mdash; {esc(meta.HELPERS[0]['desc'])}
-    <a class="dl" href="debs/{deb_name(meta.HELPERS[0])}">download .deb</a></p>
-
-  <h2>Works with<span class="count">{len(meta.JAILBREAKS)}</span></h2>
-  <p class="lede">{esc(meta.JB_REQUIREMENTS)}</p>
-  <ul class="jb">{jb_items}
-  </ul>
-  <p class="nope"><b>Not compatible</b>{esc(meta.JB_NOT_COMPATIBLE)}</p>
-  <p class="lede" style="margin-top:14px">{esc(meta.JB_CHECKED)} These packages were not tested on every one.</p>
-
-  <section class="how">
-    <h2>Using the repo</h2>
-    <ol>
-      <li>Open this page on your iPhone and tap <b>Add to Sileo</b>, or paste the address into Sources.</li>
-      <li>Pull down in Sileo to refresh, then install what you like.</li>
-      <li>Respring. Tweaks show up in <b>Settings</b>; themes are applied from Snowboard or Anemone.</li>
-    </ol>
-  </section>
-
-  <footer>
-    Written for iOS 12. Provided as-is, use at your own risk.<br>
-    Made by purplesquarecube &middot; <a href="{meta.GITHUB_URL}">source on GitHub</a>
-  </footer>
-</div>
-<script>{JS}</script>
+  <main>
+    <h1>purplerepo</h1>
+    <a class="btn main" id="sileo" href="sileo://source/{meta.REPO_URL}">Add to Sileo</a>
+    <a class="btn" id="zebra" href="zbra://sources/add/{meta.REPO_URL}">Add to Zebra</a>
+    <a class="btn" id="cydia" href="cydia://url/https://cydia.saurik.com/api/share#?source={meta.REPO_URL}">Add to Cydia</a>
+  </main>
+<script>{SITE_JS}</script>
 </body>
 </html>
 """
@@ -381,17 +234,11 @@ def build_site():
 
 # ------------------------------------------------------------------ README
 def build_readme():
-    rows = "\n".join(
-        f"| **{p['name']}** | {p['version']} | {p['tagline']} {p['desc']} | {p['where']} |" for p in meta.TWEAKS)
-    theme_rows = "\n".join(
-        f"### {t['name']}\n{t['desc']}\n\n![{t['name']}](assets/theme-{t['key']}.png)\n" for t in meta.THEMES)
-    jb_rows = "\n".join(f"| **{j['name']}** | {j['ios']} | {j['devices']} | {j['note']} |" for j in meta.JAILBREAKS)
-    text = f"""![purplerepo](assets/banner.png)
+    text = f"""<img src="assets/peanut.png" width="70" align="right" alt="">
 
 # purplerepo
 
-A small Cydia/Sileo repo of jailbreak **tweaks** and **icon themes** for **iOS 12** (rootful, arm64).
-Everything here is written by [purplesquarecube](https://github.com/purplesquarecube).
+Tweaks and themes for iOS 12 jailbreaks, by [purplepeanut4](https://github.com/purplepeanut4).
 
 **Repo address**
 
@@ -399,79 +246,7 @@ Everything here is written by [purplesquarecube](https://github.com/purplesquare
 {meta.REPO_URL}
 ```
 
-Open the [website]({meta.REPO_URL}) on your iPhone for one-tap buttons, or add the address by hand:
-
-| Package manager | How |
-| --- | --- |
-| Sileo | Sources > + (top right) > paste the address |
-| Zebra | Sources > + > paste the address |
-| Cydia | Sources > Edit > Add > paste the address |
-
-Pull down to refresh the source, then install.
-
-## Tweaks
-
-| Name | Version | What it does | Where |
-| --- | --- | --- | --- |
-{rows}
-
-Every tweak adds its own page to the Settings app (they depend on PreferenceLoader, which Sileo installs for you).
-
-## Themes
-
-{meta.THEME_FOOTNOTE}
-
-Install a theme, open **Snowboard** (or **Anemone**), tick the theme and apply it.
-
-**Purple Link** (installed with every theme) is a small helper. {meta.HELPERS[0]['desc']} Install a new game, then respring, and it gets the matching icon. To redo the matching by hand, run `/usr/libexec/purplerepo/purplelink --all` as root.
-
-{theme_rows}
-## Works with
-
-{meta.JB_REQUIREMENTS}
-
-| Jailbreak | iOS | Devices | Notes |
-| --- | --- | --- | --- |
-{jb_rows}
-
-**Not compatible:** {meta.JB_NOT_COMPATIBLE}
-
-{meta.JB_CHECKED} These packages were not tested on every one.
-
-## Requirements
-
-- iOS 12.0 to 12.5.8, jailbroken, arm64 (iPhone 5s and later)
-- A rootful jailbreak such as checkra1n, unc0ver or Chimera
-- Substrate or Substitute, and PreferenceLoader (installed automatically)
-
-## Troubleshooting
-
-- **A package doesn't show up in Sileo.** Pull down on the Sources tab to refresh. If it still isn't there, remove the source and add it again. GitHub Pages can cache the package list for a few minutes after an update.
-- **A tweak has no entry in Settings.** Make sure PreferenceLoader is installed, then respring.
-- **Something looks wrong after installing a tweak.** Turn that tweak's switches off in Settings. If SpringBoard won't load, use safe mode from your jailbreak app.
-- **A theme isn't applied.** Themes need Snowboard or Anemone. Respring after applying.
-
-These tweaks are provided as-is and were written for fun. Back up before you try anything new.
-
-## Source
-
-The tweaks are plain Objective-C, built with clang against the iOS 12 SDK. Everything needed to rebuild the repo is in [`src/`](src):
-
-- `src/tweaks/` the tweaks (`Tweak.m` hooks SpringBoard, `Prefs.m` is the Settings page)
-- `src/common/` shared helpers
-- `src/art.py`, `src/themes.py` the logo, icons and theme generators (Python, Pillow)
-- `src/build.py`, `src/assemble.py` build the `.deb` files and this repo folder
-
-## Layout
-
-```
-debs/         .deb packages
-icons/        package icons shown in Sileo
-depictions/   Sileo package pages (JSON)
-assets/       logo, banner and theme previews
-Release, Packages, Packages.bz2, Packages.gz   what the package managers read
-index.html    the website
-```
+Open that link on your iPhone and tap **Add to Sileo**, **Zebra** or **Cydia**.
 """
     write(f"{REPO}/README.md", text)
 
