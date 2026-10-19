@@ -343,15 +343,15 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-tidy
 
 Package: com.purplesquarecube.umbra
-Version: 1.0.2
+Version: 1.0.3
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.umbra_1.0.2_iphoneos-arm.deb
-Size: 36932
-MD5sum: 993091f348308640636471d4b24d8846
-SHA1: 8a19bcd15167026d8434f34c01cc1d10f3c67c34
-SHA256: 355115f52f645c93eaecf667b8a8a3c02842786c760d20cd61aeaa5715fda9f8
+Filename: debs/com.purplesquarecube.umbra_1.0.3_iphoneos-arm.deb
+Size: 38606
+MD5sum: 65eb9c20d97fa16f265a6b1aad7f3eb7
+SHA1: 0a9526d53d77ca8e3ee4be14b3cfa89944cf9a54
+SHA256: aa5b26916e64f1fc72c2db429acce42c1f6326f3f8db4ab7776ec5d11594ac0a
 Section: Tweaks
 Description: A dark mode for iOS 12. Makes app backgrounds dark using iOS's Smart Invert, one app at a time
 Author: purplepeanut4

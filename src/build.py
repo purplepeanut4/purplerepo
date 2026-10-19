@@ -93,7 +93,8 @@ def build_tweak(pkg):
     loader = f"{stage}/Library/PreferenceLoader/Preferences"
     os.makedirs(dyn); os.makedirs(bundle); os.makedirs(loader)
     shutil.copy(dylib, dyn)
-    write(f"{dyn}/{cls}.plist", '{ Filter = { Bundles = ( "com.apple.springboard" ); }; }\n')
+    flt = "com.apple.UIKit" if folder == "umbra" else "com.apple.springboard"
+    write(f"{dyn}/{cls}.plist", '{ Filter = { Bundles = ( "%s" ); }; }\n' % flt)
     shutil.copy(prefs, bundle)
     with open(f"{bundle}/Info.plist", "wb") as f:
         plistlib.dump({

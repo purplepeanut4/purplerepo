@@ -54,11 +54,11 @@ TWEAKS = [
         where="Settings > Dimmer",
     ),
     dict(
-        key="umbra", id="com.purplesquarecube.umbra", name="Umbra", version="1.0.0",
+        key="umbra", id="com.purplesquarecube.umbra", name="Umbra", version="1.0.1",
         tagline="A dark mode for iOS 12.",
         desc="Makes app backgrounds dark using iOS's Smart Invert, one app at a time. Pictures and videos are left alone in most apps. It can run on a schedule, and the Home Screen can stay light.",
-        features=["Dark backgrounds in any app", "Pick which apps stay light", "Always on, or only during hours you choose",
-                  "Home Screen and system UI can stay normal"],
+        features=["Dark backgrounds in any app", "Keeps photos and pictures in their real colours", "Pick which apps stay light",
+                  "Always on, or only during hours you choose", "Home Screen and system UI can stay normal"],
         where="Settings > Umbra",
     ),
     dict(
@@ -234,3 +234,10 @@ for _t in TWEAKS:
     _t["version"] = f"{_maj}.{_min}.{int(_pat) + 2}"
     _prev = CHANGELOG.get(_t["id"], CHANGELOG_NEW)
     CHANGELOG[_t["id"]] = f"{_t['version']}: new icon, a bit rougher than before.\n\n{_pub}: new icon.\n\n{_prev}"
+
+# Umbra's 1.0.3 is a bug-fix release; say what it fixed instead of the generic icon note
+CHANGELOG["com.purplesquarecube.umbra"] = (
+    "1.0.3: fixes apps sometimes ending up with inverted colours. Umbra now always uses Smart Invert (never Classic), "
+    "switches the moment you change apps instead of up to 3 seconds later, and keeps photos and large pictures in their "
+    "real colours. New Keep Pictures Normal switch.\n\n"
+    "1.0.2: new icon.\n\n1.0.1: new icon.\n\n1.0.0: first release.")

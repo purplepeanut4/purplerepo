@@ -58,6 +58,9 @@ static NSString *const kNotif  = @"com.purplesquarecube.umbra/prefsChanged";
     [s addObject:PKGroup(@"Umbra", @"A dark mode for iOS 12. It uses iOS's Smart Invert, so app backgrounds go dark and pictures and videos are left alone in most apps. A few apps may still show inverted photos.")];
     [s addObject:PKSwitch(self, kDomain, kNotif, @"Dark Mode", @"enabled", NO)];
 
+    [s addObject:PKGroup(@"Pictures", @"Keeps photos and other large pictures in their real colours instead of turning them into negatives. Open an app again after changing this.")];
+    [s addObject:PKSwitch(self, kDomain, kNotif, @"Keep Pictures Normal", @"photos", YES)];
+
     [s addObject:PKGroup(@"Schedule", nil)];
     [s addObject:PKList(self, kDomain, kNotif, @"When", @"schedule", @0, @[@0, @1], @[@"Always", @"Custom Hours"])];
     [s addObject:PKList(self, kDomain, kNotif, @"From", @"start", @20, hv, ht)];
