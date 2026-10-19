@@ -18,42 +18,6 @@ Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.appt
 SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.apptunes.json
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-apptunes
 
-Package: com.purplesquarecube.badgecolor
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.badgecolor_1.0.2_iphoneos-arm.deb
-Size: 33232
-MD5sum: fd1fb3003a1a195c0f130c03fff3c20e
-SHA1: 2f011d1f6830e5a387ed2c9a7e318be39c067d9f
-SHA256: 919335ad226e3f55bb3311bf8e96fd9af965b2303447bcfcce10e65b8a4e1758
-Section: Tweaks
-Description: Badges in your colour. Recolor the red notification badges on your icons and make them bigger or smaller.
-Author: purplepeanut4
-Name: BadgeColor
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.badgecolor.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.badgecolor.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-badgecolor
-
-Package: com.purplesquarecube.batteryalert
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.batteryalert_1.0.2_iphoneos-arm.deb
-Size: 35722
-MD5sum: 0202a445ba9e8ecc76e34a50f1a38021
-SHA1: ad927873b9c1bfc52c4c85a87bcd9026bfd9e6cb
-SHA256: ef6bc1d42affacab26c893b039b28a6b1cba8bfa1a7b36cf68db53078be65b63
-Section: Tweaks
-Description: Know when to unplug. Shows a notice and plays a sound when your battery reaches the level you charge to, or when it runs low.
-Author: purplepeanut4
-Name: BatteryAlert
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.batteryalert.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.batteryalert.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-batteryalert
-
 Package: com.purplesquarecube.batteryline
 Version: 1.0.2
 Architecture: iphoneos-arm
@@ -72,24 +36,6 @@ Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.batt
 SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.batteryline.json
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-batteryline
 
-Package: com.purplesquarecube.breather
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.breather_1.0.2_iphoneos-arm.deb
-Size: 30678
-MD5sum: 1a9099bbdc917f9aef3a4c1a2be0764e
-SHA1: 58a31df35a0667a1ca5ec6894ecce9ea42b6725b
-SHA256: 607984e444cde4976eefa854750fb49c529ee4b7a5f250d3d483e6bc4c85e336
-Section: Tweaks
-Description: A nudge to take a break. Counts the time you spend on your phone and reminds you to take a short break
-Author: purplepeanut4
-Name: Breather
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.breather.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.breather.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-breather
-
 Package: com.purplesquarecube.dimmer
 Version: 1.0.2
 Architecture: iphoneos-arm
@@ -107,42 +53,6 @@ Name: Dimmer
 Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.dimmer.png
 SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.dimmer.json
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-dimmer
-
-Package: com.purplesquarecube.finevolume
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.finevolume_1.0.2_iphoneos-arm.deb
-Size: 26570
-MD5sum: 39b936fb146ace878ad269234afa0fa9
-SHA1: f9088f106c8a5f5aaeda38ed0714dfbc2128b1f5
-SHA256: dcf933d81f4a8c073d6801d13d276b234f006bd58267d9b256348ba20f826d4c
-Section: Tweaks
-Description: Volume, in smaller steps. Each press of a volume button changes the volume by less, so you can land on exactly the level you want
-Author: purplepeanut4
-Name: FineVolume
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.finevolume.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.finevolume.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-finevolume
-
-Package: com.purplesquarecube.iconstyle
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.iconstyle_1.0.2_iphoneos-arm.deb
-Size: 34162
-MD5sum: 1c5c2bf375772f53db2cf737f35367a5
-SHA1: d39414c8f680419d90abf6d63ccd912836780f3f
-SHA256: 0e760eeb5aefa053ee12538d05ae567e9fe118d48f82dc70cd135be49060e634
-Section: Tweaks
-Description: Icons with depth. Adds a soft shadow, or a coloured glow, under your app icons, and lets you make the icon pictures bigger or smaller.
-Author: purplepeanut4
-Name: IconStyle
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.iconstyle.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.iconstyle.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-iconstyle
 
 Package: com.purplesquarecube.launchfx
 Version: 1.0.3
@@ -180,24 +90,6 @@ Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.liqu
 SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.liquidglass.json
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-liquidglass
 
-Package: com.purplesquarecube.plugin
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.plugin_1.0.2_iphoneos-arm.deb
-Size: 34832
-MD5sum: 7be710ea746d0f0fd881c41e73ec5b0a
-SHA1: e5b437f51cdab09dbcb86c09da651bca13fc71b0
-SHA256: d0ad1e467e01916b9b1d5747081959d89c2601ad87d1dcec38a87fb6a37fe683
-Section: Tweaks
-Description: A little show when you plug in. A light sweep around the edge of the screen and a sound when you connect a charger: green when you plug in, orange when you unplug.
-Author: purplepeanut4
-Name: PlugIn
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.plugin.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.plugin.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-plugin
-
 Package: com.purplesquarecube.purplelink
 Version: 1.1.0
 Architecture: iphoneos-arm
@@ -216,24 +108,6 @@ Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.purp
 SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.purplelink.json
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-purplelink
 
-Package: com.purplesquarecube.quiethud
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.quiethud_1.0.2_iphoneos-arm.deb
-Size: 29252
-MD5sum: bc84d911736df37a6f269e007c5d51e1
-SHA1: e641db2817c7f4769587908abe45fdcc53d14720
-SHA256: 45035c08140796c0392f3dfce67c4ddff0b0fdba2912a08b0e5dd6f005e3c334
-Section: Tweaks
-Description: No more pop-ups. Hide the volume, brightness, ringer and rotation-lock pop-ups
-Author: purplepeanut4
-Name: QuietHUD
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.quiethud.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.quiethud.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-quiethud
-
 Package: com.purplesquarecube.sleeptimer
 Version: 1.0.2
 Architecture: iphoneos-arm
@@ -251,24 +125,6 @@ Name: SleepTimer
 Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.sleeptimer.png
 SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.sleeptimer.json
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-sleeptimer
-
-Package: com.purplesquarecube.tapfeel
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.tapfeel_1.0.2_iphoneos-arm.deb
-Size: 37478
-MD5sum: cf8c2db33d613675fa0d0c6d66c9ed41
-SHA1: f9573c47724489bb69d5c689410d0441d4692974
-SHA256: 54dd8a62452680250fd59b56c978bf36420e237097827630cee0a90e25b30c72
-Section: Tweaks
-Description: Icons that answer back. Play a sound and bounce the icon when you tap an app
-Author: purplepeanut4
-Name: TapFeel
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.tapfeel.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.tapfeel.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-tapfeel
 
 Package: com.purplesquarecube.taplock
 Version: 1.0.2
@@ -503,22 +359,4 @@ Name: Umbra
 Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.umbra.png
 SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.umbra.json
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-umbra
-
-Package: com.purplesquarecube.wakeup
-Version: 1.0.2
-Architecture: iphoneos-arm
-Maintainer: purplepeanut4
-Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.wakeup_1.0.2_iphoneos-arm.deb
-Size: 30298
-MD5sum: 8ebea9a1ca67da2d26ce274f9c2f28be
-SHA1: b8a1c1c8f54114844242ea73e14d56272d8d4132
-SHA256: f390c1c92d7ad80fcb50c76a556d7e98b649f3e728b6216a817005b48c1d27ec
-Section: Tweaks
-Description: Wakes the screen when you plug in. Lights up the screen when you connect or disconnect a charger, so you can see right away that it's charging.
-Author: purplepeanut4
-Name: WakeUp
-Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.wakeup.png
-SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purplesquarecube.wakeup.json
-Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-wakeup
 

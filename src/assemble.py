@@ -63,7 +63,9 @@ def make_images():
         pv = th.preview(rows[t["key"]])
         pv.thumbnail((900, 900))
         pv.save(f"{REPO}/assets/theme-{t['key']}.png", optimize=True)
-    art.logo(180).save(f"{REPO}/CydiaIcon.png", optimize=True)          # repo icon shown in Sileo
+    # repo icon shown in Sileo: the peanut, cropped square from the photo
+    photo = Image.open(f"{ROOT}/peanut-photo.jpg").convert("RGB")
+    photo.crop((0, 60, 940, 1000)).resize((180, 180), Image.LANCZOS).save(f"{REPO}/CydiaIcon.png", optimize=True)
     shutil.copy(f"{ROOT}/peanut-hi.png", f"{REPO}/assets/peanut.png")
     pn = Image.open(f"{ROOT}/peanut-hi.png").convert("RGBA")
     fav = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
@@ -259,7 +261,7 @@ def copy_source():
     for f in ("art.py", "themes.py", "build.py", "assemble.py", "meta.py"):
         shutil.copy(f"{ROOT}/{f}", dst)
     shutil.copytree(f"{ROOT}/common", f"{dst}/common")
-    for k in ("tidy", "taplock", "quiethud", "tapfeel", "batteryline", "liquidglass", "dimmer", "plugin", "sleeptimer", "badgecolor", "umbra", "finevolume", "wakeup", "iconstyle", "batteryalert", "breather"):
+    for k in [t["key"] for t in meta.TWEAKS if not t.get("prebuilt")]:
         shutil.copytree(f"{ROOT}/tweaks/{k}", f"{dst}/tweaks/{k}")
     # the three earlier tweaks
     older = {

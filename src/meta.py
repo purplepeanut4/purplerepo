@@ -220,6 +220,10 @@ JB_CHECKED = "Version ranges checked against public sources in October 2026. The
 
 
 
+# ---- trimmed down: these were cut because they were the weakest, most gimmicky or most redundant
+REMOVED = {"quiethud", "tapfeel", "plugin", "badgecolor", "finevolume", "wakeup", "iconstyle", "batteryalert", "breather"}
+TWEAKS = [t for t in TWEAKS if t["key"] not in REMOVED]
+
 # ---- every tweak got a new icon: bump the patch version so the Settings icon updates too.
 # "old_version" is what is already published (base + 1); the new release is base + 2.
 AUTHOR = "purplepeanut4"
