@@ -1,15 +1,15 @@
 Package: com.purplesquarecube.apptunes
-Version: 2.0.3
+Version: 2.0.4
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
 Conflicts: com.yourname.apptunes
 Replaces: com.yourname.apptunes
-Filename: debs/com.purplesquarecube.apptunes_2.0.3_iphoneos-arm.deb
-Size: 37466
-MD5sum: 05253f469f3ca92b214ed76d3566890d
-SHA1: 99521a61b7ad70bfaa2d9952a3d18ad47c30cd5a
-SHA256: d93c6a23aa5e46cabce2640600dc719b85e44e4ae560b95abd2f7119c37b405c
+Filename: debs/com.purplesquarecube.apptunes_2.0.4_iphoneos-arm.deb
+Size: 44792
+MD5sum: 00fd2c4896b86d9c430ab69578ed2fa4
+SHA1: 05f08217492b212b6cc2dc0c478a3021098a3480
+SHA256: ed2e79041f210e210dd4783ad9a5b4f81b1f592989f8e8eed1422b8c04ad88de
 Section: Tweaks
 Description: Play a different song in each app you choose
 Author: purplepeanut4
@@ -19,15 +19,15 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-apptunes
 
 Package: com.purplesquarecube.batteryline
-Version: 1.0.2
+Version: 1.0.3
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.batteryline_1.0.2_iphoneos-arm.deb
-Size: 34350
-MD5sum: 71c6ab49ad584dcd08b8b0d30cbfd9dc
-SHA1: b69d39bf29ce0c3b4feba7f09cdb19414d0d7384
-SHA256: 94a9039f340cb32eefee1af59b0169aed49211c9d06ec7bf4d856f1f5febc250
+Filename: debs/com.purplesquarecube.batteryline_1.0.3_iphoneos-arm.deb
+Size: 34454
+MD5sum: 0bd3b2841578dd91b85caace17ff304b
+SHA1: 5f7b16e3a8c8255882f474421cc369fabc6a68b3
+SHA256: 60e68955fa1e8427c034e4ba59f6f994bf76b7c52fdf51b56e8383135d2cab56
 Section: Tweaks
 Description: A battery meter you can see in any app. A thin line along the top or bottom of the screen that shows your battery level on top of every app
 Author: purplepeanut4
@@ -37,15 +37,15 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-batteryline
 
 Package: com.purplesquarecube.dimmer
-Version: 1.0.2
+Version: 1.0.3
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.dimmer_1.0.2_iphoneos-arm.deb
-Size: 29930
-MD5sum: d9e8346bd61249220fbe7646fefdaec6
-SHA1: 2ee51e51c4ba42c245f690b71ba4fc88ccc0c399
-SHA256: b9b9ab09d1fb2acbe041162ed61af84ac64637ddbdb4452ba91e5a939e0772c9
+Filename: debs/com.purplesquarecube.dimmer_1.0.3_iphoneos-arm.deb
+Size: 35484
+MD5sum: 079fd7af344fd050bb8812dc45df50f5
+SHA1: 66e8d2ae6866b5f3037e8d4cb73952d9db7c74f1
+SHA256: 6065c058582c0c01fd3e08b08a4b8f8bb173b7e5c6ee7dc9ae0f533d0e697329
 Section: Tweaks
 Description: Darker than dark. Dims the screen below the normal minimum and adds an optional warm tint, on top of everything
 Author: purplepeanut4
@@ -55,15 +55,15 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-dimmer
 
 Package: com.purplesquarecube.launchfx
-Version: 1.0.3
+Version: 1.0.4
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.launchfx_1.0.3_iphoneos-arm.deb
-Size: 73370
-MD5sum: 1f417dbdbb1d56b8e7831c89c666797f
-SHA1: 485efe4e60d9bce60918719ce3d733abb6b48b2e
-SHA256: 6513db900749d2dc19a8d832faafe252870ceed01f48d11a23b5917b8ee77247
+Filename: debs/com.purplesquarecube.launchfx_1.0.4_iphoneos-arm.deb
+Size: 71730
+MD5sum: 66b5ab5c92b1286f4a00d92b368c3ea5
+SHA1: fdccaa6f1dee2c0d47b0a76683d186efd59dad75
+SHA256: d887b390d5f71051a7072b9824e89419b63ee71d1efbf6eb84a467ef577afa94
 Section: Tweaks
 Description: 50 custom app opening animations, chosen in Settings
 Author: purplepeanut4
@@ -73,17 +73,17 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-launchfx
 
 Package: com.purplesquarecube.liquidglass
-Version: 1.2.2
+Version: 1.3.0
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.liquidglass_1.2.2_iphoneos-arm.deb
-Size: 42644
-MD5sum: d611f275728c67fc0d1f45013dcb926a
-SHA1: 6e82b72ab37e67f0f999f1a76da2cdb9f0b287a0
-SHA256: 9fdf3ab9344234c3f89d8bb7b71ddcb15bf08345997be92c6a68b5a62cebd465
+Filename: debs/com.purplesquarecube.liquidglass_1.3.0_iphoneos-arm.deb
+Size: 49990
+MD5sum: c1e55d0c5fa55c814487fba66724b04c
+SHA1: b6c8d2af07bb74e7f1f353e89d9dc02837ef924e
+SHA256: 39e539c25d569d24b29d65a8a729de0a4fbaf4a232e358a2b49a51f72f195f21
 Section: Tweaks
-Description: Turns every blur into clear glass. Replaces frosted blur with see-through glass across iOS 12: Control Center, notifications, folders, the dock, the lock screen and the app switcher
+Description: Turns every blur into clear glass. An iOS 12 take on Apple's Liquid Glass: clear glass panels with a bright rim that catches the light as you tilt the phone, light that bends at the edge, a floating capsule dock, and every blur on the system cleared
 Author: purplepeanut4
 Name: Sheer
 Icon: https://purplepeanut4.github.io/purplerepo/icons/com.purplesquarecube.liquidglass.png
@@ -109,15 +109,15 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-purplelink
 
 Package: com.purplesquarecube.sleeptimer
-Version: 1.0.2
+Version: 1.0.3
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.sleeptimer_1.0.2_iphoneos-arm.deb
-Size: 30094
-MD5sum: 2d22c5d4e25758b5c66bb6233843501b
-SHA1: 03eb33f1adcf8345c3122e3a0e8b9911c8a8cd89
-SHA256: 1e79c12672b4a3766b5ea3d2c6d5a49ca2c77481fff9c2e9c886c9d14378e27a
+Filename: debs/com.purplesquarecube.sleeptimer_1.0.3_iphoneos-arm.deb
+Size: 36502
+MD5sum: 0a88f3d7a41857c0d58ddd3ed42e20e2
+SHA1: d1fa78fbfa566a3a9f9a571ce8f611733cc52675
+SHA256: 87a93a5998ba99c6c48239d64cfa34864c2b1736dd69664b7e9e8ab7124289d0
 Section: Tweaks
 Description: Falls asleep before you do. Pick a time from 5 minutes to 2 hours and your music or video pauses when it ends
 Author: purplepeanut4
@@ -127,15 +127,15 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-sleeptimer
 
 Package: com.purplesquarecube.taplock
-Version: 1.0.2
+Version: 1.0.3
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.taplock_1.0.2_iphoneos-arm.deb
-Size: 34024
-MD5sum: a7c846e4b30428bef3e9bae9f98316f8
-SHA1: 04c63f5bda7b74c5504171f8679a86dd025b0924
-SHA256: 3405556ee5e8ecabd8374a905633bd52d346c85c7dff7450ba7a92ad81732402
+Filename: debs/com.purplesquarecube.taplock_1.0.3_iphoneos-arm.deb
+Size: 36114
+MD5sum: 63a7ea4a5436316ee94dba2631868253
+SHA1: 1563d92e8cf5fa0c89203a59cf4b0a73a9d6ea8b
+SHA256: 55582145904f9610236cef09225b94c085ca992da95d658ddedac03985293ed1
 Section: Tweaks
 Description: Double-tap to lock. Double-tap an empty spot on the Home Screen or Dock to lock your device, so you never have to reach for the power button.
 Author: purplepeanut4
@@ -325,15 +325,15 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-theme-violet
 
 Package: com.purplesquarecube.tidy
-Version: 1.0.2
+Version: 1.0.3
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.tidy_1.0.2_iphoneos-arm.deb
-Size: 32350
-MD5sum: 5c4beb811a472a19b3b925a8461aedf1
-SHA1: 8c977566d7907c35e36c4f5a3ecd49d5759c2c6e
-SHA256: d33e122c7a43f4344a5d22a6eaf1e5574d005400b517e139e8ecf8677a241244
+Filename: debs/com.purplesquarecube.tidy_1.0.3_iphoneos-arm.deb
+Size: 34270
+MD5sum: ec13886e827fdaddf73a0601d94ef461
+SHA1: 30cf5a8f184c5dd3ad4ec0ea984b10908608cc15
+SHA256: 000a217b6ecb3f5d6bf8688bfc8ed164994276722646c8f6b52797e3f6190c0a
 Section: Tweaks
 Description: Clean up the Home Screen. Hide icon labels, notification badges and page dots, or make the dock background clear
 Author: purplepeanut4
@@ -343,15 +343,15 @@ SileoDepiction: https://purplepeanut4.github.io/purplerepo/depictions/com.purple
 Depiction: https://purplepeanut4.github.io/purplerepo/#com-purplesquarecube-tidy
 
 Package: com.purplesquarecube.umbra
-Version: 1.0.3
+Version: 1.0.4
 Architecture: iphoneos-arm
 Maintainer: purplepeanut4
 Depends: mobilesubstrate, preferenceloader, firmware (>= 12.0)
-Filename: debs/com.purplesquarecube.umbra_1.0.3_iphoneos-arm.deb
-Size: 38606
-MD5sum: 65eb9c20d97fa16f265a6b1aad7f3eb7
-SHA1: 0a9526d53d77ca8e3ee4be14b3cfa89944cf9a54
-SHA256: aa5b26916e64f1fc72c2db429acce42c1f6326f3f8db4ab7776ec5d11594ac0a
+Filename: debs/com.purplesquarecube.umbra_1.0.4_iphoneos-arm.deb
+Size: 40266
+MD5sum: e64d4d5bdd71532e04076cbd27c2a533
+SHA1: 690d8753479536154765f0afa2d7bdd5032f83ac
+SHA256: 36b32f8ddbc6c64bc1f6f7360f8ac32c2ec0d42d452815a10ce308e16b8690e8
 Section: Tweaks
 Description: A dark mode for iOS 12. Makes app backgrounds dark using iOS's Smart Invert, one app at a time
 Author: purplepeanut4

@@ -12,6 +12,7 @@ from PIL import Image
 
 import art
 import meta
+import peanut
 import themes as th
 
 ROOT = "/home/claude/purple"
@@ -59,7 +60,7 @@ def make_images():
         art.tweak_icon(p["key"], 256).save(f"{REPO}/icons/{p['id']}.png", optimize=True)
     rows = {r[0]: r for r in th.THEMES}
     for t in meta.THEMES:
-        th.theme_icon(rows[t["key"]], 256).save(f"{REPO}/icons/{t['id']}.png", optimize=True)
+        peanut.peanut_icon("theme." + t["key"], 256).save(f"{REPO}/icons/{t['id']}.png", optimize=True)
         pv = th.preview(rows[t["key"]])
         pv.thumbnail((900, 900))
         pv.save(f"{REPO}/assets/theme-{t['key']}.png", optimize=True)

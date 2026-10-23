@@ -224,20 +224,42 @@ JB_CHECKED = "Version ranges checked against public sources in October 2026. The
 REMOVED = {"quiethud", "tapfeel", "plugin", "badgecolor", "finevolume", "wakeup", "iconstyle", "batteryalert", "breather"}
 TWEAKS = [t for t in TWEAKS if t["key"] not in REMOVED]
 
-# ---- every tweak got a new icon: bump the patch version so the Settings icon updates too.
-# "old_version" is what is already published (base + 1); the new release is base + 2.
-AUTHOR = "purplepeanut4"
+# ---- every tweak got a new peanut icon: bump the patch version so the Settings icon updates too.
+# base + 1 and base + 2 are already published; the new release is base + 3.
+AUTH_NAME = "purplepeanut4"
+AUTHOR = AUTH_NAME
 for _t in TWEAKS:
     _maj, _min, _pat = _t["version"].split(".")
-    _pub = f"{_maj}.{_min}.{int(_pat) + 1}"
-    _t["old_version"] = _pub
-    _t["version"] = f"{_maj}.{_min}.{int(_pat) + 2}"
+    _p1, _p2 = f"{_maj}.{_min}.{int(_pat) + 1}", f"{_maj}.{_min}.{int(_pat) + 2}"
+    _t["old_version"] = _p2
+    _t["version"] = f"{_maj}.{_min}.{int(_pat) + 3}"
     _prev = CHANGELOG.get(_t["id"], CHANGELOG_NEW)
-    CHANGELOG[_t["id"]] = f"{_t['version']}: new icon, a bit rougher than before.\n\n{_pub}: new icon.\n\n{_prev}"
+    CHANGELOG[_t["id"]] = (f"{_t['version']}: new peanut icon.\n\n{_p2}: new icon, a bit rougher than before.\n\n"
+                           f"{_p1}: new icon.\n\n{_prev}")
 
 # Umbra's 1.0.3 is a bug-fix release; say what it fixed instead of the generic icon note
 CHANGELOG["com.purplesquarecube.umbra"] = (
+    "1.0.4: new peanut icon.\n\n"
     "1.0.3: fixes apps sometimes ending up with inverted colours. Umbra now always uses Smart Invert (never Classic), "
     "switches the moment you change apps instead of up to 3 seconds later, and keeps photos and large pictures in their "
     "real colours. New Keep Pictures Normal switch.\n\n"
     "1.0.2: new icon.\n\n1.0.1: new icon.\n\n1.0.0: first release.")
+
+
+# Sheer's 1.3.0 is a feature release modelled on Apple's Liquid Glass
+for _t in TWEAKS:
+    if _t["key"] == "liquidglass":
+        _t["old_version"] = "1.2.2"
+        _t["version"] = "1.3.0"
+        _t["desc"] = ("An iOS 12 take on Apple's Liquid Glass: clear glass panels with a bright rim that catches the light as you tilt "
+                      "the phone, light that bends at the edge, a floating capsule dock, and every blur on the system cleared. "
+                      "Covers Control Center, notifications, folders, the dock, the lock screen and the app switcher.")
+        _t["features"] = ["Clear glass: every blurred surface turns see-through, including Control Center",
+                          "Bright rim with a highlight that slides along the edge as you tilt the phone",
+                          "Light-bending edge, with faint cyan and magenta fringes",
+                          "Floating capsule dock with a soft shadow",
+                          "Standard glass keeps some blur for a thicker look", "Tint, rim, refraction, shine and shadow controls"]
+        CHANGELOG[_t["id"]] = (
+            "1.3.0: redesigned to follow Apple's Liquid Glass. Glass rim that catches the light as you tilt, light-bending edge, "
+            "floating capsule dock with a soft shadow, new Clear and Standard glass types, and a new peanut icon.\n\n"
+            + CHANGELOG[_t["id"]])

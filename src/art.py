@@ -919,4 +919,5 @@ if __name__ == "__main__":
 
 
 def tweak_icon(key, size=1024, rounded=False):
-    return amateur_icon(key, size, rounded)
+    import peanut
+    return peanut.peanut_icon(key, size, rounded)

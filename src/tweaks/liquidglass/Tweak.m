@@ -1,14 +1,16 @@
-// Sheer (formerly Liquid Glass) for iOS 12 - by purplepeanut4
+// Sheer for iOS 12 - by purplepeanut4
 //
-// Two styles:
-//   Clear   - the system blur is faded out so panels are see-through; only a glass
-//             edge, a faint inner glow and a tilt-reactive highlight remain. With "All
-//             blurs" on, every blurred surface in SpringBoard is cleared, including
-//             Control Center's full-screen background, the lock screen and the dock.
-//   Frosted - keeps the system blur and adds the same edge, sheen and highlight.
+// An iOS 12 take on Apple's Liquid Glass (iOS 26). Real Liquid Glass bends and refracts what is behind it;
+// iOS 12 cannot do that, so Sheer recreates the look instead:
+//   * the system blur is cleared or thinned so panels read as glass, not frosting
+//   * a bright rim with a highlight that slides along the edge as you tilt the phone (specular light)
+//   * a thick inner edge with faint cyan and magenta fringes (the light bending at the edge)
+//   * a soft floating shadow, and a capsule-shaped dock that floats above the wallpaper
+// Two styles: Clear (see-through utility glass) and Standard (thicker glass that keeps some blur).
 //
-// Applied to the Dock, open folders, notification and Control Center panels, and
-// (optionally) app icons.
+// Applied to the Dock, open folders, notification and Control Center panels, and (optionally) app icons.
+// With "Clear Every Blur" on, every blurred surface in SpringBoard is cleared (Control Center's background,
+// the lock screen, the app switcher...).
 
 #import "PKCommon.h"
 #import <QuartzCore/QuartzCore.h>
@@ -20,9 +22,9 @@ static const char *kNotif = "com.purplesquarecube.liquidglass/prefsChanged";
 
 typedef struct {
     BOOL enabled, dock, folders, panels, icons, tilt, all;
-    CGFloat edge, shine, dockRadius, blur;
+    CGFloat edge, shine, dockRadius, blur, refract, depth;
     int tint;    // 0 none, 1 light, 2 dark, 3 purple
-    int style;   // 0 clear, 1 frosted
+    int style;   // 0 clear, 1 standard
 } LGPrefs;
 
 static LGPrefs P;
@@ -36,9 +38,11 @@ static void LGLoadPrefs(void) {
     P.icons      = PKBool(kDomain, @"icons", NO);
     P.tilt       = PKBool(kDomain, @"tilt", YES);
     P.all        = PKBool(kDomain, @"all", YES);
-    P.edge       = MAX(0, MIN(1, PKDouble(kDomain, @"edge", 0.8)));
+    P.edge       = MAX(0, MIN(1, PKDouble(kDomain, @"edge", 0.85)));
     P.shine      = MAX(0, MIN(1, PKDouble(kDomain, @"shine", 0.45)));
-    P.dockRadius = MAX(8, MIN(44, PKDouble(kDomain, @"dockRadius", 28)));
+    P.refract    = MAX(0, MIN(1, PKDouble(kDomain, @"refract", 0.6)));
+    P.depth      = MAX(0, MIN(1, PKDouble(kDomain, @"depth", 0.5)));
+    P.dockRadius = MAX(8, MIN(60, PKDouble(kDomain, @"dockRadius", 60)));
     P.blur       = MAX(0, MIN(1, PKDouble(kDomain, @"blur", 0.12)));
     P.tint       = (int)PKInt(kDomain, @"tint", 0);
     P.style      = (int)PKInt(kDomain, @"style", 0);
@@ -51,20 +55,27 @@ static BOOL LGClearAll(void) { return P.enabled && P.all && P.style == 0; }
 
 @interface LGGlassOverlay : UIView
 @property (nonatomic, strong) CALayer *tintLayer;
+@property (nonatomic, strong) CALayer *lift;
 @property (nonatomic, strong) CAGradientLayer *sheen;
 @property (nonatomic, strong) UIView *blob;
 @property (nonatomic, strong) CAGradientLayer *blobGradient;
-@property (nonatomic, strong) UIView *glowView;
-@property (nonatomic, strong) CAGradientLayer *glowGradient;
-@property (nonatomic, strong) CAShapeLayer *glowMask;
-@property (nonatomic, strong) UIView *edgeView;
+// soft inner glow, inner hairline, two colour fringes
+@property (nonatomic, strong) UIView *glowView;     @property (nonatomic, strong) CAGradientLayer *glowGradient;   @property (nonatomic, strong) CAShapeLayer *glowMask;
+@property (nonatomic, strong) UIView *hairView;     @property (nonatomic, strong) CAGradientLayer *hairGradient;   @property (nonatomic, strong) CAShapeLayer *hairMask;
+@property (nonatomic, strong) UIView *cyanView;     @property (nonatomic, strong) CAGradientLayer *cyanGradient;   @property (nonatomic, strong) CAShapeLayer *cyanMask;
+@property (nonatomic, strong) UIView *magView;      @property (nonatomic, strong) CAGradientLayer *magGradient;    @property (nonatomic, strong) CAShapeLayer *magMask;
+// the bright rim; its highlight slides as the phone tilts
+@property (nonatomic, strong) UIView *edgeClip;
+@property (nonatomic, strong) UIView *edgeSlide;
 @property (nonatomic, strong) CAGradientLayer *edgeGradient;
 @property (nonatomic, strong) CAShapeLayer *edgeMask;
 @property (nonatomic) BOOL tiltApplied;
 - (void)applyRadius:(CGFloat)r tilt:(BOOL)tilt;
 @end
 
-static void LGMakeRing(UIView *container, CAGradientLayer **gradOut, CAShapeLayer **maskOut) {
+static UIView *LGRingView(UIView *parent, CAGradientLayer **gOut, CAShapeLayer **mOut) {
+    UIView *v = [[UIView alloc] initWithFrame:CGRectZero];
+    v.userInteractionEnabled = NO;
     CAGradientLayer *g = [CAGradientLayer layer];
     g.startPoint = CGPointMake(0, 0);
     g.endPoint = CGPointMake(1, 1);
@@ -72,9 +83,32 @@ static void LGMakeRing(UIView *container, CAGradientLayer **gradOut, CAShapeLaye
     m.fillColor = nil;
     m.strokeColor = [UIColor blackColor].CGColor;
     g.mask = m;
-    [container.layer addSublayer:g];
-    *gradOut = g;
-    *maskOut = m;
+    [v.layer addSublayer:g];
+    [parent addSubview:v];
+    *gOut = g;
+    *mOut = m;
+    return v;
+}
+
+// a ring `width` thick, `inset` points in from the edge, brightest top-left (a1) and bottom-right (a2)
+static void LGSetRing(UIView *view, CAGradientLayer *grad, CAShapeLayer *mask, CGRect b, CGFloat r,
+                      CGFloat width, CGFloat inset, UIColor *c1, CGFloat a1, UIColor *c2, CGFloat a2) {
+    view.frame = b;
+    grad.frame = view.bounds;
+    CGFloat w1, w2, w3, w4;
+    [c1 getRed:&w1 green:&w2 blue:&w3 alpha:NULL];
+    CGFloat x1, x2, x3, x4;
+    [c2 getRed:&x1 green:&x2 blue:&x3 alpha:NULL];
+    (void)w4; (void)x4;
+    grad.colors = @[(id)[UIColor colorWithRed:w1 green:w2 blue:w3 alpha:a1].CGColor,
+                    (id)[UIColor colorWithRed:w1 green:w2 blue:w3 alpha:0.0].CGColor,
+                    (id)[UIColor colorWithRed:x1 green:x2 blue:x3 alpha:0.0].CGColor,
+                    (id)[UIColor colorWithRed:x1 green:x2 blue:x3 alpha:a2].CGColor];
+    grad.locations = @[@0.0, @0.42, @0.58, @1.0];
+    mask.frame = view.bounds;
+    mask.lineWidth = width;
+    CGRect ring = CGRectInset(view.bounds, inset + width / 2, inset + width / 2);
+    mask.path = [UIBezierPath bezierPathWithRoundedRect:ring cornerRadius:MAX(0, r - inset - width / 2)].CGPath;
 }
 
 @implementation LGGlassOverlay
@@ -87,6 +121,11 @@ static void LGMakeRing(UIView *container, CAGradientLayer **gradOut, CAShapeLaye
 
         _tintLayer = [CALayer layer];
         [self.layer addSublayer:_tintLayer];
+
+        // a faint additive lift so the glass looks luminous rather than grey
+        _lift = [CALayer layer];
+        @try { _lift.compositingFilter = @"plusL"; } @catch (NSException *e) {}
+        [self.layer addSublayer:_lift];
 
         _sheen = [CAGradientLayer layer];
         _sheen.startPoint = CGPointMake(0, 0);
@@ -102,36 +141,29 @@ static void LGMakeRing(UIView *container, CAGradientLayer **gradOut, CAShapeLaye
         [_blob.layer addSublayer:_blobGradient];
         [self addSubview:_blob];
 
-        _glowView = [[UIView alloc] initWithFrame:CGRectZero];
-        _glowView.userInteractionEnabled = NO;
-        CAGradientLayer *gg = nil; CAShapeLayer *gm = nil;
-        LGMakeRing(_glowView, &gg, &gm);
-        _glowGradient = gg; _glowMask = gm;
-        [self addSubview:_glowView];
+        CAGradientLayer *g; CAShapeLayer *m;
+        _glowView = LGRingView(self, &g, &m); _glowGradient = g; _glowMask = m;
+        _hairView = LGRingView(self, &g, &m); _hairGradient = g; _hairMask = m;
+        _cyanView = LGRingView(self, &g, &m); _cyanGradient = g; _cyanMask = m;
+        _magView  = LGRingView(self, &g, &m); _magGradient = g;  _magMask = m;
 
-        _edgeView = [[UIView alloc] initWithFrame:CGRectZero];
-        _edgeView.userInteractionEnabled = NO;
-        CAGradientLayer *eg = nil; CAShapeLayer *em = nil;
-        LGMakeRing(_edgeView, &eg, &em);
-        _edgeGradient = eg; _edgeMask = em;
-        [self addSubview:_edgeView];
+        // bright rim: a big gradient that slides behind a ring-shaped window
+        _edgeClip = [[UIView alloc] initWithFrame:CGRectZero];
+        _edgeClip.userInteractionEnabled = NO;
+        _edgeMask = [CAShapeLayer layer];
+        _edgeMask.fillColor = nil;
+        _edgeMask.strokeColor = [UIColor blackColor].CGColor;
+        _edgeClip.layer.mask = _edgeMask;
+        _edgeSlide = [[UIView alloc] initWithFrame:CGRectZero];
+        _edgeSlide.userInteractionEnabled = NO;
+        _edgeGradient = [CAGradientLayer layer];
+        _edgeGradient.startPoint = CGPointMake(0, 0);
+        _edgeGradient.endPoint = CGPointMake(1, 1);
+        [_edgeSlide.layer addSublayer:_edgeGradient];
+        [_edgeClip addSubview:_edgeSlide];
+        [self addSubview:_edgeClip];
     }
     return self;
-}
-
-static void LGSetRing(UIView *view, CAGradientLayer *grad, CAShapeLayer *mask, CGRect b, CGFloat r,
-                      CGFloat width, CGFloat a1, CGFloat a2) {
-    view.frame = b;
-    grad.frame = view.bounds;
-    grad.colors = @[(id)[UIColor colorWithWhite:1 alpha:a1].CGColor,
-                    (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
-                    (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
-                    (id)[UIColor colorWithWhite:1 alpha:a2].CGColor];
-    grad.locations = @[@0.0, @0.42, @0.58, @1.0];
-    mask.frame = view.bounds;
-    mask.lineWidth = width;
-    mask.path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(view.bounds, width / 2, width / 2)
-                                           cornerRadius:MAX(0, r - width / 2)].CGPath;
 }
 
 - (void)applyRadius:(CGFloat)r tilt:(BOOL)tilt {
@@ -139,6 +171,7 @@ static void LGSetRing(UIView *view, CAGradientLayer *grad, CAShapeLayer *mask, C
     if (b.size.width < 2 || b.size.height < 2) return;
     r = MAX(0, MIN(r, MIN(b.size.width, b.size.height) / 2));
     BOOL clear = LGClear();
+    CGFloat std = clear ? 0.0 : 1.0;                       // standard glass is thicker: stronger rim and edge
 
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
@@ -146,13 +179,16 @@ static void LGSetRing(UIView *view, CAGradientLayer *grad, CAShapeLayer *mask, C
 
     // tint (none by default so clear glass stays clear)
     UIColor *tc = [UIColor clearColor];
-    if (P.tint == 1)      tc = [UIColor colorWithWhite:1 alpha:clear ? 0.06 : 0.10];
-    else if (P.tint == 2) tc = [UIColor colorWithWhite:0 alpha:clear ? 0.14 : 0.18];
-    else if (P.tint == 3) tc = [UIColor colorWithRed:0.49 green:0.23 blue:0.93 alpha:clear ? 0.16 : 0.20];
+    if (P.tint == 1)      tc = [UIColor colorWithWhite:1 alpha:clear ? 0.06 : 0.12];
+    else if (P.tint == 2) tc = [UIColor colorWithWhite:0 alpha:clear ? 0.14 : 0.20];
+    else if (P.tint == 3) tc = [UIColor colorWithRed:0.49 green:0.23 blue:0.93 alpha:clear ? 0.16 : 0.22];
     _tintLayer.frame = b;
     _tintLayer.backgroundColor = tc.CGColor;
 
-    // broad soft sheen (lighter on clear glass)
+    _lift.frame = b;
+    _lift.backgroundColor = [UIColor colorWithWhite:1 alpha:0.05 + 0.05 * P.refract + 0.04 * std].CGColor;
+
+    // broad soft sheen across the glass
     CGFloat sheenK = clear ? 0.55 : 1.0;
     _sheen.frame = b;
     _sheen.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.30 * P.shine * sheenK].CGColor,
@@ -160,7 +196,7 @@ static void LGSetRing(UIView *view, CAGradientLayer *grad, CAShapeLayer *mask, C
                       (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor];
     _sheen.locations = @[@0.0, @0.45, @1.0];
 
-    // moving specular highlight
+    // moving specular glint
     CGFloat big = MAX(b.size.width, b.size.height) * 0.9;
     CGPoint home = CGPointMake(b.size.width * 0.28, b.size.height * 0.12);
     _blob.bounds = CGRectMake(0, 0, big, big);
@@ -169,10 +205,34 @@ static void LGSetRing(UIView *view, CAGradientLayer *grad, CAShapeLayer *mask, C
     _blobGradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:(clear ? 0.38 : 0.55) * P.shine].CGColor,
                              (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor];
 
-    // soft inner glow (clear style only) and the bright edge
-    _glowView.hidden = !clear;
-    if (clear) LGSetRing(_glowView, _glowGradient, _glowMask, b, r, 7.0, 0.30 * P.edge, 0.16 * P.edge);
-    LGSetRing(_edgeView, _edgeGradient, _edgeMask, b, r, 1.0, 0.95 * P.edge, 0.50 * P.edge);
+    UIColor *white = [UIColor whiteColor], *black = [UIColor blackColor];
+    UIColor *cyan = [UIColor colorWithRed:0.35 green:0.92 blue:1.0 alpha:1];
+    UIColor *magenta = [UIColor colorWithRed:1.0 green:0.45 blue:0.90 alpha:1];
+
+    // thick inner edge: soft glow, a dark hairline for depth, and colour fringes where the light bends
+    CGFloat edgeStrength = P.edge * (0.8 + 0.4 * std);
+    LGSetRing(_glowView, _glowGradient, _glowMask, b, r, 9.0, 0, white, 0.30 * edgeStrength * (0.6 + 0.8 * P.refract), white, 0.16 * edgeStrength);
+    LGSetRing(_hairView, _hairGradient, _hairMask, b, r, 1.0, 9.0, black, 0.20 * P.refract, black, 0.26 * P.refract);
+    LGSetRing(_cyanView, _cyanGradient, _cyanMask, b, r, 1.2, 1.6, cyan, 0.55 * P.refract * P.edge, cyan, 0.20 * P.refract * P.edge);
+    LGSetRing(_magView, _magGradient, _magMask, b, r, 1.2, 2.8, magenta, 0.20 * P.refract * P.edge, magenta, 0.50 * P.refract * P.edge);
+
+    // the bright rim itself, in a window that follows the corner radius
+    _edgeClip.frame = b;
+    _edgeMask.frame = b;
+    _edgeMask.lineWidth = 1.5;
+    _edgeMask.path = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(b, 0.75, 0.75)
+                                                cornerRadius:MAX(0, r - 0.75)].CGPath;
+    CGPoint slideHome = CGPointMake(b.size.width / 2, b.size.height / 2);
+    _edgeSlide.bounds = CGRectMake(0, 0, b.size.width * 2, b.size.height * 2);
+    if (!_tiltApplied) _edgeSlide.center = slideHome;
+    _edgeGradient.frame = _edgeSlide.bounds;
+    _edgeGradient.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
+                             (id)[UIColor colorWithWhite:1 alpha:0.98 * edgeStrength].CGColor,
+                             (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
+                             (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor,
+                             (id)[UIColor colorWithWhite:1 alpha:0.55 * edgeStrength].CGColor,
+                             (id)[UIColor colorWithWhite:1 alpha:0.0].CGColor];
+    _edgeGradient.locations = @[@0.0, @0.22, @0.40, @0.60, @0.78, @1.0];
 
     [CATransaction commit];
 
@@ -191,11 +251,29 @@ static void LGSetRing(UIView *view, CAGradientLayer *grad, CAShapeLayer *mask, C
         UIMotionEffectGroup *g = [UIMotionEffectGroup new];
         g.motionEffects = @[mx, my];
         [_blob addMotionEffect:g];
+
+        // the rim highlight travels the other way, like light catching the edge of real glass
+        CGFloat rr = MIN(b.size.width, b.size.height) * 0.55 + 20;
+        UIInterpolatingMotionEffect *ex =
+            [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x"
+                                                            type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+        ex.minimumRelativeValue = @(rr);
+        ex.maximumRelativeValue = @(-rr);
+        UIInterpolatingMotionEffect *ey =
+            [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y"
+                                                            type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+        ey.minimumRelativeValue = @(rr * 0.6);
+        ey.maximumRelativeValue = @(-rr * 0.6);
+        UIMotionEffectGroup *g2 = [UIMotionEffectGroup new];
+        g2.motionEffects = @[ex, ey];
+        [_edgeSlide addMotionEffect:g2];
         _tiltApplied = YES;
     } else if (!tilt && _tiltApplied) {
         for (UIMotionEffect *e in [_blob.motionEffects copy]) [_blob removeMotionEffect:e];
+        for (UIMotionEffect *e in [_edgeSlide.motionEffects copy]) [_edgeSlide removeMotionEffect:e];
         _tiltApplied = NO;
         _blob.center = home;
+        _edgeSlide.center = slideHome;
     }
 }
 
@@ -260,12 +338,12 @@ static void LGDecorate(UIView *host, BOOL on, CGRect frame, CGFloat radius, BOOL
             [sHosts addObject:host];
         }
     } @catch (NSException *e) {
-        NSLog(@"[LiquidGlass] %@", e);
+        NSLog(@"[Sheer] %@", e);
     }
     sBusy = NO;
 }
 
-// ---- Dock ----
+// ---- Dock: a floating capsule, like the floating bars in Liquid Glass ----
 static void (*orig_dock)(id, SEL);
 static void new_dock(id self, SEL _cmd) {
     orig_dock(self, _cmd);
@@ -274,7 +352,7 @@ static void new_dock(id self, SEL _cmd) {
     UIView *img = PKIvar(dock, @"_backgroundImageView");
     BOOL on = P.enabled && P.dock;
     CGRect b = dock.bounds;
-    CGRect r = CGRectMake(12, 8, b.size.width - 24, MAX(10, b.size.height - 16));
+    CGRect r = CGRectMake(14, 10, b.size.width - 28, MAX(10, b.size.height - 22));
     CGFloat rad = MIN(P.dockRadius, r.size.height / 2);
 
     if (bg && [bg isKindOfClass:[UIView class]]) {
@@ -282,7 +360,7 @@ static void new_dock(id self, SEL _cmd) {
             bg.frame = r;
             bg.layer.cornerRadius = rad;
             bg.layer.masksToBounds = YES;
-            LGFade(bg, LGClear(), P.blur);          // clear: fade the system blur right down
+            LGFade(bg, LGClear(), P.blur);
         } else {
             LGFade(bg, NO, 1);
             if (bg.layer.masksToBounds && bg.layer.cornerRadius > 0) {
@@ -292,6 +370,17 @@ static void new_dock(id self, SEL _cmd) {
         }
     }
     if (img && [img isKindOfClass:[UIView class]]) LGHide(img, on);
+
+    // soft shadow so the capsule sits above the wallpaper
+    if (on && P.depth > 0.01) {
+        dock.layer.shadowColor = [UIColor blackColor].CGColor;
+        dock.layer.shadowOpacity = 0.32 * P.depth;
+        dock.layer.shadowRadius = 16;
+        dock.layer.shadowOffset = CGSizeMake(0, 8);
+        dock.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:r cornerRadius:rad].CGPath;
+    } else if (dock.layer.shadowOpacity > 0) {
+        dock.layer.shadowOpacity = 0;
+    }
     LGDecorate(dock, on, r, rad, P.tilt, bg);
 }
 
@@ -323,10 +412,7 @@ static void new_material(id self, SEL _cmd) {
     BOOL fullBleed = (s.width >= scr.width - 1 && s.height >= scr.height - 1);
     BOOL tiny = (s.width < 40 || s.height < 24);
     BOOL on = P.enabled && P.panels && !fullBleed && !tiny && rad >= 6 && v.window != nil;
-    // glass edges only go on rounded panels; the blur itself is cleared everywhere when "all blurs" is on
     BOOL clear = (on && LGClear()) || LGClearAll();
-
-    // MTMaterialView builds its look from a backdrop view plus overlay views
     for (NSString *name in @[@"_backdropView", @"_baseOverlayView", @"_primaryOverlayView",
                               @"_secondaryOverlayView", @"_reducedTransparencyBackdropReplacementView"]) {
         LGFade(PKIvar(v, name), clear, P.blur);
@@ -334,13 +420,12 @@ static void new_material(id self, SEL _cmd) {
     LGDecorate(v, on, v.bounds, rad, P.tilt, nil);
 }
 
-// ---- Any blur effect view (switcher, search, banners' backgrounds, lock screen...) ----
+// ---- Any blur effect view (switcher, search, lock screen...) ----
 static void (*orig_effect)(id, SEL);
 static void new_effect(id self, SEL _cmd) {
     orig_effect(self, _cmd);
     UIVisualEffectView *v = self;
-    // leave vibrancy effects alone; those carry the text and icons that sit on a blur
-    BOOL isBlur = [v.effect isKindOfClass:[UIBlurEffect class]];
+    BOOL isBlur = [v.effect isKindOfClass:[UIBlurEffect class]];     // leave vibrancy effects alone
     LGFade(v, isBlur && LGClearAll(), P.blur);
 }
 
